@@ -1,0 +1,37 @@
+
+._list_item{
+    font-size: small;
+    border: 1px solid;
+}
+
+.down_triangle{
+    transform: rotate(180deg);
+}
+
+._navbar{
+    background-color: #488FF9;
+}
+
+._list{
+    height: 65vh;
+    overflow: scroll;
+}
+
+._filtros{
+    border: 1px solid;
+}
+
+._list a{
+    color: black;
+}
+
+.disabled{
+    background-color: #EDECEC !important;
+}
+
+body a{
+    text-decoration: none;
+}
+
+
+
