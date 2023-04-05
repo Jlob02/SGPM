@@ -55,7 +55,7 @@
                     @if(Auth::user()->u_tipo != 3)
                     @if(Auth::user()->u_tipo != 2)
                     <li class="nav-item me-1">
-                        @if (Request::path() =='empresas')
+                        @if (Request::path() =='empresas' or Request::path() =='adicionar-empresa')
                         <a class="nav-link text-black active " href="/empresas">Empresas</a>
                         @else
                         <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/empresas">Empresas</a>

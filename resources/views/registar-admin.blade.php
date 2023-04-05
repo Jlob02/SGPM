@@ -36,7 +36,7 @@
       <form method="POST" action="/registar-admin">
         @csrf
        
-        <h1 class="h3 mb-3 fw-normal">Register</h1>
+        <h1 class="h4 mb-3 fw-normal">Registar Administrador</h1>
         @if($errors->any())
         <div class="alert alert-warning" role="alert">
           {{$errors->first()}}
@@ -44,7 +44,7 @@
         @endif
         <div class="form-floating">
           <input type="text" name='nome' class="form-control mb-2" id="floatingName" placeholder="John Doe" value='{{old("name")}}'>
-          <label for="floatingName">Name</label>
+          <label for="floatingName">Nome</label>
         </div>
 
         <div class="form-floating">
@@ -55,7 +55,7 @@
           <input type="password" name='password' class="form-control" id="floatingPassword" placeholder="Password">
           <label for="floatingPassword">Password</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Registar</button>
       </form>
     </main>
 

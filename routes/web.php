@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -51,9 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('materia-prima', function () {
         return view('materia-prima');
     });
-    Route::get('empresas', function () {
-        return view('empresas');
-    });
+    
+    Route::get('empresas', [EmpresaController::class, 'empresas']);
    
     Route::get('funcionarios', [UserController::class, 'funcionarios']);
 
@@ -67,4 +67,7 @@ Route::middleware(['auth'])->group(function () {
 
     //route para registar funcionario
     Route::post('registar', [UserController::class, 'registar']);
+
+    //route para registar empresa
+    Route::post('registar-empresa', [EmpresaController::class, 'registar_empresa']);
 });

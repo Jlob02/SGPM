@@ -49,7 +49,7 @@
                             <tr class="text-start ps-2">
                                 <th>Nome</th>
                                 <th>Email</th>
-                                <th>Telemovel</th>
+                                <th>Contacto</th>
                                 <th>Nome do responsavel</th>
                                 <th>Localidade</th>
                                 <th>Pais</th>
@@ -57,17 +57,18 @@
                                 <th>Opções</th>
                             </tr>
                             <tbody class="table-group-divider">
+                            @foreach($empresas as $empresa)
                             <tr>
-                                <td class="p-1">DIN, SA</td>
-                                <td class="p-1">Admim@gmail.com</td>
-                                <td class="p-1">910000000</td>
-                                <td class="p-1">John</td>
-                                <td class="p-1">Coimbra</td>
-                                <td class="p-1">Portugal</td>
+                                <td class="p-1">{{$empresa->nome}}</td>
+                                <td class="p-1">{{$empresa->email}}</td>
+                                <td class="p-1">{{$empresa->contacto}}</td>
+                                <td class="p-1">{{$empresa->nome_responsavel}}</td>
+                                <td class="p-1">{{$empresa->localidade}}</td>
+                                <td class="p-1">{{$empresa->pais}}</td>
                                 <td class=""><a href="#" class="btn text-white rounded-3 btn-sm btn-success">ativo</a></td>
                                 <td class=""> <a href="#" class="btn text-white rounded-3 btn-sm btn-success">alterar</a> <a href="" class="btn text-white btn-sm rounded-3 btn-danger ">apagar</a></td>
                             </tr>
-                          
+                            @endforeach
                         </table>
 
                     </div>

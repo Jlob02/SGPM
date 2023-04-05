@@ -74,7 +74,7 @@ class UserController extends Controller
         $user->u_tipo = 1;
         $user->u_funcao = 1;
         $user->u_estado = 1;
-        $user->u_telemovel = 910000000;
+        $user->u_contacto = 910000000;
 
         $user->save();
 
@@ -108,9 +108,9 @@ class UserController extends Controller
         $user->u_nome = $data['nome'];
         $user->u_tipo = $data['tipo'];
         $user->u_funcao = $data['funcao'];
-        //$user->u_funcao = $data['empresa'];
+        $user->empresa_id = $data['empresa'];
         $user->u_estado = 1;
-        $user->u_telemovel = $data['contacto'];
+        $user->u_contacto = $data['contacto'];
 
         $user->save();
 

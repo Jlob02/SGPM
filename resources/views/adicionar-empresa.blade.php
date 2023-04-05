@@ -79,7 +79,7 @@ Empresas
                                 <label for="inputName" class="form-label">Nome da pessoa responsavel : </label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="nome_resposavel" class="form-control" id="inputName" placeholder="John Doe" value='{{old("nome_responsavel")}}' />
+                                <input type="text" name="nome_responsavel" class="form-control" id="inputName" placeholder="John Doe" value='{{old("nome_responsavel")}}' />
                             </div>
 
                             <div class="col-3">

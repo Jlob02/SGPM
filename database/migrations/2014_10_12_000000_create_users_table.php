@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->integer('u_tipo');
             $table->integer('u_funcao');
-            $table->integer('u_telemovel'); 
+            $table->integer('u_contacto'); 
             $table->integer('u_estado');
             $table->integer('empresa_id')->default(1);;
             $table->timestamp('email_verified_at')->nullable();
