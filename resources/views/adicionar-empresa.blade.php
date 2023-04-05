@@ -17,22 +17,7 @@ Empresas
             </div>
         </div>
         <div class="row">
-            <div class="col-12 mt-1 mb-1">
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <form class="row">
-                            <div class="col-10">
-                                <div class="">
-                                    <input type="email" class="form-control" placeholder="Função">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            
             <div class="col-12 text-center">
                 @if($errors->any())
                 <div class="alert alert-warning" role="alert">

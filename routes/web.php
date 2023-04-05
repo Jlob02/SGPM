@@ -49,24 +49,41 @@ Route::middleware(['auth'])->group(function () {
     Route::get('home', function () {
         return view('home');
     });
+
     Route::get('materia-prima', function () {
         return view('materia-prima');
     });
+
     
-    Route::get('empresas', [EmpresaController::class, 'empresas']);
-   
+
+    //routes para os funcionários
     Route::get('funcionarios', [UserController::class, 'funcionarios']);
+
+    Route::delete('funcionarios/{id}/apagar', [UserController::class, 'apagar_funcionario']);
+
+    Route::post('funcionarios/{id}/{estado}', [UserController::class, 'alterar_estado_funcionario']);
+
+    //route para registar funcionario
+    Route::post('registar', [UserController::class, 'registar']);
 
     Route::get('adicionar-funcionario', function () {
         return view('adicionar-funcionario');
     });
 
+    Route::get('funcionarios/alterar/{id}', [UserController::class, 'dados_funcionario']);
+
+    
+    //routes para empresas
+
+    Route::get('empresas', [EmpresaController::class, 'empresas']);
+
     Route::get('adicionar-empresa', function () {
         return view('adicionar-empresa');
     });
 
-    //route para registar funcionario
-    Route::post('registar', [UserController::class, 'registar']);
+    Route::delete('empresas/{id}/apagar', [EmpresaController::class, 'apagar_empresa']);
+
+    Route::post('empresas/{id}/{estado}', [EmpresaController::class, 'alterar_estado_empresa']);
 
     //route para registar empresa
     Route::post('registar-empresa', [EmpresaController::class, 'registar_empresa']);

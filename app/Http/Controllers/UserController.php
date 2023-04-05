@@ -117,11 +117,62 @@ class UserController extends Controller
         return  redirect()->back()->with('success', 'Utilizador registado com sucesso');
 
     }
-
+    //funcao para retornar todos funcionários
     public function funcionarios(Request $request){
 
         $users = User::sortable()->paginate(15);
 
         return view('funcionarios')->with('users',$users);
+    }
+
+    //função para apagar um funcionário
+
+    public function apagar_funcionario(Request $request){
+        if(Auth::user()->u_tipo == 1){
+            $user = User::where('id', '=', $request->id)->first();
+        }
+
+        $user->delete();
+        return  redirect()->back()->with('success', 'Utilizador apagado com sucesso');
+    }
+
+    //função para alterar o estado do funcionário
+
+    public function alterar_estado_funcionario(Request $request){
+
+        if(Auth::user()->u_tipo == 1){
+            $user = User::where('id', '=', $request->id)->first();
+        }
+
+        if($request->estado == 1){
+            $user->u_estado = 0;
+        }else{
+            $user->u_estado = 1;
+        }
+
+        $user->save();
+        return  redirect()->back()->with('success', 'Estado alterado com sucesso');
+    }
+
+    //função para alterar o estado do funcionário
+
+    public function alterar_funcionario(Request $request){
+
+        if(Auth::user()->u_tipo == 1){
+            $user = User::where('id', '=', $request->id)->first();
+        }
+
+        return  redirect()->back()->with('success', 'Estado alterado com sucesso');
+    }
+
+
+
+    //função para retornar os dados do funcionário
+    public function dados_funcionario(Request $request){
+
+        if(Auth::user()->u_tipo == 1){
+            $user = User::where('id', '=', $request->id)->first();
+        }
+        return view('alterar-funcionario')->with('user',$user);
     }
 }

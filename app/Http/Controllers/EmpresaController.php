@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmpresaController extends Controller
 {
@@ -47,4 +48,34 @@ class EmpresaController extends Controller
         $empresas = Empresa::sortable()->paginate(15);
         return view('empresas')->with('empresas',$empresas);
     }
+
+
+     //função para apagar uma empresa
+     public function apagar_empresa(Request $request){
+        if(Auth::user()->u_tipo == 1){
+            $empresa =Empresa::where('id', '=', $request->id)->first();
+        }
+
+        $empresa->delete();
+        return  redirect()->back()->with('success', 'Utilizador apagado com sucesso');
+    }
+
+    //função para alterar o estado da empresa
+    public function alterar_estado_empresa(Request $request){
+
+        if(Auth::user()->u_tipo == 1){
+            $empresa = Empresa::where('id', '=', $request->id)->first();
+        }
+        
+        if($request->estado == 1){
+            $empresa->estado = 0;
+        }else{
+            $empresa->estado = 1;
+        }
+
+        $empresa->save();
+        return  redirect()->back()->with('success', 'Estado alterado com sucesso');
+    }
+
+
 }

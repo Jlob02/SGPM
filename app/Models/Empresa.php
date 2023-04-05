@@ -19,6 +19,7 @@ class Empresa extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'nome',
         'email',
         'contacto',
