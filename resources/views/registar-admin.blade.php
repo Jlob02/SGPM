@@ -33,7 +33,7 @@
     <!-- Formulario de logim-->
 
     <main class="form-signin w-100 m-auto">
-      <form method="POST" action="/registerAdmin">
+      <form method="POST" action="/registar-admin">
         @csrf
        
         <h1 class="h3 mb-3 fw-normal">Register</h1>
@@ -43,8 +43,8 @@
         </div>
         @endif
         <div class="form-floating">
-          <input type="text" name='nome' class="form-control mb-2" id="floatingInput" placeholder="John Doe" value='{{old("name")}}'>
-          <label for="floatingInput">Name</label>
+          <input type="text" name='nome' class="form-control mb-2" id="floatingName" placeholder="John Doe" value='{{old("name")}}'>
+          <label for="floatingName">Name</label>
         </div>
 
         <div class="form-floating">

@@ -52,7 +52,7 @@ class UserController extends Controller
     }
 
     //função para registar adiministrador 
-    public function registerAdmin(Request $request)
+    public function registar_admin(Request $request)
     {
 
         $data = $request->validate([
@@ -93,7 +93,7 @@ class UserController extends Controller
             'funcao' => ['required'],
             'tipo' => ['required'],
             'empresa' => ['required'],
-            'telemovel' => ['required'],
+            'contacto' => ['required'],
         ],[
             'nome.required'=> 'Deve introduzir o nome do funcionário',
             'email.required'=> 'Deve introduzir o email do funcionário',
@@ -110,7 +110,7 @@ class UserController extends Controller
         $user->u_funcao = $data['funcao'];
         //$user->u_funcao = $data['empresa'];
         $user->u_estado = 1;
-        $user->u_telemovel = $data['telemovel'];
+        $user->u_telemovel = $data['contacto'];
 
         $user->save();
 

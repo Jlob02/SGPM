@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('u_funcao');
             $table->integer('u_telemovel'); 
             $table->integer('u_estado');
-            $table->integer('empresa');
+            $table->integer('empresa_id')->default(1);;
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

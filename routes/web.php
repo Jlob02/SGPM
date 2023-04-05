@@ -21,7 +21,7 @@ Route::get('/', function () {
     $result = User::all();
 
     if ($result->isEmpty()) {
-        return view('register');
+        return view('registar-admin');
     }
     return view('login');
 });
@@ -39,7 +39,7 @@ Route::get('login', function () {
 Route::get('logout', [UserController::class, 'logout'])->middleware(['auth']);
 
 //route para registar o administrador 
-Route::post('registerAdmin', [UserController::class, 'registerAdmin']);
+Route::post('registar-admin', [UserController::class, 'registar_admin']);
 
 
 //groupo de routes para verificar se o utilizar esta autenticado
@@ -59,6 +59,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('adicionar-funcionario', function () {
         return view('adicionar-funcionario');
+    });
+
+    Route::get('adicionar-empresa', function () {
+        return view('adicionar-empresa');
     });
 
     //route para registar funcionario

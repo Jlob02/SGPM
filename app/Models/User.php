@@ -27,6 +27,7 @@ class User extends Authenticatable
         'u_funcao',
         'u_telemovel',
         'u_estado',
+        'empresa_id',
         //'email_verified_at',
         'password'
     ];

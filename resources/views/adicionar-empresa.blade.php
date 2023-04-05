@@ -12,8 +12,8 @@ Empresas
     <div class="col-10">
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
-                <p>Funcionarios > Adicionar funcionario</p>
-                <a href="/funcionarios" class="btn btn-primary">Voltar</a>
+                <p>Funcionarios > Adicionar empresa</p>
+                <a href="/empresas" class="btn btn-primary">Voltar</a>
             </div>
         </div>
         <div class="row">
@@ -46,16 +46,17 @@ Empresas
                 @endif
             </div>
             <div class="col-12">
-                <div class="row _navbar text-white d-flex justify-content-center rounded-2 m-1 p-2">
-                    <div class="col-md-10 d-flex p-4">
-                        <form class="row g-2" method="post" action="/registar">
+                <div class="row _navbar text-white d-flex justify-content-center rounded-2 m-1 p-5">
+                    <div class="col-md-10 d-flex p-5">
+                        <form class="row g-2" method="post" action="/registar-empresa">
                             @csrf
                             <div class="col-3">
                                 <label for="inputName" class="form-label">Nome : </label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="nome" class="form-control" id="inputName" placeholder="John Doe" value='{{old("nome")}}' />
+                                <input type="text" name="nome" class="form-control" id="inputName" placeholder="DIN" value='{{old("nome")}}' />
                             </div>
+
                             <div class="col-3">
                                 <label for="inputEmail4" class="form-label">Email :
                                 </label>
@@ -65,64 +66,37 @@ Empresas
                             </div>
 
                             <div class="col-3">
-                                <label for="inputPassword4" class="form-label">Password :</label>
-                            </div>
-
-                            <div class="col-md-5">
-                                <input type="password" name="password" class="form-control" id="inputPassword4" value='{{old("password")}}' />
-                            </div>
-                            <div class="col-4"></div>
-
-                            <div class="col-3">
                                 <label for="inputTel" class="form-label">Contacto :</label>
                             </div>
 
                             <div class="col-md-5">
-                                <input type="tel" name="contacto" class="form-control" id="inputTel" value='{{old("contacto")}}' />
+                                <input type="tel" name="contacto" class="form-control" id="inputNumber" value='{{old("contacto")}}' />
                             </div>
 
                             <div class="col-4"></div>
-                            <div class="col-3 ">
-                                <label for="inputState" class="form-label">Função :
-                                </label>
+                            
+                           <div class="col-3">
+                                <label for="inputName" class="form-label">Nome da pessoa responsavel : </label>
                             </div>
-                            <div class="col-md-5">
-                                <select id="inputStat" name="funcao" class="form-select">
-                                    <option value="1" selected>Administrador</option>
-                                </select>
+                            <div class="col-9">
+                                <input type="text" name="nome_resposavel" class="form-control" id="inputName" placeholder="John Doe" value='{{old("nome_responsavel")}}' />
                             </div>
-                            <div class="col-1">
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                    +
-                                </button>
-                            </div>
-                            <div class="col-3"></div>
-
 
                             <div class="col-3">
-                                <label for="inputState" class="form-label">Tipo :</label>
+                                <label for="inputCity" class="form-label">localidade : </label>
                             </div>
-                            <div class="col-md-5">
-                                <select id="inputSta" name="tipo" class="form-select">
-                                    <option value="1" selected>Administrador do sistema</option>
-                                    <option value="2">Administrador de empresa</option>
-                                    <option value="3">Funcionário</option>
-                                </select>
+                            <div class="col-5">
+                                <input type="text" name="localidade" class="form-control" id="inputCity" placeholder="Coimbra" value='{{old("localidade")}}' />
                             </div>
                             <div class="col-4"></div>
 
                             <div class="col-3">
-                                <label for="inputState" class="form-label">Empresa :
-                                </label>
+                                <label for="inputCountry" class="form-label">Pais : </label>
                             </div>
-                            <div class="col-md-5">
-                                <select id="inputState" name="empresa" class="form-select">
-                                    <option value="1" selected>DIN-1</option>
-                                    <option value="2">DIN-2</option>
-                                    <option value="3">DIN-3</option>
-                                    <option value="4">DIN-4</option>
-                                </select>
+                            <div class="col-5">
+                                <input type="text" name="pais" class="form-control" id="inputCountry" placeholder="Portugal" value='{{old("pais")}}' />
                             </div>
+                            <div class="col-4"></div>
 
                             <div class="col-12 mt-4 text-end">
                                 <button type="submit" class="btn btn-primary">
