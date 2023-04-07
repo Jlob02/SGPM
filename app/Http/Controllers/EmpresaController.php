@@ -89,7 +89,7 @@ class EmpresaController extends Controller
         if (!empty($search)) {
             $empresas = Empresa::query()->where('nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
         } else {
-            $empresas = Empresa::sortable()->paginate(1);
+            $empresas = Empresa::sortable()->paginate(15);
         }
 
         return view('empresas')->with('empresas', $empresas);

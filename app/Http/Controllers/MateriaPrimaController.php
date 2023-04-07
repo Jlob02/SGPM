@@ -27,10 +27,7 @@ class MateriaPrimaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMateriaPrimaRequest $request)
-    {
-        //
-    }
+   
 
     /**
      * Display the specified resource.
@@ -51,11 +48,6 @@ class MateriaPrimaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMateriaPrimaRequest $request, MateriaPrima $materiaPrima)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */
