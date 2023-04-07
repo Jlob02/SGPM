@@ -8,9 +8,8 @@ Matéria-prima
 
 
 <!--main content-->
-<div class="row mt-2">
+<div class="row mt-1">
     <div class="col-1">
-
     </div>
     <div class="col-10">
         <div class="row">

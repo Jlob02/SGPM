@@ -18,7 +18,7 @@ Empresas
         </div>
         <div class="row">
             
-            <div class="col-12 text-center">
+            <div class="col-12 mt-2 text-center">
                 @if($errors->any())
                 <div class="alert alert-warning" role="alert">
                     {{$errors->first()}}

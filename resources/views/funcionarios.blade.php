@@ -7,7 +7,7 @@ Funcionarios
 @section('content')
 
 <!--main content-->
-<div class="row mt-4">
+<div class="row mt-1">
     <div class="col-1">
 
     </div>
@@ -24,7 +24,7 @@ Funcionarios
                     <div class="col-8 d-flex align-items-center text-white">
                         Mostrar
                         <form class="me-2 ms-2">
-                            <select class="form-select-sm">
+                            <select class="form-select form-select-sm">
                                 <option selected>15</option>
                                 <option value="1">20</option>
                                 <option value="2">30</option>
@@ -50,6 +50,7 @@ Funcionarios
                             <tr class="text-start ps-2">
                                 <th>Nome</th>
                                 <th>Email</th>
+                                <th>Tipo</th>
                                 <th>Empresa</th>
                                 <th>Função</th>
                                 <th>Telemovel</th>
@@ -62,8 +63,33 @@ Funcionarios
                                 <tr>
                                     <td class="p-1">{{$user->u_nome}}</td>
                                     <td class="p-1">{{$user->email}}</td>
-                                    <td class="p-1">Germany</td>
-                                    <td class="p-1">Vendedor</td>
+                                    <td class="p-1">
+                                        @if($user->u_tipo == 1)
+                                        Administrador
+                                        @endif
+                                        @if($user->u_tipo == 2)
+                                        Administrador de empresa
+                                        @endif
+                                        @if($user->u_tipo == 3)
+                                        Funcionário
+                                        @endif
+                                    </td>
+                                    <td class="p-1">
+                                        @foreach($empresas as $empresa)
+                                        @if($empresa->id == $user->empresa_id )
+                                        {{$empresa->nome}}
+                                        @break
+                                        @endif
+                                        @endforeach
+                                    </td>
+                                    <td class="p-1">
+                                        @foreach($funcoes as $funcao)
+                                        @if($funcao->id == $user->u_funcao )
+                                        {{$funcao->funcao}}
+                                        @break
+                                        @endif
+                                        @endforeach
+                                    </td>
                                     <td class="p-1">{{$user->u_contacto}}</td>
                                     <td class="">
                                         @if($user->u_estado == 1)
@@ -74,6 +100,21 @@ Funcionarios
 
                                     </td>
                                     <td class="d-flex justify-content-around">
+                                        @if($user->u_estado == 0)
+                                        <form action="funcionarios/{{$user->id}}/{{$user->u_estado}}" method="post">
+                                            @csrf
+                                            <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
+                                                </svg></button>
+                                        </form>
+                                        @else
+                                        <form action="funcionarios/{{$user->id}}/{{$user->u_estado}}" method="post">
+                                            @csrf
+                                            <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                                </svg></button>
+                                        </form>
+                                        @endif
                                         <form action="funcionarios/alterar/{{$user->id}}" method="get">
                                             @csrf
                                             <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -89,21 +130,7 @@ Funcionarios
                                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                                 </svg></button>
                                         </form>
-                                        @if($user->u_estado == 1)
-                                        <form action="funcionarios/{{$user->id}}/{{$user->u_estado}}" method="post">
-                                            @csrf
-                                            <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
-                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
-                                                </svg></button>
-                                        </form>
-                                        @else
-                                        <form action="funcionarios/{{$user->id}}/{{$user->u_estado}}" method="post">
-                                            @csrf
-                                            <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                                                </svg></button>
-                                        </form>
-                                        @endif
+
                                     </td>
                                 </tr>
                                 @endif

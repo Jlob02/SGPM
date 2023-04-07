@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Fornecedor extends Model
+class Funcao extends Model
 {
-    use  HasFactory,  Sortable;
-    protected $table = 'fornecedores';
+    use  HasFactory, Sortable;
+    protected $table = 'funcao';
     protected $primaryKey = 'id';
 
     /**
@@ -19,10 +19,6 @@ class Fornecedor extends Model
      */
     protected $fillable = [
         'id',
-        'nome',
-        'email',
-        'contacto',
+        'funcao',
     ];
-
-    protected $sortable = ['nome','email','contacto'];
 }

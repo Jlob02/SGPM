@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
+use App\Models\Funcao;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,6 +100,7 @@ class UserController extends Controller
             'email.unique' => 'Ja existe um funcionário com conta associada a este email',
             'password.required' => 'Deve introduzir uma password',
             'emali.email' => 'Deve introduzir um email válido',
+            'empresa.required' => 'Deve selecionar um empresa',
         ]);
 
         $user = new User();
@@ -127,12 +130,14 @@ class UserController extends Controller
             'tipo' => ['required'],
             'empresa' => ['required'],
             'contacto' => ['required', 'max:9'],
-        ], [
+        ], 
+        [
             'nome.required' => 'Deve introduzir o nome do funcionário',
             'email.required' => 'Deve introduzir o email do funcionário',
             'email.unique' => 'Ja existe um funcionário com conta associada a este email',
             'password.required' => 'Deve introduzir uma password',
             'emali.email' => 'Deve introduzir um email válido',
+            'empresa.required' => 'Deve selecionar um empresa',
         ]);
 
         $user = User::where('id', '=', $request->id)->first();
@@ -159,13 +164,16 @@ class UserController extends Controller
 
         $search = $request->input('search');
 
+        $funcoes = Funcao::all();
+        $empresas = Empresa::all();
+
         if (!empty($search)) {
             $users = User::query()->where('u_nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
         } else {
             $users = User::sortable()->paginate(15);
         }
 
-        return view('funcionarios')->with('users', $users);
+        return view('funcionarios')->with('users', $users)->with('funcoes', $funcoes)->with('empresas',$empresas);
     }
 
     //função para apagar um funcionário
@@ -208,5 +216,40 @@ class UserController extends Controller
             $user = User::where('id', '=', $request->id)->first();
         }
         return view('alterar-funcionario')->with('user', $user);
+    }
+
+    //função para registar funcionario 
+    public function adicionar_funcao(Request $request)
+    {
+        $data = $request->validate([
+            'funcao' => ['required', 'unique:funcao'],
+        ], [
+            'funcao.required' => 'Deve introduzir uma função',
+            'email.unique' => 'Esta função já foi registada',
+        ]);
+
+        $user = new Funcao();
+        $user->funcao = $data['funcao'];
+
+        $user->save();
+
+        return  redirect()->back()->with('success', 'Função registada com sucesso');
+    }
+   
+
+    //função para retornar a view adicionar funcionario 
+    public function  veiw_adicionar_funcionario(Request $request)
+    {
+        $funcoes = Funcao::all();
+        $empresas = Empresa::all();
+
+        return  view('adicionar-funcionario')->with('funcoes', $funcoes)->with('empresas',$empresas);
+    }
+
+    //função para retornar o perfil do utilizador
+    public function  perfil(Request $request)
+    {
+        $user = User::where('id', '=', Auth::user()->id)->first();
+        return  view('perfil')->with('user',$user);
     }
 }

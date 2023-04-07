@@ -7,9 +7,8 @@
 @section('content')
 
 <!--main content-->
-<div class="row mt-5">
+<div class="row mt-4">
     <div class="col-1">
-
     </div>
     <div class="col-10">
         <div class="row">
@@ -52,11 +51,7 @@
                                 <button type="submit" class="btn btn-primary w-50">Filtrar</button>
                             </div>
                         </form>
-
-
                     </div>
-
-
                 </div>
             </div>
             <div class="col-10">

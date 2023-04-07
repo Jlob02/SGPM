@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Recuperar password</title>
   <!--bootstrap css-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
@@ -15,6 +15,7 @@
 <body>
 
   <div class="container-fluid">
+
     <div class="row">
       <div class="col-12 fixed-top d-flex justify-content-end p-4">
         <div class="dropdown">
@@ -32,10 +33,11 @@
 
     <!-- Formulario de logim-->
 
-    <main class="form-signin w-100 m-auto">
-      <form method="POST" action="/login">
+    <main class="form-recuperar w-100 m-auto">
+      <form method="POST" action="#">
         @csrf
-        <h1 class="h3 mb-3 fw-normal">Login</h1>
+        <h4 class=" mt-2">Recuperar password</h4>
+        <p>insere o teu email para poder recuperar a palavra-passe</p>
         @if(session('sucesso') != null)
         <div class="alert alert-success" role="alert">
           {{session('sucesso')}}
@@ -46,23 +48,17 @@
           {{$errors->first()}}
         </div>
         @endif
+
         <div class="form-floating">
           <input type="email" name='email' class="form-control mb-2" id="floatingInput" placeholder="name@example.com" value='{{old("email")}}'>
           <label for="floatingInput">Email address</label>
         </div>
-        <div class="form-floating">
-          <input type="password" name='password' class="form-control" id="floatingPassword" placeholder="Password"  value='{{old("pasword")}}'>
-          <label for="floatingPassword">Password</label>
-        </div>
 
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" name="remember_me" value="1"> Remember me
-          </label>
-        </div>
-        <button class="w-100 mb-4 btn btn-lg btn-primary" type="submit">Sign in</button>
 
-        <a href="/recuperar-password" >Não sabes a tua palavra-passe?</a>
+        <div class="text-end">
+          <a class="w-25 mb-4 btn btn-lg btn-secondary" href="/login">Cancelar</a>
+          <button class="w-25 mb-4 btn btn-lg btn-primary" type="submit">Recuperar</button>
+        </div>
       </form>
     </main>
 

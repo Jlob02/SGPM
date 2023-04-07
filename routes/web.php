@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,13 @@ Route::get('logout', [UserController::class, 'logout'])->middleware(['auth']);
 //route para registar o administrador 
 Route::post('registar-admin', [UserController::class, 'registar_admin']);
 
+//route para recuperar a palavra-passe
+Route::get('recuperar-password', function () {
+    if (Auth::check()) {
+        return  redirect('home');
+    }
+    return view('recuperar-password');
+});
 
 //groupo de routes para verificar se o utilizar esta autenticado
 Route::middleware(['auth'])->group(function () {
@@ -66,13 +74,19 @@ Route::middleware(['auth'])->group(function () {
     //route para registar funcionario
     Route::post('registar', [UserController::class, 'registar']);
 
-    Route::get('adicionar-funcionario', function () {
-        return view('adicionar-funcionario');
-    });
+   // Route::get('adicionar-funcionario', function () {
+       // return view('adicionar-funcionario');
+    //});
+
+    Route::get('adicionar-funcionario', [UserController::class, 'veiw_adicionar_funcionario']);
+
+    Route::get('perfil', [UserController::class, 'perfil']);
 
     Route::get('funcionarios/alterar/{id}', [UserController::class, 'dados_funcionario']);
 
     Route::post('alterar-funcionario/{id}', [UserController::class, 'alterar_funcionario']);
+
+    Route::post('adicionar-funcao', [UserController::class, 'adicionar_funcao']);
 
     
     //routes para empresas
@@ -93,4 +107,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('alterar-empresa/{id}', [EmpresaController::class, 'alterar_empresa']);
 
     Route::get('empresas/alterar/{id}', [EmpresaController::class, 'dados_empresa']);
+
+
+    //routes para fornecedores
+    Route::get('fornecedores', [FornecedorController::class, 'fornecedores']);
+
+    Route::delete('fornecedores/apagar/{id}', [FornecedorController::class, 'apagar_fornecedor']);
+
+    Route::get('adicionar-fornecedor', function () {
+        return view('adicionar-fornecedor');
+    });
+
+    Route::post('adicionar-fornecedor', [FornecedorController::class, 'registar']);
+
 });

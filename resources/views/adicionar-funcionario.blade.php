@@ -16,18 +16,20 @@ Empresas
                 <a href="/funcionarios" class="btn btn-primary">Voltar</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mt-1 mb-1">
+        <div class=" row">
+            <div class="col-12  mt-1 mb-1">
                 <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <form class="row">
-                            <div class="col-10">
-                                <div class="">
-                                    <input type="email" class="form-control" placeholder="Função">
-                                </div>
+                    <div class=" p-4 _navbar rounded-2  card-body">
+                        <form class="row" action="/adicionar-funcao" method="post">
+                            @csrf
+                            <div class="col-3"></div>
+
+                            <div class="col-4">
+                                <input type="text" name="funcao" class="form-control" placeholder="Função">
                             </div>
+
                             <div class="col-2">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -78,7 +80,7 @@ Empresas
                             </div>
 
                             <div class="col-md-5">
-                                <input type="tel" name="contacto" class="form-control" id="inputTel" value='{{old("contacto")}}' />
+                                <input type="tel" name="contacto" placeholder="910000000" class="form-control" id="inputTel" value='{{old("contacto")}}' />
                             </div>
 
                             <div class="col-4"></div>
@@ -88,7 +90,9 @@ Empresas
                             </div>
                             <div class="col-md-5">
                                 <select id="inputStat" name="funcao" class="form-select">
-                                    <option value="1" selected>Administrador</option>
+                                    @foreach($funcoes as $funcao)
+                                    <option value="{{$funcao->id}}" selected>{{$funcao->funcao}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-1">
@@ -96,19 +100,21 @@ Empresas
                                     +
                                 </button>
                             </div>
+
+                            @if(Auth::User()->u_tipo == 1)
                             <div class="col-3"></div>
-
-
                             <div class="col-3">
                                 <label for="inputState" class="form-label">Tipo :</label>
                             </div>
                             <div class="col-md-5">
                                 <select id="inputSta" name="tipo" class="form-select">
-                                    <option value="1" selected>Administrador do sistema</option>
+                                    <option value="1" selected>Administrador</option>
                                     <option value="2">Administrador de empresa</option>
                                     <option value="3">Funcionário</option>
                                 </select>
                             </div>
+                            
+
                             <div class="col-4"></div>
 
                             <div class="col-3">
@@ -117,13 +123,47 @@ Empresas
                             </div>
                             <div class="col-md-5">
                                 <select id="inputState" name="empresa" class="form-select">
+                                    @foreach($empresas as $empresa)
+                                    <option value="{{$empresa->id}}" selected>{{$empresa->nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <a class="btn btn-primary" type="button" href="adicionar-empresa">
+                                    +
+                                </a>
+                            </div>
+                            @else
+                            <div class="col-3"></div>
+                            <div class="col-3">
+                                <label for="inputState" class="form-label">Tipo :</label>
+                            </div>
+                            <div class="col-md-5">
+                                <select id="inputSta" name="tipo" class="form-select " disabled>
+                                    <option value="1" selected>Administrador</option>
+                                    <option value="2">Administrador de empresa</option>
+                                    <option value="3" selected>Funcionário</option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+
+                            <div class="col-3"></div>
+
+                            <div class="col-3">
+                                <label for="inputState" class="form-label">Empresa :
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <select id="inputState" name="empresa" class="form-select" disabled>
                                     <option value="1" selected>DIN-1</option>
                                     <option value="2">DIN-2</option>
                                     <option value="3">DIN-3</option>
                                     <option value="4">DIN-4</option>
                                 </select>
                             </div>
-
+                            @endif
                             <div class="col-12 mt-4 text-end">
                                 <button type="submit" class="btn btn-primary">
                                     Guardar
