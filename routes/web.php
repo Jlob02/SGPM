@@ -72,6 +72,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('funcionarios/alterar/{id}', [UserController::class, 'dados_funcionario']);
 
+    Route::post('alterar-funcionario/{id}', [UserController::class, 'alterar_funcionario']);
+
     
     //routes para empresas
 
@@ -87,4 +89,8 @@ Route::middleware(['auth'])->group(function () {
 
     //route para registar empresa
     Route::post('registar-empresa', [EmpresaController::class, 'registar_empresa']);
+
+    Route::post('alterar-empresa/{id}', [EmpresaController::class, 'alterar_empresa']);
+
+    Route::get('empresas/alterar/{id}', [EmpresaController::class, 'dados_empresa']);
 });

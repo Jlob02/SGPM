@@ -36,7 +36,7 @@
             <div class="col-12">
                 <div class="row _navbar text-white d-flex justify-content-center rounded-2 m-1 p-2">
                     <div class="col-md-10 d-flex p-4">
-                        <form class="row g-2" method="post" action="/registar">
+                        <form class="row g-2" method="post" action="/alterar-funcionario/{{$user->id}}">
                             @csrf
                             <div class="col-3">
                                 <label for="inputName" class="form-label">Nome : </label>
@@ -49,7 +49,7 @@
                                 </label>
                             </div>
                             <div class="col-9">
-                                <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="exemplo@email.com" value='@if($user->email != null){{$user->email}}@endif'  />
+                                <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="exemplo@email.com" value='{{$user->email}}'  />
                             </div>
 
                             <div class="col-3">
