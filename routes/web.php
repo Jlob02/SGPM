@@ -79,12 +79,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('funcionarios/adicionar', [UserController::class, 'veiw_adicionar_funcionario']);
 
-
     Route::get('funcionarios/alterar/{id}', [UserController::class, 'dados_funcionario']);
 
     Route::post('funcionarios/alterar/{id}', [UserController::class, 'alterar_funcionario']);
 
-    Route::post('adicionar-funcao', [UserController::class, 'adicionar_funcao']);
+    Route::post('funcionarios/adicionar/funcao', [UserController::class, 'adicionar_funcao']);
 
     
     //routes para empresas

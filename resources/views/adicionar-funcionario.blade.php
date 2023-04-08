@@ -20,7 +20,7 @@ Empresas
             <div class="col-12  mt-1 mb-1">
                 <div class="collapse" id="collapseExample">
                     <div class=" p-4 _navbar rounded-2  card-body">
-                        <form class="row" action="/adicionar-funcao" method="post">
+                        <form class="row" action="/funcionarios/adicionar/funcao" method="post">
                             @csrf
                             <div class="col-3"></div>
 
