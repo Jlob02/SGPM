@@ -36,7 +36,7 @@ Empresas
             <div class="col-12">
                 <div class="row _navbar text-white d-flex justify-content-center rounded-2 m-1 p-5">
                     <div class="col-md-10 d-flex p-5">
-                        <form class="row g-2" method="post" action="/alterar-empresa/{{$empresa->id}}">
+                        <form class="row g-2" method="post" action="/empresas/alterar/{{$empresa->id}}">
                             @csrf
                             <div class="col-3">
                                 <label for="inputName" class="form-label">Nome : </label>

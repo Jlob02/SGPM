@@ -15,13 +15,14 @@ class FornecedorController extends Controller
     {
         $data = $request->validate([
 
-            'nome' => ['required'],
+            'nome' => ['required', 'unique:fornecedores'],
             'email' => ['required', 'email', 'unique:fornecedores'],
             'contacto' => ['required', 'max:9']
         ], [
             'nome.required' => 'Deve introduzir o nome do fornecedor',
+            'nome.unique' => 'Já existe um fornecedor com este nome',
             'email.required' => 'Deve introduzir o email do fornecedor',
-            'email.unique' => 'Ja existe um fornecedor com este email',
+            'email.unique' => 'Já existe um fornecedor com este email',
             'email.email' => 'Deve introduzir um email válido',
             'contacto.required' => 'Deve introduzir o contacto do fornecedor',
         ]);
@@ -35,6 +36,33 @@ class FornecedorController extends Controller
         $fornecedor->save();
 
         return  redirect()->back()->with('success', 'Fornecedor registado com sucesso');
+    }
+
+    //função para registar funcionario 
+    public function alterar_fornecedor(Request $request)
+    {
+        $data = $request->validate([
+
+            'nome' => ['required', "unique:fornecedores,nome,$request->id"],
+            'email' => ['required', 'email', "unique:fornecedores,email,$request->id"],
+            'contacto' => ['required', 'max:9']
+        ], [
+            'nome.required' => 'Deve introduzir o nome do fornecedor',
+            'nome.unique' => 'Já existe um fornecedor com este nome',
+            'email.required' => 'Deve introduzir o email do fornecedor',
+            'email.unique' => 'Já existe um fornecedor com este email',
+            'email.email' => 'Deve introduzir um email válido',
+            'contacto.required' => 'Deve introduzir o contacto do fornecedor',
+        ]);
+
+        $fornecedor = Fornecedor::where('id', '=', $request->id ,'AND' , 'empresa', '=', Auth::User()->empresa_id)->first();
+        $fornecedor->nome = $data['nome'];
+        $fornecedor->email = $data['email'];
+        $fornecedor->contacto = $data['contacto'];
+
+        $fornecedor->save();
+
+        return  redirect('/fornecedores')->with('success', 'Fornecedor alterado com sucesso');
     }
 
     //funcao para retornar todos funcionários
@@ -63,4 +91,15 @@ class FornecedorController extends Controller
         }
         return  redirect()->back()->with('error', 'Não foi possivel apagar o fornecedor');
     }
+
+
+    //função para retornar os dados do fornecedor
+    public function dados_fornecedor(Request $request)
+    {
+        if (Auth::user()->u_tipo == 1) {
+            $fornecedor = Fornecedor::where('id', '=', $request->id)->first();
+        }
+        return view('alterar-fornecedor')->with('fornecedor', $fornecedor);
+    }
+
 }

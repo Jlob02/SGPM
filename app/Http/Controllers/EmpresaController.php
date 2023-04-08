@@ -46,12 +46,12 @@ class EmpresaController extends Controller
     //função para registar empresa
     public function alterar_empresa(Request $request)
     {
-        $empresa = Empresa::where('id', '=', $request->id)->first();
+        
 
         $data = $request->validate([
             'nome' => ['required'],
-            'email' => 'required|unique:empresas,id,'.$request->id,
-            'contacto' => 'required|max:9|unique:empresas,id,'.$request->id,
+            'email' => ['required', 'email', "unique:empresas,email,$request->id"],
+            'contacto' => ['required', 'max:9', "unique:empresas,contacto,$request->id"],
             'nome_responsavel' => ['required'],
             'localidade' => ['required'],
             'pais' => ['required'],
@@ -64,7 +64,7 @@ class EmpresaController extends Controller
             'contacto.unique' => 'Ja existe uma empresa com conta associada a este número'
         ]);
 
-        
+        $empresa = Empresa::where('id', '=', $request->id)->first();
 
         if ($empresa != null) {
             $empresa->email = $data['email'];

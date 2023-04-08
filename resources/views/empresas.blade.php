@@ -15,7 +15,7 @@ Empresas
         <div class="row">
             <div class="row">
                 <div class="col-12 m-1 ">
-                    <a href="/adicionar-empresa" class="btn btn-primary">Adicionar empresa</a>
+                    <a href="/empresas/adicionar" class="btn btn-primary">Adicionar empresa</a>
                 </div>
             </div>
             <div class="col-12">
@@ -75,14 +75,14 @@ Empresas
                                     </td>
                                     <td class="d-flex justify-content-around">
                                         @if($empresa->estado == 0)
-                                        <form action="empresas/{{$empresa->id}}/{{$empresa->estado}}" method="post">
+                                        <form action="empresas/alterar/{{$empresa->id}}/{{$empresa->estado}}" method="post">
                                             @csrf
                                             <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
                                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
                                                 </svg></button>
                                         </form>
                                         @else
-                                        <form action="empresas/{{$empresa->id}}/{{$empresa->estado}}" method="post">
+                                        <form action="empresas/alterar/{{$empresa->id}}/{{$empresa->estado}}" method="post">
                                             @csrf
                                             <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
@@ -97,7 +97,7 @@ Empresas
                                                 </svg></button>
                                         </form>
 
-                                        <form action="empresas/{{Auth::id()}}/apagar" method="post">
+                                        <form action="empresas/apagar/{{Auth::id()}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16">

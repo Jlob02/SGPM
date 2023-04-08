@@ -124,8 +124,7 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'nome' => ['required'],
-            'email' => ['required', 'email'],
-            // 'password'=> ['required', 'min:8'],
+            'email' => ['required', 'email', "unique:users,email,$request->id"],
             'funcao' => ['required'],
             'tipo' => ['required'],
             'empresa' => ['required'],
@@ -146,11 +145,11 @@ class UserController extends Controller
         if (!empty($data['password'])) {
             $user->password = Hash::make($data['password']);
         }
+
         $user->u_nome = $data['nome'];
         $user->u_tipo = $data['tipo'];
         $user->u_funcao = $data['funcao'];
         $user->empresa_id = $data['empresa'];
-        $user->u_estado = 1;
         $user->u_contacto = $data['contacto'];
 
         $user->save();
