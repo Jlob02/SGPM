@@ -129,7 +129,7 @@ Empresas
                                 </select>
                             </div>
                             <div class="col-1">
-                                <a class="btn btn-primary" type="button" href="adicionar-empresa">
+                                <a class="btn btn-primary" type="button" href="/empresas/adicionar">
                                     +
                                 </a>
                             </div>
