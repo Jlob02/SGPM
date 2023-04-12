@@ -128,11 +128,13 @@ Empresas
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="col-1">
                                 <a class="btn btn-primary" type="button" href="/empresas/adicionar">
                                     +
                                 </a>
                             </div>
+                            
                             @else
                             <div class="col-3"></div>
                             <div class="col-3">
