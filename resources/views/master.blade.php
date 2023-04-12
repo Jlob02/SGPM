@@ -15,8 +15,8 @@
     <div class="container-fluid">
         <!--navbar-->
         <header class="row _navbar ">
-            <div class="col-9"></div>
-            <div class="col-3 text-white  p-2 d-flex justify-content-around align-items-center">
+            <div class="col-7"></div>
+            <div class="col-5 text-white  p-2 d-flex justify-content-around align-items-center">
                 @auth
                 <span>Olá {{Auth::user()->u_nome}}</span> |
                 <a href="/perfil" class="text-white d-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2 bi bi-person-fill" viewBox="0 0 16 16">
