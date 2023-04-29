@@ -227,10 +227,10 @@ class UserController extends Controller
             'email.unique' => 'Esta função já foi registada',
         ]);
 
-        $user = new Funcao();
-        $user->funcao = $data['funcao'];
+        $funcao = new Funcao();
+        $funcao->funcao = $data['funcao'];
 
-        $user->save();
+        $funcao->save();
 
         return  redirect()->back()->with('success', 'Função registada com sucesso');
     }

@@ -17,7 +17,8 @@
         <header class="row _navbar ">
             <div class="col-12 text-white  p-2 d-flex justify-content-end align-items-center">
                 @auth
-                <span class="ms-2 me-2">Olá {{Auth::user()->u_nome}}</span> |
+                Olá
+                <span class="ms-1 me-2"> {{Auth::user()->u_nome}}</span> |
                 <a href="/perfil" class="text-white d-flex align-items-center ms-2 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2 bi bi-person-fill" viewBox="0 0 16 16">
   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
 </svg>  Meu perfil</a> |

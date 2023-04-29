@@ -2,57 +2,179 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fornecedor;
 use App\Models\MateriaPrima;
-use App\Http\Requests\StoreMateriaPrimaRequest;
-use App\Http\Requests\UpdateMateriaPrimaRequest;
+use App\Models\Familia;
+use App\Models\SubFamilia;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MateriaPrimaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    //função para registar matéria-prima 
+    public function registar(Request $request)
     {
-        //
+        $data = $request->validate(
+            [
+
+                'designacao' => ['required', 'unique:materias_primas'],
+                'codigo' => ['required', 'unique:materias_primas'],
+                'concentracao' => ['required'],
+                'familia' => ['required'],
+                'subfamilia' => ['required'],
+                'principio_activo' => ['required'],
+            ],
+            [
+                'designacao.required' => 'Deve introduzir a designação da matéria-prima',
+                'codigo.unique' => 'Já existe uma matéria-prima com este código',
+                'concentracao.required' => 'Deve introduzir a concentração da matéria-prima',
+                'familia.unique' => 'Deve selecionar a familia da matéria-prima',
+                'subfamilia.email' => 'Deve selecionar a sub-familia da matéria-prima',
+            ]
+        );
+
+        $materiaprima = new MateriaPrima();
+        $materiaprima->designacao = $data['designacao'];
+        $materiaprima->codigo = $data['codigo'];
+        $materiaprima->concentracao = $data['concentracao'];
+        $materiaprima->familia = $data['familia'];
+        $materiaprima->subfamilia = $data['subfamilia'];
+        $materiaprima->principio_activo = $data['principio_activo'];
+        $materiaprima->empresa_id = Auth::User()->empresa_id;
+        $materiaprima->save();
+
+        return  redirect()->back()->with('success', 'Matéria-prima registada com sucesso');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    //função para registar matéria-prima  
+    public function alterar_materia_prima(Request $request)
     {
-        //
+
+
+        $data = $request->validate(
+            [
+
+                'designacao' => ['required', "unique:materias_primas,designacao,$request->id"],
+                'codigo' => ['required', "unique:materias_primas,codigo,$request->id"],
+                'concentracao' => ['required'],
+                'familia' => ['required'],
+                'subfamilia' => ['required'],
+                'principio_activo' => ['required'],
+            ],
+            [
+                'designacao.required' => 'Deve introduzir a designação da matéria-prima',
+                'codigo.unique' => 'Já existe uma matéria-prima com este código',
+                'concentracao.required' => 'Deve introduzir a concentração da matéria-prima',
+                'familia.unique' => 'Deve selecionar a familia da matéria-prima',
+                'subfamilia.email' => 'Deve selecionar a sub-familia da matéria-prima',
+            ]
+        );
+
+        $materiaprima = MateriaPrima::where('id', '=', $request->id ,'AND' , 'empresa_id', '=', Auth::User()->empresa_id)->first();
+        $materiaprima->designacao = $data['designacao'];
+        $materiaprima->codigo = $data['codigo'];
+        $materiaprima->concentracao = $data['concentracao'];
+        $materiaprima->familia = $data['familia'];
+        $materiaprima->subfamilia = $data['subfamilia'];
+        $materiaprima->principio_activo = $data['principio_activo'];
+
+        $materiaprima->save();
+
+        return  redirect('/materia-prima')->with('success', 'Matéria-prima alterado com sucesso');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-   
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(MateriaPrima $materiaPrima)
+    //funcao para retornar todas matérias-primas 
+    public function materias_primas(Request $request)
     {
-        //
+        $search = $request->input('search');
+
+        if (!empty($search)) {
+            $materiasprimas = MateriaPrima::query()->where('desgnacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+        } else {
+            $materiasprimas = MateriaPrima::query()->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+        }
+
+        $fornecedores = Fornecedor::all();
+        $subfamila = SubFamilia::all();
+        $famila = Familia::all();
+
+        return view('materia-prima')->with('materias_primas', $materiasprimas )->with( 'fornecedores', $fornecedores )->with('subfamilias', $subfamila)->with('familias',$famila);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MateriaPrima $materiaPrima)
+    //função para apagar uma matéria-prima 
+
+    public function apagar_materia_prima(Request $request)
     {
-        //
+        $materiaprima = MateriaPrima::where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
+
+        if ($materiaprima != null) {
+            $materiaprima->delete();
+            return  redirect()->back()->with('success', 'Matéria-prima apagada com sucesso');
+        }
+        return  redirect()->back()->with('error', 'Não foi possivel apagar a matéria-prima ');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(MateriaPrima $materiaPrima)
+
+    //função para retornar os dados da matéria-prima 
+    public function dados_materia_prima(Request $request)
     {
-        //
+        $materiaprima = MateriaPrima::where('id', '=', $request->id)->first();
+
+        return view('alterar-materia-prima')->with('materia_prima', $materiaprima);
+    }
+
+
+    
+    //função para retornar os dados da matéria-prima 
+    public function precos_materias_primas(Request $request)
+    {
+        $materiasprimas = MateriaPrima::where('id', '=', $request->codigo)->first();
+
+        return view('materiaprima')->with('materias_primas', $materiasprimas);
+    }
+
+     //função para registar familia de matéria-prima
+     public function adicionar_familia(Request $request)
+     {
+         $data = $request->validate([
+             'familia' => ['required', 'unique:familia'],
+         ], [
+             'familia.required' => 'Deve introduzir uma função',
+             'familia.unique' => 'Esta familia já foi registada',
+         ]);
+ 
+         $familia = new Familia();
+         $familia->familia = $data['familia'];
+ 
+         $familia->save();
+ 
+         return  redirect()->back()->with('success', 'Familia registada com sucesso');
+     }
+
+      //função para registar subfamilia de matéria-prima
+    public function adicionar_subfamilia(Request $request)
+    {
+        $data = $request->validate([
+            'subfamilia' => ['required', 'unique:subfamilia'],
+        ], [
+            'subfamilia.required' => 'Deve introduzir uma função',
+            'subfamilia.unique' => 'Esta função já foi registada',
+        ]);
+
+        $subfamilia = new SubFamilia();
+        $subfamilia->subfamilia = $data['subfamilia'];
+
+        $subfamilia->save();
+
+        return  redirect()->back()->with('success', 'Subfamilia registada com sucesso');
+    }
+
+    //função para retornar a view adicionar matéria-prima
+    public function  veiw_adicionar_materia_prima(Request $request)
+    {
+        $subfamila = SubFamilia::all();
+        $famila = Familia::all();
+
+        return  view('adicionar-materia-prima')->with('subfamilias', $subfamila)->with('familias',$famila);
     }
 }

@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materias_primas', function (Blueprint $table) {
+        Schema::create('familia', function (Blueprint $table) {
             $table->id();
-            $table->string('designacao');
-            $table->string('codigo', 20);
-            $table->integer('concentracao');
-            $table->integer('familia');
-            $table->integer('subfamilia');
-            $table->integer('empresa_id');
-            $table->string('principio_activo');
+            $table->string('familia');
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materias_primas');
+        Schema::dropIfExists('familia');
     }
 };

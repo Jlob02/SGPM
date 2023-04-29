@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Funcao extends Model
+class Familia extends Model
 {
     use  HasFactory, Sortable;
-    protected $table = 'funcao';
+    protected $table = 'familia';
     protected $primaryKey = 'id';
 
     /**
@@ -19,11 +19,6 @@ class Funcao extends Model
      */
     protected $fillable = [
         'id',
-        'funcao',
+        'familia',
     ];
-
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
 }

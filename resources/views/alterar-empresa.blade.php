@@ -12,11 +12,11 @@ Empresas
     <div class="col-10">
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
-                <p>Funcionarios > Alterar Empresa > @if($empresa->nome != null)
+                Funcionarios > Alterar Empresa > @if($empresa->nome != null)
                     {{$empresa->nome}}
-                    @endif
-                </p>
-                <a href="/empresas" class="btn btn-primary">Voltar</a>
+                @endif
+                
+                <a href="/empresas" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class="row">

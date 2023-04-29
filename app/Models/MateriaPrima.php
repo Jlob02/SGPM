@@ -4,8 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class MateriaPrima extends Model
 {
-    use HasFactory;
+    use  HasFactory,  Sortable;
+    protected $table = 'materias_primas';
+    protected $primaryKey = 'id';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'id',
+        'desgnacao',
+        'codigo',
+        'concentracao',
+        'familia',
+        'subfamilia',
+        'principio_activo',
+        'empresa_id'
+    ];
+
+    protected $sortable = ['desgnacao','codigo','id','familia','subfamilia', 'concentracao'];
 }

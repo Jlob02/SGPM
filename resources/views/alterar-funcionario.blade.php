@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
- Alterar funcionário
+Alterar funcionário
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@
     <div class="col-10">
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
-                <p>Funcionarios > alterar funcionário > 
-                    @if($user->u_nome != null)
-                        {{$user->u_nome}}
-                    @endif
-                </p>
-                <a href="/funcionarios" class="btn btn-primary">Voltar</a>
+                Funcionarios > alterar funcionário >
+                @if($user->u_nome != null)
+                {{$user->u_nome}}
+                @endif
+
+                <a href="/funcionarios" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class="row">
@@ -49,7 +49,7 @@
                                 </label>
                             </div>
                             <div class="col-9">
-                                <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="exemplo@email.com" value='{{$user->email}}'  />
+                                <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="exemplo@email.com" value='{{$user->email}}' />
                             </div>
 
                             <div class="col-3">
@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="col-md-5">
-                                <input type="tel" name="contacto" class="form-control" id="inputTel" value='@if($user->u_contacto != null){{$user->u_contacto}}@endif'  />
+                                <input type="tel" name="contacto" class="form-control" id="inputTel" value='@if($user->u_contacto != null){{$user->u_contacto}}@endif' />
                             </div>
 
                             <div class="col-4"></div>

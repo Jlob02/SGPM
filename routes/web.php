@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\PrecoController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\MateriaPrimaController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -57,13 +59,8 @@ Route::get('recuperar-password', function () {
 //groupo de routes para verificar se o utilizar esta autenticado
 Route::middleware(['auth'])->group(function () {
     //route para a página inicial
-    Route::get('home', function () {
-        return view('home');
-    });
+    Route::get('home', [PrecoController::class, 'precos']);
 
-    Route::get('materia-prima', function () {
-        return view('materia-prima');
-    });
 
     Route::get('perfil', [UserController::class, 'perfil']);
 
@@ -85,8 +82,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('funcionarios/adicionar/funcao', [UserController::class, 'adicionar_funcao']);
 
-    
-    //routes para empresas
+
+    //routes para empresas -------------------------
 
     Route::get('empresas', [EmpresaController::class, 'empresas']);
 
@@ -94,7 +91,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('empresas/alterar/{id}/{estado}', [EmpresaController::class, 'alterar_estado_empresa']);
 
-    //route para registar empresa
     Route::post('empresas/adicionar', [EmpresaController::class, 'registar_empresa']);
 
     Route::get('empresas/adicionar', function () {
@@ -105,8 +101,39 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('empresas/alterar/{id}', [EmpresaController::class, 'dados_empresa']);
 
+    //fim routes para empresas ------------------------
 
-    //routes para fornecedores
+
+    //route para matéria-prima ------------------------
+    Route::get('materia-prima', [MateriaPrimaController::class, 'materias_primas']);
+
+    Route::post('materia-prima/adicionar', [MateriaPrimaController::class, 'registar']);
+
+    Route::get('materia-prima/adicionar', [MateriaPrimaController::class, 'veiw_adicionar_materia_prima']);
+
+    Route::delete('materia-prima/apagar/{id}', [MateriaPrimaController::class, 'apagar_materia_prima']);
+
+    Route::post('materia-prima/alterar/{id}', [MateriaPrimaController::class, 'alterar_materia_prima']);
+
+    Route::get('materia-prima/alterar/{id}', [MateriaPrimaController::class, 'dados_materia_prima']);
+
+    Route::post('materia-prima/preco/{id}', [PrecoController::class, 'registar_preco']);
+
+    Route::delete('materia-prima/preco/apagar/{id}', [PrecoController::class, 'apagar_preco']);
+
+    Route::get('materia-prima/precos', [PrecoController::class, 'precos_materias_primas']);
+
+    Route::post('materia-prima/adicionar/familia', [MateriaPrimaController::class, 'adicionar_familia']);
+
+    Route::post('materia-prima/adicionar/subfamilia', [MateriaPrimaController::class, 'adicionar_subfamilia']);
+
+
+    Route::get('materia-prima/{codigo}', [MateriaPrimaController::class, 'precos_materias_primas']);
+
+    //fim route para matéria-prima -------------------------
+
+
+    //routes para fornecedores------------------------------
     Route::get('fornecedores', [FornecedorController::class, 'fornecedores']);
 
     Route::delete('fornecedores/apagar/{id}', [FornecedorController::class, 'apagar_fornecedor']);
@@ -121,4 +148,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('fornecedores/alterar/{id}', [FornecedorController::class, 'alterar_fornecedor']);
 
+    //fim routes para fornecedores------------------------------
 });

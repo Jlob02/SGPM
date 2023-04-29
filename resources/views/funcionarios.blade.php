@@ -15,13 +15,13 @@ Funcionarios
         <div class="row">
             <div class="row">
                 <div class="col-12 m-1 ">
-                    <a href="funcionarios/adicionar" class="btn btn-primary">Adicionar funcionario</a>
+                    <a href="funcionarios/adicionar" class="btn btn-primary btn-sm bg-info bg-gradient">Adicionar funcionario</a>
                 </div>
             </div>
             <div class="col-12">
                 <div class="row _navbar text-white d-flex  align-items-center rounded-top-2 m-1 p-2">
 
-                    <div class="col-8 d-flex align-items-center text-white">
+                    <div class="col-9 d-flex align-items-center text-white">
                         Mostrar
                         <form class="me-2 ms-2">
                             <select class="form-select form-select-sm">
@@ -34,7 +34,7 @@ Funcionarios
 
                         Resultados
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <form class="d-flex" role="search" action="/funcionarios" method="get">
                             <input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Pesquisar" aria-label="Search">
                             <button class="btn rounded-5 btn-success" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

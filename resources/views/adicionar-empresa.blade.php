@@ -12,8 +12,8 @@ Empresas
     <div class="col-10">
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
-                <p>Funcionarios > Adicionar empresa</p>
-                <a href="/empresas" class="btn btn-primary">Voltar</a>
+                Funcionarios > Adicionar empresa
+                <a href="/empresas" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class="row">

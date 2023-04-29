@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materias_primas', function (Blueprint $table) {
+        Schema::create('precos', function (Blueprint $table) {
             $table->id();
-            $table->string('designacao');
-            $table->string('codigo', 20);
-            $table->integer('concentracao');
-            $table->integer('familia');
-            $table->integer('subfamilia');
+            $table->decimal('preco',5,4);
+            $table->integer('unidade');
+            $table->integer('materia_prima_id');
+            $table->integer('fornecedor_id');
+            $table->date('data_inicio');
+            $table->date('data_fim');
             $table->integer('empresa_id');
-            $table->string('principio_activo');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materias_primas');
+        Schema::dropIfExists('precos');
     }
 };

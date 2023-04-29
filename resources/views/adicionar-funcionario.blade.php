@@ -12,8 +12,8 @@ Empresas
     <div class="col-10">
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
-                <p>Funcionarios > Adicionar funcionario</p>
-                <a href="/funcionarios" class="btn btn-primary">Voltar</a>
+                Funcionarios > Adicionar funcionario
+                <a href="/funcionarios" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class=" row">
@@ -22,14 +22,9 @@ Empresas
                     <div class=" p-4 _navbar rounded-2  card-body">
                         <form class="row" action="/funcionarios/adicionar/funcao" method="post">
                             @csrf
-                            <div class="col-3"></div>
-
-                            <div class="col-4">
-                                <input type="text" name="funcao" class="form-control" placeholder="Função">
-                            </div>
-
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            <div class="col-12 d-flex justify-content-center align-items-cente gap-2">
+                                <input type="text" name="funcao" class="form-control form-control-sm w-25  " placeholder="Função">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>

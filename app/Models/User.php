@@ -53,4 +53,10 @@ class User extends Authenticatable
     ];
 
     protected $sortable = ['u_nome','id'];
+
+    public function funcao(){
+
+        return $this->belongsTo(Funcao::class);
+
+     }
 }
