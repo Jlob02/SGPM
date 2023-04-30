@@ -22,7 +22,14 @@ class Fornecedor extends Model
         'nome',
         'email',
         'contacto',
+        'empresa_id'
     ];
 
     protected $sortable = ['nome','email','contacto'];
+
+    
+    public function precos()
+    {
+        return $this->hasMany(Preco::class);
+    }
 }

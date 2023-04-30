@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('precos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->decimal('preco',5,4);
             $table->integer('unidade');
-            $table->integer('materia_prima_id');
+            $table->integer('materiaprima_id');
             $table->integer('fornecedor_id');
             $table->date('data_inicio');
             $table->date('data_fim');

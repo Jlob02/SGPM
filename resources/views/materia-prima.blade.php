@@ -13,7 +13,7 @@ Matéria-prima
     </div>
     <div class="col-10">
         <div class="row">
-            <div class="col-12  m-1 text-center">
+            <div class="col-12  mt-0 text-center">
                 @if($errors->any())
                 <div class="alert alert-warning" role="alert">
                     {{$errors->first()}}
@@ -155,8 +155,8 @@ Matéria-prima
                                 <tr>
                                     <td>{{$materia_prima->designacao}}</td>
                                     <td>{{$materia_prima->codigo}}</td>
-                                    <td>{{$materia_prima->familia}}</td>
-                                    <td>{{$materia_prima->subfamilia}}</td>
+                                    <td>@isset($materia_prima->familia->familia){{$materia_prima->familia->familia}} @endisset</td>
+                                    <td>@isset($materia_prima->subfamilia->subfamilia){{$materia_prima->subfamilia->subfamilia}} @endisset</td>
                                     <td>{{$materia_prima->concentracao}}</td>
                                     <td>{{$materia_prima->principio_activo}}</td>
                                     <td class=" d-flex justify-content-around">
@@ -202,8 +202,8 @@ Matéria-prima
                             <tbody class="table-group-divider">
                                 @foreach($precos as $preco)
                                 <tr>
-                                    <td>{{$preco->materia_prima_id}}</td>
-                                    <td>{{$preco->fornecedor_id}}</td>
+                                    <td>{{$preco->materiaprima->designacao}}</td>
+                                    <td>{{$preco->fornecedor->nome}}</td>
                                     <td>{{$preco->preco}}</td>
                                     <td>@if($preco->unidade == 1)
                                         Kg

@@ -13,7 +13,7 @@ Adicionar Materia-prima
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
                 <p>Funcionarios > Adicionar matéria-prima</p>
-                <a href="/materia-prima" class="btn btn-primary">Voltar</a>
+                <a href="{{@url()->previous()}}" class="btn btn-primary">Voltar</a>
             </div>
         </div>
         <div class="row ">

@@ -21,4 +21,9 @@ class Familia extends Model
         'id',
         'familia',
     ];
+
+    public function materiaprima()
+    {
+        return $this->hasMany(MateriaPrima::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fornecedor;
 use App\Models\MateriaPrima;
 use App\Models\Familia;
+use App\Models\Preco;
 use App\Models\SubFamilia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,8 +38,8 @@ class MateriaPrimaController extends Controller
         $materiaprima->designacao = $data['designacao'];
         $materiaprima->codigo = $data['codigo'];
         $materiaprima->concentracao = $data['concentracao'];
-        $materiaprima->familia = $data['familia'];
-        $materiaprima->subfamilia = $data['subfamilia'];
+        $materiaprima->familia_id = $data['familia'];
+        $materiaprima->subfamilia_id = $data['subfamilia'];
         $materiaprima->principio_activo = $data['principio_activo'];
         $materiaprima->empresa_id = Auth::User()->empresa_id;
         $materiaprima->save();
@@ -74,8 +75,8 @@ class MateriaPrimaController extends Controller
         $materiaprima->designacao = $data['designacao'];
         $materiaprima->codigo = $data['codigo'];
         $materiaprima->concentracao = $data['concentracao'];
-        $materiaprima->familia = $data['familia'];
-        $materiaprima->subfamilia = $data['subfamilia'];
+        $materiaprima->familia_id = $data['familia'];
+        $materiaprima->subfamilia_id = $data['subfamilia'];
         $materiaprima->principio_activo = $data['principio_activo'];
 
         $materiaprima->save();
@@ -89,9 +90,9 @@ class MateriaPrimaController extends Controller
         $search = $request->input('search');
 
         if (!empty($search)) {
-            $materiasprimas = MateriaPrima::query()->where('desgnacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            $materiasprimas = MateriaPrima::with('familia','subfamilia')->where('desgnacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
         } else {
-            $materiasprimas = MateriaPrima::query()->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+            $materiasprimas = MateriaPrima::with('familia','subfamilia')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         }
 
         $fornecedores = Fornecedor::all();
@@ -128,9 +129,11 @@ class MateriaPrimaController extends Controller
     //função para retornar os dados da matéria-prima 
     public function precos_materias_primas(Request $request)
     {
-        $materiasprimas = MateriaPrima::where('id', '=', $request->codigo)->first();
+        $materiaprima = MateriaPrima::with('familia','subfamilia')->where('id', '=', $request->codigo)->first();
+        $precos = Preco::with('materiaprima','fornecedor')->where('materiaprima_id', '=', $request->codigo)->sortable()->paginate(15);
 
-        return view('materiaprima')->with('materias_primas', $materiasprimas);
+       // dd($precos);
+        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos);
     }
 
      //função para registar familia de matéria-prima

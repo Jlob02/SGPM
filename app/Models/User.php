@@ -25,7 +25,7 @@ class User extends Authenticatable
         'u_nome',
         'email',
         'u_tipo',
-        'u_funcao',
+        'funcao_id',
         'u_contacto',
         'u_estado',
         'empresa_id',
@@ -52,11 +52,17 @@ class User extends Authenticatable
         //'email_verified_at' => 'datetime',
     ];
 
-    protected $sortable = ['u_nome','id'];
+    protected $sortable = ['u_nome', 'id'];
 
-    public function funcao(){
+    public function funcao()
+    {
 
         return $this->belongsTo(Funcao::class);
+    }
 
-     }
+    public function empresa()
+    {
+
+        return $this->belongsTo(Empresa::class);
+    }
 }

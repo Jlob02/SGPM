@@ -10,6 +10,13 @@
 
 ._navbar{
     background-color: #488FF9;
+    font-weight: 620;
+    font-size: medium;
+}
+
+._nav{
+    background-color: #488FF9;
+  
 }
 
 ._list{

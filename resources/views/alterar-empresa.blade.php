@@ -16,7 +16,7 @@ Empresas
                     {{$empresa->nome}}
                 @endif
                 
-                <a href="/empresas" class="btn btn-primary btn-sm">Voltar</a>
+                <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class="row">

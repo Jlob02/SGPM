@@ -31,7 +31,7 @@ class FornecedorController extends Controller
         $fornecedor->nome = $data['nome'];
         $fornecedor->email = $data['email'];
         $fornecedor->contacto = $data['contacto'];
-        $fornecedor->empresa = Auth::User()->empresa_id;
+        $fornecedor->empresa_id = Auth::User()->empresa_id;
 
         $fornecedor->save();
 
@@ -55,11 +55,10 @@ class FornecedorController extends Controller
             'contacto.required' => 'Deve introduzir o contacto do fornecedor',
         ]);
 
-        $fornecedor = Fornecedor::where('id', '=', $request->id ,'AND' , 'empresa', '=', Auth::User()->empresa_id)->first();
+        $fornecedor = Fornecedor::where('id', '=', $request->id ,'AND' , 'empresa_id', '=', Auth::User()->empresa_id)->first();
         $fornecedor->nome = $data['nome'];
         $fornecedor->email = $data['email'];
         $fornecedor->contacto = $data['contacto'];
-
         $fornecedor->save();
 
         return  redirect('/fornecedores')->with('success', 'Fornecedor alterado com sucesso');
@@ -73,7 +72,7 @@ class FornecedorController extends Controller
         if (!empty($search)) {
             $fornecedores = Fornecedor::query()->where('nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
         } else {
-            $fornecedores = Fornecedor::query()->where('empresa', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+            $fornecedores = Fornecedor::query()->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         }
 
         return view('fornecedores')->with('fornecedores', $fornecedores);
@@ -83,7 +82,7 @@ class FornecedorController extends Controller
 
     public function apagar_fornecedor(Request $request)
     {
-        $fornecedor = Fornecedor::where('id', '=', $request->id , 'AND', 'empresa', '=', Auth::User()->empresa_id )->first();
+        $fornecedor = Fornecedor::where('id', '=', $request->id , 'AND', 'empresa_id', '=', Auth::User()->empresa_id )->first();
 
         if ( $fornecedor != null) {
             $fornecedor->delete();

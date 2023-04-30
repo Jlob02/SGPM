@@ -13,7 +13,7 @@ Empresas
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
                 Funcionarios > Adicionar funcionario
-                <a href="/funcionarios" class="btn btn-primary btn-sm">Voltar</a>
+                <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class=" row">

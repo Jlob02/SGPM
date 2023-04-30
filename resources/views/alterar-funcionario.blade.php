@@ -17,7 +17,7 @@ Alterar funcionário
                 {{$user->u_nome}}
                 @endif
 
-                <a href="/funcionarios" class="btn btn-primary btn-sm">Voltar</a>
+                <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class="row">

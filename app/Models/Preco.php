@@ -21,7 +21,7 @@ class Preco extends Model
         'id',
         'preco',
         'unidade',
-        'materia_prima_id',
+        'materiaprima_id',
         'fornecedor_id',
         'empresa_id',
         'data_inicio',
@@ -29,4 +29,14 @@ class Preco extends Model
     ];
 
     protected $sortable = ['id','preco'];
+
+    public function materiaprima()
+    {
+        return $this->belongsTo(MateriaPrima::class);
+    }
+
+    public function fornecedor()
+    {
+        return $this->belongsTo(Fornecedor::class);
+    }
 }

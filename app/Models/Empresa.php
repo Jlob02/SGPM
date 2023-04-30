@@ -39,4 +39,14 @@ class Empresa extends Model
     ];
 
     protected $sortable = ['nome','id'];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function materiaprima()
+    {
+        return $this->hasMany(MateriaPrima::class);
+    }
 }

@@ -15,7 +15,7 @@ Home
             <div class="col-2">
                 <div class="row  ">
                     <div class="col-12 rounded-top-2 m-1 p-1 _navbar text-white p-1 mt-1">
-                        <h4 class="ms-2">Filtros</h4>
+                        <h5 class="ms-2">Filtros</h5>
                     </div>
                 </div>
                 <div class="row">
@@ -74,11 +74,11 @@ Home
                 </div>
             </div>
             <div class="col-10">
-                <div class="row _navbar rounded-top-2 m-1 p-1">
+                <div class="row _nav rounded-top-2 m-1 p-1">
                     <div class="col-9 d-flex align-items-center text-white">
                         Mostrar
                         <div class="me-2 ms-2">
-                            <select class="form-select-sm ">
+                            <select class="form-select form-select-sm ">
                                 <option selected>10</option>
                                 <option value="1">20</option>
                                 <option value="2">30</option>
@@ -101,35 +101,35 @@ Home
                 <div class="row p-1 _list">
                     <div class="col-12 ">
                         @foreach($precos as $preco)
-                        <a href="materia-prima/{{$preco->id}}" class="row m-1 d-flex align-items-center _list_item">
+                        <a href="materia-prima/{{$preco->materiaprima->id}}" class="row m-1 d-flex align-items-center _list_item">
                             <div class="col-11">
                                 <div class="row">
                                     <div class="col-3">
-                                        DESCRIÇÃO : DINPAC 84
+                                        DESCRIÇÃO : {{$preco->materiaprima->designacao}}
                                     </div>
                                     <div class="col-3">
-                                        CÓDIGO: M33 5742
+                                        CÓDIGO : {{$preco->materiaprima->codigo}}
                                     </div>
                                     <div class="col-3">
-                                        FAMILIA :
+                                        FAMILIA : {{$preco->materiaprima->familia->familia}}
                                     </div>
                                     <div class="col-3">
-                                        PREÇO : {{$preco->preco}}
+                                     
                                     </div>
                                     <div class="col-3">
-                                        DATA: 1/04/2023
+                                        DATA : {{$preco->data_inicio}} a {{$preco->data_fim}}
                                     </div>
                                     <div class="col-3">
-                                        EMPRESA: DIN
+                                        EMPRESA : {{$preco->materiaprima->empresa->nome}}
                                     </div>
                                     <div class="col-3">
                                         PAIS : Portugal
                                     </div>
                                     <div class="col-3">
-                                        LOCALIDADE : Coimbra
+                                        PREÇO : {{$preco->preco}}
                                     </div>
                                     <div class="col-12">
-                                        FORNECEDOR : AGRUPACION FAB. ACEITES MARINOS SA
+                                        FORNECEDOR : {{$preco->fornecedor->nome}}
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@ Home
 
                     </div>
                 </div>
-                <div class="row _navbar rounded-bottom-2 m-1 ">
+                <div class="row _nav rounded-bottom-2 m-1 ">
                     <div class="col-12 d-flex align-items-center justify-content-end">
                     @if ($precos->links()->paginator->hasPages())
                         <ul class="pagination mb-0 p-1">

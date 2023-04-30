@@ -22,11 +22,32 @@ class MateriaPrima extends Model
         'desgnacao',
         'codigo',
         'concentracao',
-        'familia',
-        'subfamilia',
+        'familia_id',
+        'subfamilia_id',
         'principio_activo',
         'empresa_id'
     ];
 
-    protected $sortable = ['desgnacao','codigo','id','familia','subfamilia', 'concentracao'];
+    protected $sortable = ['desgnacao', 'codigo', 'id', 'familia', 'subfamilia', 'concentracao'];
+
+    public function familia()
+    {
+        return $this->belongsTo(Familia::class);
+    }
+
+    public function subfamilia()
+    {
+        return $this->belongsTo(SubFamilia::class);
+    }
+
+    public function precos()
+    {
+        return $this->hasMany(Preco::class);
+    }
+
+    public function empresa()
+    {
+
+        return $this->belongsTo(Empresa::class);
+    }
 }

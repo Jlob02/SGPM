@@ -17,20 +17,19 @@
         <header class="row _navbar ">
             <div class="col-12 text-white  p-2 d-flex justify-content-end align-items-center">
                 @auth
-                Olá
                 <span class="ms-1 me-2"> {{Auth::user()->u_nome}}</span> |
                 <a href="/perfil" class="text-white d-flex align-items-center ms-2 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2 bi bi-person-fill" viewBox="0 0 16 16">
-  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-</svg>  Meu perfil</a> |
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                    </svg> Meu perfil</a> |
                 <a href="/logout" class="text-white d-flex align-items-center ms-2 me-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=" me-2 bi bi-box-arrow-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
-  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-</svg> Sair</a> |
-                <ul class="navbar-nav ms-2 me-2 ">
+                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                    </svg> Sair</a> |
+                <ul class="navbar-nav me-2 ">
                     <li class="nav-item dropdown">
-                        <button class="btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="btn text-white dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
                             PT
-                        </button>
+                        </a>
                         <ul class="dropdown-menu ">
                             <li><a class="dropdown-item" href="#">EN</a></li>
                             <li><a class="dropdown-item" href="#">FR</a></li>
@@ -44,14 +43,14 @@
             <div class="col-10 mt-3">
                 <ul class="nav nav-tabs ">
                     <li class="nav-item  me-1 ">
-                        @if (Request::path() =='home')
+                        @if (Request::segment(1) =='home')
                         <a class="nav-link text-black active" aria-current="page" href="/home">Home</a>
                         @else
                         <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" aria-current="page" href="/home">Home</a>
                         @endif
                     </li>
                     <li class="nav-item me-1">
-                        @if (Request::path() =='materia-prima')
+                        @if (Request::segment(1) =='materia-prima')
                         <a class="nav-link text-black active" href="/materia-prima">Matéria-prima</a>
                         @else
                         <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/materia-prima">Matéria-prima</a>
@@ -60,7 +59,7 @@
                     @if(Auth::user()->u_tipo != 3)
                     @if(Auth::user()->u_tipo != 2)
                     <li class="nav-item me-1">
-                        @if (Request::path() =='empresas' or Request::path() =='adicionar-empresa')
+                        @if (Request::segment(1) =='empresas')
                         <a class="nav-link text-black active " href="/empresas">Empresas</a>
                         @else
                         <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/empresas">Empresas</a>
@@ -69,7 +68,7 @@
                     @endif
 
                     <li class="nav-item me-1 ">
-                        @if (Request::path() =='funcionarios' or Request::path() =='adicionar-funcionario')
+                        @if (Request::segment(1) =='funcionarios')
                         <a class="nav-link text-black active" href="/funcionarios">Funcionários</a>
                         @else
                         <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/funcionarios">Funcionários</a>
@@ -77,7 +76,7 @@
                     </li>
                     @endif
                     <li class="nav-item me-1 ">
-                        @if (Request::path() =='fornecedores' or Request::path() =='adicionar-fornecedor')
+                        @if (Request::segment(1) =='fornecedores' )
                         <a class="nav-link text-black active" href="/fornecedores">Fornecedores</a>
                         @else
                         <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/fornecedores">Fornecedores</a>
@@ -91,7 +90,7 @@
             </div>
             @endauth
         </header>
-
+      
         <main>
             @yield('content')
         </main>

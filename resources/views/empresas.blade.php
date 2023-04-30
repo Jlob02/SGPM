@@ -19,7 +19,7 @@ Empresas
                 </div>
             </div>
             <div class="col-12">
-                <div class="row _navbar text-white d-flex  align-items-center rounded-top-2 m-1 p-2">
+                <div class="row _nav text-white d-flex  align-items-center rounded-top-2 m-1 p-2">
 
                     <div class="col-9 d-flex align-items-center text-white">
                         Mostrar
@@ -115,7 +115,7 @@ Empresas
 
                     </div>
                 </div>
-                <div class="row _navbar rounded-bottom-2 m-1 ">
+                <div class="row _nav rounded-bottom-2 m-1 ">
                     <div class="col-12 d-flex align-items-center justify-content-end">
                         @if ($empresas->links()->paginator->hasPages())
                         <ul class="pagination mb-0 p-1">

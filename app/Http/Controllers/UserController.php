@@ -73,7 +73,7 @@ class UserController extends Controller
         $user->password = Hash::make($data['password']);
         $user->u_nome = $data['nome'];
         $user->u_tipo = 1;
-        $user->u_funcao = 1;
+        $user->funcao_id = 1;
         $user->u_estado = 1;
         $user->u_contacto = 910000000;
 
@@ -108,7 +108,7 @@ class UserController extends Controller
         $user->password = Hash::make($data['password']);
         $user->u_nome = $data['nome'];
         $user->u_tipo = $data['tipo'];
-        $user->u_funcao = $data['funcao'];
+        $user->funcao_id = $data['funcao'];
         $user->empresa_id = $data['empresa'];
         $user->u_estado = 1;
         $user->u_contacto = $data['contacto'];
@@ -148,7 +148,7 @@ class UserController extends Controller
 
         $user->u_nome = $data['nome'];
         $user->u_tipo = $data['tipo'];
-        $user->u_funcao = $data['funcao'];
+        $user->funcao_id = $data['funcao'];
         $user->empresa_id = $data['empresa'];
         $user->u_contacto = $data['contacto'];
 
@@ -163,16 +163,14 @@ class UserController extends Controller
 
         $search = $request->input('search');
 
-        $funcoes = Funcao::all();
-        $empresas = Empresa::all();
 
         if (!empty($search)) {
-            $users = User::query()->where('u_nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            $users = User::with('funcao','empresa')->where('u_nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
         } else {
-            $users = User::sortable()->paginate(15);
+            $users = User::with('funcao','empresa')->sortable()->paginate(15);
         }
 
-        return view('funcionarios')->with('users', $users)->with('funcoes', $funcoes)->with('empresas',$empresas);
+        return view('funcionarios')->with('users', $users);
     }
 
     //função para apagar um funcionário

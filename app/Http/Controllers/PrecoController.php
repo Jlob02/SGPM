@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Familia;
 use App\Models\Fornecedor;
 use App\Models\Preco;
-use App\Http\Requests\StoreMateriaPrimaRequest;
-use App\Http\Requests\UpdateMateriaPrimaRequest;
+use App\Models\MateriaPrima;
 use App\Models\SubFamilia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +38,7 @@ class PrecoController extends Controller
         $preco->data_inicio = $data['data_inicio'];
         $preco->data_fim = $data['data_fim'];
         $preco->empresa_id = Auth::User()->empresa_id;
-        $preco->materia_prima_id = $request->id;
+        $preco->materiaprima_id = $request->id;
         
         $preco->save();
 
@@ -54,16 +53,15 @@ class PrecoController extends Controller
         $search = $request->input('search');
 
         if (!empty($search)) {
-            $precos = Preco::query()->where('desgnacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            $precos = Preco::with('materiaprima','fornecedor')->where('desgnacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
         } else {
-            $precos = Preco::query()->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+            $precos = Preco::with('materiaprima','fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         }
 
         $fornecedores = Fornecedor::all();
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
-
-
+        
         return view('materia-prima')->with('precos', $precos)->with( 'fornecedores', $fornecedores )->with('subfamilias', $subfamila)->with('familias',$famila);
     }
 

@@ -21,4 +21,9 @@ class SubFamilia extends Model
         'id',
         'subfamilia',
     ];
+
+    public function materiasprimas()
+    {
+        return $this->hasMany(MateriaPrima::class);
+    }
 }
