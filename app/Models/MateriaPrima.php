@@ -19,7 +19,7 @@ class MateriaPrima extends Model
      */
     protected $fillable = [
         'id',
-        'desgnacao',
+        'designacao',
         'codigo',
         'concentracao',
         'familia_id',

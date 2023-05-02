@@ -49,15 +49,14 @@
         </div>
         @endif
 
-        <div class="form-floating">
-          <input type="email" name='email' class="form-control mb-2" id="floatingInput" placeholder="name@example.com" value='{{old("email")}}'>
-          <label for="floatingInput">Email address</label>
+        <div class="form-floatin">
+        
+          <input type="email" name='email' class="form-control bg-body-secondary mb-2"  placeholder="Email" value='{{old("email")}}'>
+
         </div>
-
-
         <div class="text-end">
-          <a class="w-25 mb-4 btn btn-lg btn-secondary" href="/login">Cancelar</a>
-          <button class="w-25 mb-4 btn btn-lg btn-primary" type="submit">Recuperar</button>
+          <a class=" mb-4 btn b btn-secondary" href="/login">Cancelar</a>
+          <button class=" mb-4 btn  btn-primary" type="submit">Recuperar</button>
         </div>
       </form>
     </main>
@@ -69,7 +68,7 @@
     </div>
     <div class="row">
       <div class="col-12 fixed-bottom">
-        <p class="mb-3 text-body-secondary text-center">&copy; Sistema de gestão de preços de matéria-prima 2023</p>
+        <p class="mb-3 text-body-secondary text-center">&copy; Sistema de gestão de preços de mercado de matérias-primas 2023</p>
       </div>
     </div>
   </div>

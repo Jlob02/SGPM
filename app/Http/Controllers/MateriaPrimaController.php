@@ -18,8 +18,8 @@ class MateriaPrimaController extends Controller
         $data = $request->validate(
             [
 
-                'designacao' => ['required', 'unique:materias_primas'],
-                'codigo' => ['required', 'unique:materias_primas'],
+                'designacao' => ['required', 'unique:materiasprimas'],
+                'codigo' => ['required', 'unique:materiasprimas'],
                 'concentracao' => ['required'],
                 'familia' => ['required'],
                 'subfamilia' => ['required'],
@@ -50,13 +50,11 @@ class MateriaPrimaController extends Controller
     //função para registar matéria-prima  
     public function alterar_materia_prima(Request $request)
     {
-
-
         $data = $request->validate(
             [
 
-                'designacao' => ['required', "unique:materias_primas,designacao,$request->id"],
-                'codigo' => ['required', "unique:materias_primas,codigo,$request->id"],
+                'designacao' => ['required'], // "unique:materiasprimas,designacao,$request->id"
+                'codigo' => ['required'], //, "unique:materiasprimas,codigo,$request->id"
                 'concentracao' => ['required'],
                 'familia' => ['required'],
                 'subfamilia' => ['required'],
@@ -88,22 +86,28 @@ class MateriaPrimaController extends Controller
     public function materias_primas(Request $request)
     {
         $search = $request->input('search');
-
-        if (!empty($search)) {
-            $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('desgnacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
-        } else {
-            $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
-        }
-
         $fornecedores = Fornecedor::all();
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
 
+
+        if (!empty($search)) {
+            if (Auth::User()->u_tipo == 1) {
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('designacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            } else {
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('deisgnacao', 'LIKE', "%{$search}%", 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+            }
+        } else {
+            if (Auth::User()->u_tipo == 1) {
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->sortable()->paginate(15);
+            } else {
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+            }
+        }
         return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
     }
 
     //função para apagar uma matéria-prima 
-
     public function apagar_materia_prima(Request $request)
     {
         $materiaprima = MateriaPrima::where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
@@ -129,10 +133,11 @@ class MateriaPrimaController extends Controller
     //função para retornar os dados da matéria-prima 
     public function precos_materias_primas(Request $request)
     {
-        $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('id', '=', $request->codigo)->first();
-        $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', '=', $request->codigo)->sortable()->paginate(15);
+        $id = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->pluck('id')->toArray();
+        $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->first();
 
-        // dd($precos);
+        $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id )->sortable()->paginate(15);
+
         return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos);
     }
 

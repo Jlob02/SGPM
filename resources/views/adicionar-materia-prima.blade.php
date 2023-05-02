@@ -7,13 +7,13 @@ Adicionar Materia-prima
 @section('content')
 
 <!--main content-->
-<div class="row mt-4">
+<div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-between">
+        <div class="row bg-white shadow m-1 p-2">
+            <div class="col-12 d-flex justify-content-between align-items-cente _text">
                 Funcionarios > Adicionar matéria-prima
-                <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
+                <a href="/materia-prima" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class="row ">
@@ -30,14 +30,15 @@ Adicionar Materia-prima
                 </div>
                 @endif
             </div>
+
             <div class="collapse" id="collapse1">
                 <div class="col-12 ">
-                    <div class="_navbar p-4 rounded-2">
+                    <div class="bg-white shadow p-3 m-1">
                         <form class="row " action="/materia-prima/adicionar/familia" method="post">
                             @csrf
-                            <div class="col-12 d-flex justify-content-center align-items-cente gap-2">
-                                <input type="text" name="familia" class="form-control form-control-sm w-25  " placeholder="Familia">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="col-12 d-flex justify-content-center align-items-center gap-2">
+                                <input type="text" name="familia" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="Familia">
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -45,12 +46,12 @@ Adicionar Materia-prima
             </div>
             <div class="collapse" id="collapse2">
                 <div class="col-12 mt-1">
-                    <div class="_navbar p-4 rounded-2">
+                    <div class="bg-white shadow p-3 m-1">
                         <form class="row " action="/materia-prima/adicionar/subfamilia" method="post">
                             @csrf
-                            <div class="col-12 d-flex justify-content-center align-items-cente gap-2">
-                                <input type="text" name="subfamilia" class="form-control form-control-sm w-25  " placeholder="Sub-Familia">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="col-12 d-flex justify-content-center align-items-center gap-2">
+                                <input type="text" name="subfamilia" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Sub-Familia">
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -58,10 +59,10 @@ Adicionar Materia-prima
             </div>
         </div>
 
-        <div class="row m-1">
+        <div class="row bg-white shadow p-3 m-1">
 
             <div class="col-12 ">
-                <div class="row _navbar text-white d-flex justify-content-center rounded-2">
+                <div class="row d-flex justify-content-center _text ">
                     <div class="col-7 d-flex mt-5 p-4">
 
                         <form class="row g-2" method="post" action="/materia-prima/adicionar">
@@ -70,7 +71,7 @@ Adicionar Materia-prima
                                 <label for="inputName" class="col-sm-2 col-form-label">Designação</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="designacao" class="form-control" placeholder="" value='{{old("designacao")}}' />
+                                <input type="text" name="designacao" class="form-control bg-body-secondary " placeholder="" value='{{old("designacao")}}' />
                             </div>
 
 
@@ -79,7 +80,7 @@ Adicionar Materia-prima
                                 </label>
                             </div>
                             <div class="col-5">
-                                <select class="form-select" name="familia">
+                                <select class="form-select bg-body-secondary " name="familia">
                                     @foreach($familias as $familia)
                                     <option value="{{$familia->id}}">{{$familia->familia}}</option>
                                     @endforeach
@@ -97,7 +98,7 @@ Adicionar Materia-prima
                                 </label>
                             </div>
                             <div class="col-5">
-                                <select name="subfamilia" class="form-select">
+                                <select name="subfamilia" class="form-select bg-body-secondary ">
                                     @foreach($subfamilias as $subfamilia)
                                     <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
                                     @endforeach
@@ -114,7 +115,7 @@ Adicionar Materia-prima
                                 Código Europeu
                             </div>
                             <div class="col-9">
-                                <input type="text" name="codigo" class="form-control" value='{{old("codigo")}}' />
+                                <input type="text" name="codigo" class="form-control bg-body-secondary " value='{{old("codigo")}}' />
                             </div>
 
                             <div class="col-3">
@@ -122,7 +123,7 @@ Adicionar Materia-prima
                             </div>
 
                             <div class="col-2">
-                                <input type="float" name="concentracao" class="form-control" value='{{old("concentracao")}}' />
+                                <input type="float" name="concentracao" class="form-control bg-body-secondary " value='{{old("concentracao")}}' />
                             </div>
 
                             <div class="col-7  d-flex align-items-center ">
@@ -133,7 +134,7 @@ Adicionar Materia-prima
                                 Principio ativo
                             </div>
                             <div class="col-9">
-                                <input type="text" name="principio_activo" class="form-control" value='{{old("principio_activo")}}' />
+                                <input type="text" name="principio_activo" class="form-control bg-body-secondary " value='{{old("principio_activo")}}' />
                             </div>
 
                             <div class="col-12 mt-4 mb-4 text-end">

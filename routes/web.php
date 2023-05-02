@@ -27,10 +27,8 @@ Route::get('/', function () {
     if ($result->isEmpty()) {
         return view('registar-admin');
     }
-    if (Auth::check()) {
-        return  redirect('home');
-    }
-    return view('login');
+
+    return redirect('login');
 });
 
 //routes de autentincação login e logout
@@ -58,51 +56,59 @@ Route::get('recuperar-password', function () {
 
 //groupo de routes para verificar se o utilizar esta autenticado
 Route::middleware(['auth'])->group(function () {
+
     //route para a página inicial
     Route::get('home', [PrecoController::class, 'precos']);
 
-
     Route::get('perfil', [UserController::class, 'perfil']);
 
-    //routes para os funcionários
-    Route::get('funcionarios', [UserController::class, 'funcionarios']);
 
-    Route::delete('funcionarios/apagar/{id}', [UserController::class, 'apagar_funcionario']);
+    //groupo de routes para verificar se o utilizar é administrador e administrador de empresa
+    Route::middleware(['permission.admin.empresa'])->group(function () {
 
-    Route::post('funcionarios/alterar/{id}/{estado}', [UserController::class, 'alterar_estado_funcionario']);
+        //routes para os funcionários
+        Route::get('funcionarios', [UserController::class, 'funcionarios']);
 
-    //route para adicionar funcionario
-    Route::post('funcionarios/adicionar', [UserController::class, 'registar']);
+        Route::delete('funcionarios/apagar/{id}', [UserController::class, 'apagar_funcionario']);
 
-    Route::get('funcionarios/adicionar', [UserController::class, 'veiw_adicionar_funcionario']);
+        Route::post('funcionarios/alterar/{id}/{estado}', [UserController::class, 'alterar_estado_funcionario']);
 
-    Route::get('funcionarios/alterar/{id}', [UserController::class, 'dados_funcionario']);
+        Route::post('funcionarios/adicionar', [UserController::class, 'registar']);
 
-    Route::post('funcionarios/alterar/{id}', [UserController::class, 'alterar_funcionario']);
+        Route::get('funcionarios/adicionar', [UserController::class, 'veiw_adicionar_funcionario']);
 
-    Route::post('funcionarios/adicionar/funcao', [UserController::class, 'adicionar_funcao']);
+        Route::get('funcionarios/alterar/{id}', [UserController::class, 'dados_funcionario']);
 
+        Route::post('funcionarios/alterar/{id}', [UserController::class, 'alterar_funcionario']);
 
-    //routes para empresas -------------------------
+        Route::post('funcionarios/adicionar/funcao', [UserController::class, 'adicionar_funcao']);
 
-    Route::get('empresas', [EmpresaController::class, 'empresas']);
-
-    Route::delete('empresas/apagar/{id}', [EmpresaController::class, 'apagar_empresa']);
-
-    Route::post('empresas/alterar/{id}/{estado}', [EmpresaController::class, 'alterar_estado_empresa']);
-
-    Route::post('empresas/adicionar', [EmpresaController::class, 'registar_empresa']);
-
-    Route::get('empresas/adicionar', function () {
-        return view('adicionar-empresa');
     });
 
-    Route::post('empresas/alterar/{id}', [EmpresaController::class, 'alterar_empresa']);
+    //groupo de routes para verificar se o utilizar é administrador 
+    Route::middleware(['permission.admin'])->group(function () {
 
-    Route::get('empresas/alterar/{id}', [EmpresaController::class, 'dados_empresa']);
+        //routes para empresas -------------------------
 
-    //fim routes para empresas ------------------------
+        Route::get('empresas', [EmpresaController::class, 'empresas']);
 
+        Route::delete('empresas/apagar/{id}', [EmpresaController::class, 'apagar_empresa']);
+
+        Route::post('empresas/alterar/{id}/{estado}', [EmpresaController::class, 'alterar_estado_empresa']);
+
+        Route::post('empresas/adicionar', [EmpresaController::class, 'registar_empresa']);
+
+        Route::get('empresas/adicionar', function () {
+            return view('adicionar-empresa');
+        });
+
+        Route::post('empresas/alterar/{id}', [EmpresaController::class, 'alterar_empresa']);
+
+        Route::get('empresas/alterar/{id}', [EmpresaController::class, 'dados_empresa']);
+
+        //fim routes para empresas ------------------------
+
+    });
 
     //route para matéria-prima ------------------------
     Route::get('materia-prima', [MateriaPrimaController::class, 'materias_primas']);
@@ -127,7 +133,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('materia-prima/adicionar/subfamilia', [MateriaPrimaController::class, 'adicionar_subfamilia']);
 
-
     Route::get('materia-prima/{codigo}', [MateriaPrimaController::class, 'precos_materias_primas']);
 
     //fim route para matéria-prima -------------------------
@@ -149,4 +154,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('fornecedores/alterar/{id}', [FornecedorController::class, 'alterar_fornecedor']);
 
     //fim routes para fornecedores------------------------------
+
+
+    //routes para fórum------------------------------
+    Route::get('forum', function () {
+        return view('forum');
+    });
+
+    //fim routes para fórum------------------------------
+
 });

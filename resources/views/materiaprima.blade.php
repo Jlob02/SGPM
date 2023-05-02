@@ -7,10 +7,10 @@ Empresas
 @section('content')
 
 <!--main content-->
-<div class="row mt-4">
+<div class="row bg-white">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-12 d-flex justify-content-between">
                 Materia-prima > @isset($materiaprima) {{$materiaprima->designacao}} @endisset
                 <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
@@ -29,9 +29,11 @@ Empresas
                 </div>
                 @endif
             </div>
+
             <div class="col-12">
 
                 <div class="row">
+
                     <div class="col-12">
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
                             <h4>@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h4>
@@ -42,11 +44,10 @@ Empresas
                                 </button>
                             </div>
                         </div>
-
                         <canvas class="" id="myChart" width="900" height="270"></canvas>
                     </div>
-                    <div class="col-12">
 
+                    <div class="col-12">
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h4>Tabela de preços</h4>
 
@@ -58,13 +59,10 @@ Empresas
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="table-responsive">
                             @isset($precos)
-                            @if(count($precos ) == 0)
-                                lista vazia
-                            @else
                             <table class="table table-striped table-sm">
-                                
                                 <thead>
                                     <tr>
                                         <th>Pais</th>
@@ -94,7 +92,6 @@ Empresas
                                     @endforeach
                                 </tbody>
                             </table>
-                            @endif
                             @endisset
                         </div>
                     </div>

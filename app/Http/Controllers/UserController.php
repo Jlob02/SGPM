@@ -25,26 +25,34 @@ class UserController extends Controller
                 'password.required' => ' Tem que introduzir uma password'
             ]
         );
+
         //implementa o remember-me
         $remember_me = $request->has('remember_me') ? true : false;
 
         //verifica as credenciais e tenta fazer o login
-        if (Auth::attempt($credentials, $remember_me)) {
+        if (Auth::attempt($credentials, $remember_me )) {
+            
+            if (auth()->user()->u_estado == 0) {
+                auth()->logout();
+                return back()->withErrors(['erro' => 'Utilizador inativo']);
+            }
+
             $user = User::where('email', $request->email)->first();
 
             Auth::login($user);
             $request->session()->regenerate();
 
             return redirect('/home');
-        } else {
-            return back()->withErrors(['erro' => 'Email ou password inválidos']);
         }
+
+        return back()->withErrors(['erro' => 'Email ou password inválidos']);
     }
+
+
     //função para fazer o logout do utilizador
 
     public function logout(Request $request)
     {
-
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
@@ -122,22 +130,24 @@ class UserController extends Controller
     //função para alterar um funcionario 
     public function alterar_funcionario(Request $request)
     {
-        $data = $request->validate([
-            'nome' => ['required'],
-            'email' => ['required', 'email', "unique:users,email,$request->id"],
-            'funcao' => ['required'],
-            'tipo' => ['required'],
-            'empresa' => ['required'],
-            'contacto' => ['required', 'max:9'],
-        ], 
-        [
-            'nome.required' => 'Deve introduzir o nome do funcionário',
-            'email.required' => 'Deve introduzir o email do funcionário',
-            'email.unique' => 'Ja existe um funcionário com conta associada a este email',
-            'password.required' => 'Deve introduzir uma password',
-            'emali.email' => 'Deve introduzir um email válido',
-            'empresa.required' => 'Deve selecionar um empresa',
-        ]);
+        $data = $request->validate(
+            [
+                'nome' => ['required'],
+                'email' => ['required', 'email', "unique:users,email,$request->id"],
+                'funcao' => ['required'],
+                'tipo' => ['required'],
+                'empresa' => ['required'],
+                'contacto' => ['required', 'max:9'],
+            ],
+            [
+                'nome.required' => 'Deve introduzir o nome do funcionário',
+                'email.required' => 'Deve introduzir o email do funcionário',
+                'email.unique' => 'Ja existe um funcionário com conta associada a este email',
+                'password.required' => 'Deve introduzir uma password',
+                'emali.email' => 'Deve introduzir um email válido',
+                'empresa.required' => 'Deve selecionar um empresa',
+            ]
+        );
 
         $user = User::where('id', '=', $request->id)->first();
         $user->email = $data['email'];
@@ -160,14 +170,18 @@ class UserController extends Controller
     //funcao para retornar todos funcionários
     public function funcionarios(Request $request)
     {
-
         $search = $request->input('search');
 
-
         if (!empty($search)) {
-            $users = User::with('funcao','empresa')->where('u_nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            if (Auth::User()->u_tipo == 1)
+                $users = User::with('funcao', 'empresa')->where('u_nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            else
+                $users = User::with('funcao', 'empresa')->where('u_nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
         } else {
-            $users = User::with('funcao','empresa')->sortable()->paginate(15);
+            if (Auth::User()->u_tipo == 1)
+                $users = User::with('funcao', 'empresa')->sortable()->paginate(15);
+            else
+                $users = User::with('funcao', 'empresa')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         }
 
         return view('funcionarios')->with('users', $users);
@@ -189,7 +203,6 @@ class UserController extends Controller
 
     public function alterar_estado_funcionario(Request $request)
     {
-
         if (Auth::user()->u_tipo == 1) {
             $user = User::where('id', '=', $request->id)->first();
         }
@@ -208,7 +221,6 @@ class UserController extends Controller
     //função para retornar os dados do funcionário
     public function dados_funcionario(Request $request)
     {
-
         if (Auth::user()->u_tipo == 1) {
             $user = User::where('id', '=', $request->id)->first();
         }
@@ -232,7 +244,7 @@ class UserController extends Controller
 
         return  redirect()->back()->with('success', 'Função registada com sucesso');
     }
-   
+
 
     //função para retornar a view adicionar funcionario 
     public function  veiw_adicionar_funcionario(Request $request)
@@ -240,13 +252,13 @@ class UserController extends Controller
         $funcoes = Funcao::all();
         $empresas = Empresa::all();
 
-        return  view('adicionar-funcionario')->with('funcoes', $funcoes)->with('empresas',$empresas);
+        return  view('adicionar-funcionario')->with('funcoes', $funcoes)->with('empresas', $empresas);
     }
 
     //função para retornar o perfil do utilizador
     public function  perfil(Request $request)
     {
         $user = User::where('id', '=', Auth::user()->id)->first();
-        return  view('perfil')->with('user',$user);
+        return  view('perfil')->with('user', $user);
     }
 }

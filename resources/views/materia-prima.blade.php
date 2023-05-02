@@ -15,19 +15,19 @@ Matéria-prima
         <div class="row">
             <div class="col-12  mt-0 text-center">
                 @if($errors->any())
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-warning mb-0" role="alert">
                     {{$errors->first()}}
                 </div>
                 @endif
                 @if (\Session::has('success'))
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success mb-0" role="alert">
                     {{session('success')}}
                 </div>
                 @endif
             </div>
         </div>
 
-        <div class="row m-1 mt-0">
+        <div class="row m-1">
             <div class="col-12 bg-body-secondary">
                 <span id="adicionar_preco">
 
@@ -36,15 +36,17 @@ Matéria-prima
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 m-1 mt-0">
-                <a href="/materia-prima/adicionar" class="btn btn-primary btn-sm bg-info bg-gradient ">Adicionar matéria-prima</a>
-                <a href="/materia-prima" class="btn btn-primary btn-sm bg-info bg-gradient">Listar matérias-primas</a>
-                <a href="/materia-prima/precos" class="btn btn-primary btn-sm bg-info bg-gradient">Listar preços</a>
+
+
+        <div class="row m-1">
+            <div class="col-12 ms-0 m-1 p-2 mt-0 bg-white shadow">
+                <a href="/materia-prima/adicionar" class="btn btn-sm _nav ">Adicionar matéria-prima</a>
+                <a href="/materia-prima" class="btn btn-primary btn-sm _nav">Listar matérias-primas</a>
+                <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Listar preços</a>
             </div>
 
             <div class="col-12">
-                <div class="row _navbar text-white d-flex  align-items-center rounded-top-2 m-1 p-2">
+                <div class="row _navbar  d-flex  align-items-center bg-white shadow p-2">
                     <div class=" mt-2 mb-2 col-2">
                         <h6>Ordenar por</h6>
                     </div>
@@ -62,7 +64,7 @@ Matéria-prima
                     </div>
 
                     <div class=" col-2">
-                        <select class="form-select form-select-sm">
+                        <select class="form-select form-select-sm bg-body-secondary">
                             <option selected>Ordenar por</option>
                             <option value="1">20</option>
                             <option value="2">30</option>
@@ -71,7 +73,7 @@ Matéria-prima
                     </div>
 
                     <div class="col-2 ">
-                        <select class="form-select form-select-sm">
+                        <select class="form-select form-select-sm bg-body-secondary">
                             <option selected>Familia</option>
                             @isset($familias)
                             @foreach($familias as $familia)
@@ -82,7 +84,7 @@ Matéria-prima
                     </div>
 
                     <div class="col-2 ">
-                        <select class="form-select form-select-sm">
+                        <select class="form-select form-select-sm bg-body-secondary">
                             <option selected>Sub-familia</option>
                             @isset($subfamilias)
                             @foreach($subfamilias as $subfamilia)
@@ -93,7 +95,7 @@ Matéria-prima
                     </div>
 
                     <div class="col-2">
-                        <select class="form-select form-select-sm">
+                        <select class="form-select form-select-sm bg-body-secondary">
                             <option selected>Fornecedor</option>
                             @isset($fornecedores)
                             @foreach($fornecedores as $fornecedor)
@@ -104,9 +106,9 @@ Matéria-prima
                     </div>
 
                     <div class="col-4 d-flex">
-                        <input class="form-control form-control-sm" type="date">
+                        <input class="form-control form-control-sm bg-body-secondary" type="date">
 
-                        <input class="ms-1 form-control form-control-sm" type="date">
+                        <input class="ms-1 form-control form-control-sm bg-body-secondary" type="date">
 
                         <button class="ms-2 btn btn-sm rounded-2 btn-success btn-sm" type="submit">Filtrar</button>
                     </div>
@@ -114,7 +116,7 @@ Matéria-prima
                     <div class="col-9 d-flex align-items-center">
                         Mostrar
                         <div class="me-2 ms-2">
-                            <select class="form-select form-select-sm ">
+                            <select class="form-select form-select-sm bg-body-secondary">
                                 <option selected>10</option>
                                 <option value="1">20</option>
                                 <option value="2">30</option>
@@ -126,8 +128,8 @@ Matéria-prima
 
                     <div class="col-3 mt-3">
                         <form class="d-flex" role="search">
-                            <input class="form-control form-control-sm me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-                            <button class="btn rounded-5 btn-success " type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <input class="form-control form-control-sm me-2 bg-body-secondary" type="search" placeholder="Pesquisar" aria-label="Search">
+                            <button class="btn btn-sm rounded-5 btn-success " type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg></button>
                         </form>
@@ -135,21 +137,21 @@ Matéria-prima
 
                 </div>
 
-                <div class="row p-1 _list">
-                    <div class="col-12 ">
-
+                <div class="row mt-2 _list ">
+                    <div class="col-12 bg-white shadow">
                         @isset($materias_primas)
-                        <table class=" table-sm table table-hover">
-
-                            <tr class="text-start">
-                                <th>Designação</th>
-                                <th>Codigo</th>
-                                <th>Familia</th>
-                                <th>SubFamilia</th>
-                                <th>Concentração %</th>
-                                <th>Principio ativo</th>
-                                <th>Opções</th>
-                            </tr>
+                        <table class="table table-striped table-sm table-hover">
+                            <thead>
+                                <tr class="text-start">
+                                    <th>Designação</th>
+                                    <th>Codigo</th>
+                                    <th>Familia</th>
+                                    <th>SubFamilia</th>
+                                    <th>Concentração %</th>
+                                    <th>Principio ativo</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
                             <tbody class="table-group-divider">
                                 @foreach($materias_primas as $materia_prima)
                                 <tr>
@@ -160,7 +162,7 @@ Matéria-prima
                                     <td>{{$materia_prima->concentracao}}</td>
                                     <td>{{$materia_prima->principio_activo}}</td>
                                     <td class=" d-flex justify-content-around">
-                                        <button onclick='adicionar_preco("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="badge rounded-pill text-bg-success " type="button">
+                                        <button onclick='adicionar_preco("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="btn btn-sm badge  btn-success " type="button">
                                             Adicionar preço
                                         </button>
 
@@ -183,22 +185,22 @@ Matéria-prima
                                     </td>
                                 </tr>
                                 @endforeach
-
                         </table>
                         @endisset
 
                         @isset($precos)
-                        <table class=" table-sm table table-hover">
-
-                            <tr class="text-start">
-                                <th>Materia prima</th>
-                                <th>Fornecedor</th>
-                                <th>preco</th>
-                                <th>Unidade</th>
-                                <th>Data de inicio</th>
-                                <th>Data de fim</th>
-                                <th>Opções</th>
-                            </tr>
+                        <table class="table table-striped table-sm table-hover">
+                            <thead>
+                                <tr class="text-start">
+                                    <th>Materia prima</th>
+                                    <th>Fornecedor</th>
+                                    <th>preco</th>
+                                    <th>Unidade</th>
+                                    <th>Data de inicio</th>
+                                    <th>Data de fim</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
                             <tbody class="table-group-divider">
                                 @foreach($precos as $preco)
                                 <tr>
@@ -231,16 +233,16 @@ Matéria-prima
                         @endisset
                     </div>
                 </div>
-                <div class="row _navbar rounded-bottom-2 m-1 ">
+                <div class="row bg-white shadow mt-2 p-1">
                     <div class="col-12 d-flex align-items-center justify-content-end">
                         @isset($materias_primas)
                         @if ($materias_primas->links()->paginator->hasPages())
-                        <ul class="pagination mb-0 p-1">
+                        <ul class="pagination mb-0">
                             {{ $materias_primas->onEachSide(3)->links() }}
                         </ul>
                         @else
                         <nav aria-label="Page navigation ">
-                            <ul class="pagination mb-0 p-1">
+                            <ul class="pagination mb-0 ">
                                 <li class="page-item">
                                     <a class="page-link disabled" href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
@@ -294,7 +296,7 @@ Matéria-prima
         document.getElementById("adicionar_preco").innerHTML = `
         <form action="/materia-prima/preco/` + id + `" method="post">
                     @csrf
-                    <div class="row border-1 border-black p-2">
+                    <div class="row bg-white shadow border-black p-2">
                         <div class="col-12 text-end">
                             <button type="button" class="btn-close" aria-label="Close" onclick="fechar()"></button>
                         </div>
@@ -306,9 +308,9 @@ Matéria-prima
                             Preço de mercado:
                             <div class="d-flex w-25">
  
-                                <input name="preco" class="form-control form-control-sm" type="text" />
+                                <input name="preco" class="form-control form-control-sm bg-body-secondary" type="text" />
 
-                                <select name="unidade" class="w-25 ms-3 form-select form-select-sm ">
+                                <select name="unidade" class="w-25 ms-3 form-select form-select-sm bg-body-secondary">
                                 <option value="1" selected>Kg</option>
                                 <option value="2">T</option>
                                 </select>
@@ -318,8 +320,8 @@ Matéria-prima
 
                             <div class="d-flex justify-content-between ">
                                 
-                                <select name="fornecedor" class="ms-1 form-select form-select-sm ">
-                                    <option valuse="1" selected>Fornecedor</option>
+                                <select name="fornecedor" class="ms-1 form-select form-select-sm bg-body-secondary">
+                                    <option selected>Fornecedor</option>
                                     @isset($fornecedores)
                                     @foreach($fornecedores as $fornecedor)
                             <option value="{{$fornecedor->id}}">{{$fornecedor->nome}}</option>
@@ -331,9 +333,9 @@ Matéria-prima
                             Periodo:
 
                             <div class="d-flex align-items-center w-25">
-                                <input name="data_inicio" class="me-2 form-control form-control-sm" type="date">
+                                <input name="data_inicio" class="me-2 form-control form-control-sm bg-body-secondary" type="date">
                                 a
-                                <input name="data_fim" class="form-control form-control-sm ms-2" type="date">
+                                <input name="data_fim" class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
                             </div>
                         </div>
 
@@ -369,13 +371,13 @@ Matéria-prima
 
         document.getElementById("add").innerHTML += `
         
-                        <div class="col-12 d-flex justify-content-lg-between align-items-center">
+                        <div class="col-12 d-flex justify-content-lg-between align-items-center mt-1">
                             Preço de mercado:
                             <div class="d-flex w-25">
  
-                                <input name="preco" class="form-control form-control-sm" type="text" />
+                                <input name="preco" class="form-control form-control-sm bg-body-secondary" type="text" />
 
-                                <select name="unidade" class="w-25 ms-3 form-select form-select-sm ">
+                                <select name="unidade" class="w-25 ms-3 form-select form-select-sm bg-body-secondary ">
                                 <option value="1" selected>Kg</option>
                                 <option value="2">T</option>
                                 </select>
@@ -385,8 +387,8 @@ Matéria-prima
 
                             <div class="d-flex justify-content-between ">
                                 
-                                <select name="fornecedor" class="ms-1 form-select form-select-sm ">
-                                    <option value="1" selected>Fornecedor</option>
+                                <select name="fornecedor" class="ms-1 form-select form-select-sm bg-body-secondary">
+                                    <option selected>Fornecedor</option>
                                     @isset($fornecedores)
                                     @foreach($fornecedores as $fornecedor)
                             <option value="{{$fornecedor->id}}">{{$fornecedor->nome}}</option>
@@ -398,9 +400,9 @@ Matéria-prima
                             Periodo:
 
                             <div class="d-flex align-items-center w-25">
-                                <input name="data_inicio" class="me-2 form-control form-control-sm" type="date">
+                                <input name="data_inicio" class="me-2 form-control form-control-sm bg-body-secondary" type="date">
                                 a
-                                <input name="data_fim" class="form-control form-control-sm ms-2" type="date">
+                                <input name="data_fim" class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
                             </div>
                         </div>`;
 

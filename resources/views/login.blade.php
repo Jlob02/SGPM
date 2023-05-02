@@ -18,7 +18,7 @@
     <div class="row">
       <div class="col-12 fixed-top d-flex justify-content-end p-4">
         <div class="dropdown">
-          <button class="btn bg-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-sm bg-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             PT
           </button>
           <ul class="dropdown-menu">
@@ -73,7 +73,7 @@
     </div>
     <div class="row">
       <div class="col-12 fixed-bottom">
-        <p class="mb-3 text-body-secondary text-center">&copy; Sistema de gestão de preços de matéria-prima 2023</p>
+        <p class="mb-3 text-body-secondary text-center">&copy; Sistema de gestão de preços de mercado de matérias-primas 2023</p>
       </div>
     </div>
   </div>

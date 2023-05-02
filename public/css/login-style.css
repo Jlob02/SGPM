@@ -1,8 +1,9 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 html,
 body {
   height: 100%;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 body {
@@ -17,14 +18,12 @@ body {
   max-width: 330px;
   padding: 30px;
   background-color: whitesmoke;
-  border-radius: 2%;
 }
 
 .form-recuperar {
   max-width: 600px;
-  padding: 15px;
+  padding: 30px;
   background-color: white;
-  border-radius: 1%;
 }
 
 .form-signin .form-floating:focus-within {

@@ -55,7 +55,7 @@ class FornecedorController extends Controller
             'contacto.required' => 'Deve introduzir o contacto do fornecedor',
         ]);
 
-        $fornecedor = Fornecedor::where('id', '=', $request->id ,'AND' , 'empresa_id', '=', Auth::User()->empresa_id)->first();
+        $fornecedor = Fornecedor::where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
         $fornecedor->nome = $data['nome'];
         $fornecedor->email = $data['email'];
         $fornecedor->contacto = $data['contacto'];
@@ -70,9 +70,15 @@ class FornecedorController extends Controller
         $search = $request->input('search');
 
         if (!empty($search)) {
-            $fornecedores = Fornecedor::query()->where('nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            if (Auth::User()->u_tipo == 1)
+                $fornecedores = Fornecedor::query()->where('nome', 'LIKE', "%{$search}%")->sortable()->paginate(15);
+            else
+                $fornecedores = Fornecedor::query()->where('nome', 'LIKE', "%{$search}%", 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         } else {
-            $fornecedores = Fornecedor::query()->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+            if (Auth::User()->u_tipo == 1)
+                $fornecedores = Fornecedor::query()->sortable()->paginate(15);
+            else
+                $fornecedores = Fornecedor::query()->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         }
 
         return view('fornecedores')->with('fornecedores', $fornecedores);
@@ -82,9 +88,9 @@ class FornecedorController extends Controller
 
     public function apagar_fornecedor(Request $request)
     {
-        $fornecedor = Fornecedor::where('id', '=', $request->id , 'AND', 'empresa_id', '=', Auth::User()->empresa_id )->first();
+        $fornecedor = Fornecedor::where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
 
-        if ( $fornecedor != null) {
+        if ($fornecedor != null) {
             $fornecedor->delete();
             return  redirect()->back()->with('success', 'Fornecedor apagado com sucesso');
         }
@@ -100,5 +106,4 @@ class FornecedorController extends Controller
         }
         return view('alterar-fornecedor')->with('fornecedor', $fornecedor);
     }
-
 }

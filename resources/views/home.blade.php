@@ -7,78 +7,71 @@ Home
 @section('content')
 
 <!--main content-->
-<div class="row mt-4">
+<div class="row">
     <div class="col-1">
     </div>
     <div class="col-10">
-        <div class="row">
-            <div class="col-2">
-                <div class="row  ">
-                    <div class="col-12 rounded-top-2 m-1 p-1 _navbar text-white p-1 mt-1">
-                        <h5 class="ms-2">Filtros</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 bg-body-tertiary m-1 p-2 d-flex justify-content-center rounded-bottom-2 _filtros">
+        <div class="row m-1 g-4">
+            <div class="col-3">
+                <div class="row ">
+                    <form class="col-12  p-4 shadow bg-white p-1 mt-1" action="/home" method="get">
+                        <h4 class="mb-2">Filtros</h4>
 
-                        <form class="row">
-                            <div class="col-12">
-                                <div class="btn-group bg-white mb-2 w-100">
-                                    <select class="form-select form-select-sm" aria-label="Default select example">
-                                        <option selected>Empresa</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="btn-group mt-2 w-100">
+                            <select name="empresa_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
+                                <option value="0" selected>Empresa</option>
+                                @isset($empresas)
+                                @foreach($empresas as $empresa)
+                                <option value="{{$empresa->id}}">{{$empresa->nome}}</option>
+                                @endforeach
+                                @endisset
+                            </select>
+                        </div>
 
-                            <div class="col-12 ">
-                                <div class="btn-group bg-white mb-2 w-100">
-                                    <select class="form-select form-select-sm" aria-label="Default select example">
-                                        <option selected>Pais</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="btn-group bg-white mb-2 w-100">
-                                    <select class="form-select form-select-sm" aria-label="Default select example">
-                                        <option selected>Familia</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="btn-group bg-white mb-2 w-100">
-                                    <select class="form-select form-select-sm" aria-label="Default select example">
-                                        <option selected>Sub-familia</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12  mb-3 ">
-                                <input class="form-control form-control-sm" type="date" placeholder="Default input">
-                            </div>
-                            <div class="col-12 mb-3 text-center">
-                                <button type="submit" class="btn btn-primary w-50">Filtrar</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="btn-group  w-100">
+                            <select name="familia_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
+                                <option value="0" selected>Familia</option>
+                                @isset($familias)
+                                @foreach($familias as $familia)
+                                <option value="{{$familia->id}}">{{$familia->familia}}</option>
+                                @endforeach
+                                @endisset
+                            </select>
+                        </div>
+
+                        <div class="btn-group  w-100">
+                            <select name="subfamilia_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
+                                <option value="0" selected>Sub-familia</option>
+                                @isset($subfamilias)
+                                @foreach($subfamilias as $subfamilia)
+                                <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
+                                @endforeach
+                                @endisset
+                            </select>
+                        </div>
+
+                        <div class="btn-group  w-100">
+                            <input name="data1" class="form-control form-control-sm m-1 bg-body-secondary" type="date" placeholder="Default input">
+                        </div>
+
+                        <div class="btn-group  w-100">
+                            <input name="data2" class="form-control form-control-sm m-1 bg-body-secondary" type="date" placeholder="Default input">
+                        </div>
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-sm _nav w-50 mt-3 me-1  mb-3">Filtrar</button>
+                            <a href="/home" class="btn btn-sm _nav w-50 mt-3 ms-1 mb-3">Limpar</a>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-10">
-                <div class="row _nav rounded-top-2 m-1 p-1">
-                    <div class="col-9 d-flex align-items-center text-white">
+
+            <div class="col-9">
+
+                <div class="row bg-white shadow m-1 p-1">
+                    <div class="col-9 d-flex align-items-center ">
                         Mostrar
                         <div class="me-2 ms-2">
-                            <select class="form-select form-select-sm ">
+                            <select class="form-select form-select-sm bg-body-secondary ">
                                 <option selected>10</option>
                                 <option value="1">20</option>
                                 <option value="2">30</option>
@@ -89,19 +82,20 @@ Home
                         Resultados
                     </div>
                     <div class="col-3">
-                        <form class="d-flex" role="search">
-                            <input class="form-control form-control-sm me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-                            <button class="btn rounded-5 btn-success" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <form class="d-flex" role="search" action="/home" method="get">
+                            <input name="search" class="form-control form-control-sm me-2 bg-body-secondary" type="search" placeholder="Pesquisar" aria-label="Search">
+                            <button class="btn btn-sm rounded-5 btn-success" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg></button>
                         </form>
                     </div>
                 </div>
 
-                <div class="row p-1 _list">
+                <div class="row m-1  _list">
                     <div class="col-12 ">
+                        @isset($precos)
                         @foreach($precos as $preco)
-                        <a href="materia-prima/{{$preco->materiaprima->id}}" class="row m-1 d-flex align-items-center _list_item">
+                        <a href="materia-prima/{{$preco->materiaprima->codigo}}" class="row d-flex align-items-center _list_item bg-white shadow mt-2 p-2 ">
                             <div class="col-11">
                                 <div class="row">
                                     <div class="col-3">
@@ -114,7 +108,7 @@ Home
                                         FAMILIA : {{$preco->materiaprima->familia->familia}}
                                     </div>
                                     <div class="col-3">
-                                     
+
                                     </div>
                                     <div class="col-3">
                                         DATA : {{$preco->data_inicio}} a {{$preco->data_fim}}
@@ -140,8 +134,8 @@ Home
                             </div>
                         </a>
                         @endforeach
-
-                        <a href="#" class="row m-1 d-flex align-items-center _list_item">
+                        @endisset
+                        <a href="#" class="row d-flex align-items-center _list_item bg-white shadow mt-2 p-2">
                             <div class="col-11">
                                 <div class="row">
                                     <div class="col-3">
@@ -179,14 +173,13 @@ Home
                                 </svg>
                             </div>
                         </a>
-
-                       
-
                     </div>
                 </div>
-                <div class="row _nav rounded-bottom-2 m-1 ">
-                    <div class="col-12 d-flex align-items-center justify-content-end">
-                    @if ($precos->links()->paginator->hasPages())
+
+                <div class="row m-1 ">
+                    <div class="col-12 d-flex align-items-center justify-content-end bg-white shadow">
+                        @isset($precos)
+                        @if ($precos->links()->paginator->hasPages())
                         <ul class="pagination mb-0 p-1">
                             {{ $precos->onEachSide(3)->links() }}
                         </ul>
@@ -194,7 +187,7 @@ Home
                         <nav aria-label="Page navigation ">
                             <ul class="pagination mb-0 p-1">
                                 <li class="page-item">
-                                    <a class="page-link disabled" href="#" aria-label="Previous">
+                                    <a class="page-link disabled " href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -206,8 +199,8 @@ Home
                                 </li>
                             </ul>
                         </nav>
-
                         @endif
+                        @endisset
                     </div>
                 </div>
             </div>

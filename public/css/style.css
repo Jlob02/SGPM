@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+html,
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
 
 ._list_item{
     font-size: small;
-    border: 1px solid;
+    font-weight: 560;
+    color: rgb(124, 124, 124) !important;
 }
 
 .down_triangle{
@@ -10,17 +17,18 @@
 
 ._navbar{
     background-color: #488FF9;
-    font-weight: 620;
+    font-weight: 500;
     font-size: medium;
 }
 
 ._nav{
-    background-color: #488FF9;
-  
+    background-color: #488FF9 !important;
+    color: white !important;
+    font-weight: 400 !important; 
 }
 
 ._list{
-    height: 65vh;
+    height: 70vh;
     overflow: scroll;
 }
 
@@ -40,5 +48,13 @@ body a{
     text-decoration: none;
 }
 
+._bg-color {
+    background-color: #e8f0fc;
+}
+
+._text{
+    font-weight: 550 !important;
+    font-size: 15px;
+}
 
 
