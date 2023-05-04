@@ -25,7 +25,7 @@ Empresas
                 @endif
             </div>
             <div class="col-12">
-                <div class="row _navbar text-white d-flex justify-content-center rounded-2 m-1 p-2">
+                <div class="row d-flex justify-content-center  bg-white shadow m-1 p-2">
                     <div class="col-md-10  p-5">
                         <h3>Nome : {{$user->u_nome}}</h3> <br>
                         <h4>Email : {{$user->email}}</h4> <br>

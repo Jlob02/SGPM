@@ -7,15 +7,15 @@ Empresas
 @section('content')
 
 <!--main content-->
-<div class="row mt-4">
+<div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-between">
+        <div class="row bg-white shadow m-1 p-2">
+            <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Funcionarios > Alterar Empresa > @if($empresa->nome != null)
-                    {{$empresa->nome}}
+                {{$empresa->nome}}
                 @endif
-                
+
                 <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
@@ -33,8 +33,9 @@ Empresas
                 </div>
                 @endif
             </div>
+
             <div class="col-12">
-                <div class="row _navbar text-white d-flex justify-content-center rounded-2 m-1 p-5">
+                <div class="row d-flex justify-content-center bg-white shadow m-1 _text m-1 p-5">
                     <div class="col-md-10 d-flex p-5">
                         <form class="row g-2" method="post" action="/empresas/alterar/{{$empresa->id}}">
                             @csrf
@@ -42,7 +43,7 @@ Empresas
                                 <label for="inputName" class="form-label">Nome : </label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="nome" class="form-control" id="inputName" placeholder="DIN" value='@if($empresa->nome != null){{$empresa->nome}}@endif' />
+                                <input type="text" name="nome" class="form-control bg-body-secondary" id="inputName" placeholder="DIN" value='@if($empresa->nome != null){{$empresa->nome}}@endif' />
                             </div>
 
                             <div class="col-3">
@@ -50,7 +51,7 @@ Empresas
                                 </label>
                             </div>
                             <div class="col-9">
-                                <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="exemplo@email.com" value='@if($empresa->email != null){{$empresa->email}}@endif' />
+                                <input type="email" name="email" class="form-control bg-body-secondary" id="inputEmail4" placeholder="exemplo@email.com" value='@if($empresa->email != null){{$empresa->email}}@endif' />
                             </div>
 
                             <div class="col-3">
@@ -58,7 +59,7 @@ Empresas
                             </div>
 
                             <div class="col-md-5">
-                                <input type="tel" name="contacto" class="form-control" id="inputNumber" value='@if($empresa->contacto != null){{$empresa->contacto}}@endif' />
+                                <input type="tel" name="contacto" class="form-control bg-body-secondary" id="inputNumber" value='@if($empresa->contacto != null){{$empresa->contacto}}@endif' />
                             </div>
 
                             <div class="col-4"></div>
@@ -67,14 +68,14 @@ Empresas
                                 <label for="inputName" class="form-label">Nome da pessoa responsavel : </label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="nome_responsavel" class="form-control" id="inputName" placeholder="John Doe" value= '@if($empresa->nome_responsavel != null){{$empresa->nome_responsavel}}@endif' />
+                                <input type="text" name="nome_responsavel" class="form-control bg-body-secondary" id="inputName" placeholder="John Doe" value='@if($empresa->nome_responsavel != null){{$empresa->nome_responsavel}}@endif' />
                             </div>
 
                             <div class="col-3">
                                 <label for="inputCity" class="form-label">localidade : </label>
                             </div>
                             <div class="col-5">
-                                <input type="text" name="localidade" class="form-control" id="inputCity" placeholder="Coimbra" value= '@if($empresa->localidade != null){{$empresa->localidade}}@endif' />
+                                <input type="text" name="localidade" class="form-control bg-body-secondary" id="inputCity" placeholder="Coimbra" value='@if($empresa->localidade != null){{$empresa->localidade}}@endif' />
                             </div>
                             <div class="col-4"></div>
 
@@ -82,7 +83,7 @@ Empresas
                                 <label for="inputCountry" class="form-label">Pais : </label>
                             </div>
                             <div class="col-5">
-                                <input type="text" name="pais" class="form-control" id="inputCountry" placeholder="Portugal" value= '@if($empresa->pais != null){{$empresa->pais}}@endif' />
+                                <input type="text" name="pais" class="form-control bg-body-secondary" id="inputCountry" placeholder="Portugal" value='@if($empresa->pais != null){{$empresa->pais}}@endif' />
                             </div>
                             <div class="col-4"></div>
 

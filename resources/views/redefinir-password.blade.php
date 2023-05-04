@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recuperar password</title>
+  <title>Redefinir password</title>
   <!--bootstrap css-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="css/login-style.css">
+  <link rel="stylesheet" href="{{asset('css/login-style.css')}}">
 </head>
 
 <body>
@@ -34,10 +34,9 @@
     <!-- Formulario de logim-->
 
     <main class="form-recuperar w-100 m-auto">
-      <form method="POST" action="/recuperar/password">
+      <form method="POST" action="/redefinir/password/@isset($token){{$token}}@endisset">
         @csrf
-        <h4 class=" mt-2">Recuperar password</h4>
-        <p>insere o teu email para poder recuperar a palavra-passe</p>
+        <h4 class=" mt-2">Redefinir password</h4>
         @if(session('erro') != null)
         <div class="alert alert-warning" role="alert">
           {{session('erro')}}
@@ -49,12 +48,14 @@
         </div>
         @endif
 
-        <div class="form-floatin">
-          <input type="email" name='email' class="form-control bg-body-secondary mb-2"  placeholder="Email" value='{{old("email")}}'>
+        <div class="mt-3">
+          <input type="password" name='password' class="form-control bg-body-secondary mb-2" placeholder="Password" value='{{old("password")}}'>
+
+          <input type="password" name='password_confirmation' class="form-control bg-body-secondary " placeholder="Password" value='{{old("password_confirmation")}}'>
         </div>
+
         <div class="text-end">
-          <a class=" mb-4 btn b btn-secondary" href="/login">Cancelar</a>
-          <button type="submit" class=" mb-4 btn  btn-primary" type="submit">Recuperar</button>
+          <button type="submit" class=" mt-2 btn  btn-primary" type="submit">Guardar</button>
         </div>
       </form>
     </main>

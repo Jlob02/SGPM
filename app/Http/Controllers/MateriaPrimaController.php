@@ -79,7 +79,7 @@ class MateriaPrimaController extends Controller
 
         $materiaprima->save();
 
-        return  redirect('/materia-prima')->with('success', 'Matéria-prima alterado com sucesso');
+        return  redirect('/materia-prima')->with('success', 'Matéria-prima alterada com sucesso');
     }
 
     //funcao para retornar todas matérias-primas 
@@ -136,9 +136,12 @@ class MateriaPrimaController extends Controller
         $id = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->pluck('id')->toArray();
         $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->first();
 
-        $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id )->sortable()->paginate(15);
-
-        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos);
+        $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->get();
+        //dd($precos);
+        //$arr = $precos->pluck('materiaprima.empresa.pais');
+        $arr = $precos->pluck('preco');
+ 
+        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('preco', $arr);
     }
 
     //função para registar familia de matéria-prima

@@ -36,7 +36,12 @@ Matéria-prima
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="dialog">
 
+            </div>
+        </div>
 
         <div class="row m-1">
             <div class="col-12 ms-0 m-1 p-2 mt-0 bg-white shadow">
@@ -125,15 +130,27 @@ Matéria-prima
                         </div>
                         Resultados
                     </div>
-
+                    @isset($materias_primas)
                     <div class="col-3 mt-3">
-                        <form class="d-flex" role="search">
-                            <input class="form-control form-control-sm me-2 bg-body-secondary" type="search" placeholder="Pesquisar" aria-label="Search">
+                        <form class="d-flex" role="search" action="/materia-prima" method="get">
+                            <input name="search" class="form-control form-control-sm me-2 bg-body-secondary" type="search" placeholder="Pesquisar" aria-label="Search">
                             <button class="btn btn-sm rounded-5 btn-success " type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg></button>
                         </form>
                     </div>
+                    @endisset
+
+                    @isset($precos)
+                    <div class="col-3 mt-3">
+                        <form class="d-flex" role="search" action="/materia-prima/precos" method="get">
+                            <input name="search" class="form-control form-control-sm me-2 bg-body-secondary" type="search" placeholder="Pesquisar" aria-label="Search">
+                            <button class="btn btn-sm rounded-5 btn-success " type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg></button>
+                        </form>
+                    </div>
+                    @endisset
 
                 </div>
 
@@ -166,6 +183,12 @@ Matéria-prima
                                             Adicionar preço
                                         </button>
 
+                                        <button class="border border-0 bg-transparent">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                                            </svg>
+                                        </button>
+
                                         <form action="/materia-prima/alterar/{{$materia_prima->id}}" method="get">
                                             @csrf
                                             <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -174,14 +197,10 @@ Matéria-prima
                                                 </svg></button>
                                         </form>
 
-                                        <form action="/materia-prima/apagar/{{$materia_prima->id}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                                                </svg></button>
-                                        </form>
+                                        <button onclick='dialog("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                            </svg></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -300,7 +319,7 @@ Matéria-prima
                         <div class="col-12 text-end">
                             <button type="button" class="btn-close" aria-label="Close" onclick="fechar()"></button>
                         </div>
-                        <div class="col-12  ">
+                        <div class="col-12 mb-3">
                             Materia-prima : ` + designacao + `
                         </div>
 
@@ -338,13 +357,9 @@ Matéria-prima
                                 <input name="data_fim" class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
                             </div>
                         </div>
-
-                        
                         <span id="add">
 
-                        </span>
-                        
-                        
+                        </span>     
                         <div class="col-12 mt-2 text-end">
                             <button class=" border-0" type="button" onclick="add()">
                                 +
@@ -353,8 +368,7 @@ Matéria-prima
                             <button type="submit" class="btn btn-success btn-sm">Guardar</button>
                         </div>
                     </div>
-                </form>
-                
+                </form>     
                 `;
     };
 
@@ -407,6 +421,29 @@ Matéria-prima
                         </div>`;
 
     };
+
+    function dialog(id, nome) {
+
+        document.getElementById("dialog").innerHTML = `
+        <form action="/materia-prima/apagar/` + id + `" method="post">
+            @csrf
+             @method('DELETE')
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Tem a certeza que quer aparagr a materia-prima ` + nome + `?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Apagar</button>
+                                    </div>
+                                </div>
+                            </form>`;
+
+    }
 </script>
 
 @endsection

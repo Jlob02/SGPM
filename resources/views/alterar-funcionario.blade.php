@@ -10,8 +10,8 @@ Alterar funcionário
 <div class="row mt-4">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-between">
+        <div class="row bg-white shadow m-1 p-2">
+            <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Funcionarios > alterar funcionário >
                 @if($user->u_nome != null)
                 {{$user->u_nome}}
@@ -34,7 +34,7 @@ Alterar funcionário
                 @endif
             </div>
             <div class="col-12">
-                <div class="row _navbar text-white d-flex justify-content-center rounded-2 m-1 p-2">
+                <div class="row d-flex justify-content-center bg-white shadow m-1 _text p-2">
                     <div class="col-md-10 d-flex p-4">
                         <form class="row g-2" method="post" action="/funcionarios/alterar/{{$user->id}}">
                             @csrf
@@ -42,14 +42,14 @@ Alterar funcionário
                                 <label for="inputName" class="form-label">Nome : </label>
                             </div>
                             <div class="col-9">
-                                <input type="text" v name="nome" class="form-control" id="inputName" placeholder="John Doe" value='@if($user->u_nome != null){{$user->u_nome}}@endif' />
+                                <input type="text" v name="nome" class="form-control bg-body-secondary" id="inputName" placeholder="John Doe" value='@if($user->u_nome != null){{$user->u_nome}}@endif' />
                             </div>
                             <div class="col-3">
                                 <label for="inputEmail4" class="form-label">Email :
                                 </label>
                             </div>
                             <div class="col-9">
-                                <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="exemplo@email.com" value='{{$user->email}}' />
+                                <input type="email" name="email" class="form-control bg-body-secondary" id="inputEmail4" placeholder="exemplo@email.com" value='{{$user->email}}' />
                             </div>
 
                             <div class="col-3">
@@ -57,7 +57,7 @@ Alterar funcionário
                             </div>
 
                             <div class="col-md-5">
-                                <input type="password" name="password" class="form-control" id="inputPassword4" value='{{old("password")}}' />
+                                <input type="password" name="password" class="form-control bg-body-secondary" id="inputPassword4" value='{{old("password")}}' />
                             </div>
                             <div class="col-4"></div>
 
@@ -66,7 +66,7 @@ Alterar funcionário
                             </div>
 
                             <div class="col-md-5">
-                                <input type="tel" name="contacto" class="form-control" id="inputTel" value='@if($user->u_contacto != null){{$user->u_contacto}}@endif' />
+                                <input type="tel" name="contacto" class="form-control bg-body-secondary" id="inputTel" value='@if($user->u_contacto != null){{$user->u_contacto}}@endif' />
                             </div>
 
                             <div class="col-4"></div>
@@ -75,7 +75,7 @@ Alterar funcionário
                                 </label>
                             </div>
                             <div class="col-md-5">
-                                <select id="inputStat" name="funcao" class="form-select">
+                                <select id="inputStat" name="funcao" class="form-select bg-body-secondary">
                                     <option value="1" selected>Administrador</option>
                                 </select>
                             </div>
@@ -91,7 +91,7 @@ Alterar funcionário
                                 <label for="inputState" class="form-label">Tipo :</label>
                             </div>
                             <div class="col-md-5">
-                                <select id="inputSta" name="tipo" class="form-select">
+                                <select id="inputSta" name="tipo" class="form-select bg-body-secondary">
                                     <option value="1" selected>Administrador do sistema</option>
                                     <option value="2">Administrador de empresa</option>
                                     <option value="3">Funcionário</option>
@@ -104,7 +104,7 @@ Alterar funcionário
                                 </label>
                             </div>
                             <div class="col-md-5">
-                                <select id="inputState" name="empresa" class="form-select">
+                                <select id="inputState" name="empresa" class="form-select bg-body-secondary">
                                     <option value="1" selected>DIN-1</option>
                                     <option value="2">DIN-2</option>
                                     <option value="3">DIN-3</option>

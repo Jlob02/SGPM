@@ -10,10 +10,10 @@ Adicionar Materia-prima
 <div class="row mt-4">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-between">
-                <p>Funcionarios > Adicionar matéria-prima</p>
-                <a href="{{@url()->previous()}}" class="btn btn-primary">Voltar</a>
+        <div class="row bg-white shadow m-1 p-2">
+            <div class="col-12 d-flex justify-content-between align-items-center  _text">
+                Funcionarios > Adicionar matéria-prima
+                <a href="{{@url()->previous()}}" class="btn btn-sm btn-primary">Voltar</a>
             </div>
         </div>
         <div class="row ">
@@ -37,7 +37,7 @@ Adicionar Materia-prima
                         <form class="row ">
                             <div class="col-10">
 
-                                <input type="email" class="form-control" placeholder="Familia">
+                                <input type="email" class="form-control bg-body-secondary " placeholder="Familia">
 
                             </div>
                             <div class="col-2">
@@ -53,7 +53,7 @@ Adicionar Materia-prima
                         <form class="row  ">
                             <div class="col-10">
 
-                                <input type="email" class="form-control" placeholder="Sub-familia">
+                                <input type="email" class="form-control bg-body-secondary" placeholder="Sub-familia">
 
                             </div>
                             <div class="col-2">
@@ -65,10 +65,9 @@ Adicionar Materia-prima
             </div>
         </div>
 
-        <div class="row m-1">
-
+        <div class="row">
             <div class="col-12 ">
-                <div class="row _navbar text-white d-flex justify-content-center rounded-2">
+                <div class="row d-flex justify-content-center bg-white shadow m-1 _text">
                     <div class="col-7 d-flex mt-5 p-4">
 
                         <form class="row g-2" method="post" action="/materia-prima/alterar/{{$materia_prima->id}}">
@@ -77,7 +76,7 @@ Adicionar Materia-prima
                                 <label for="inputName" class="col-sm-2 col-form-label">Designação</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="designacao" class="form-control" placeholder="" value='@if($materia_prima->designacao != null){{$materia_prima->designacao }}@endif' />
+                                <input type="text" name="designacao" class="form-control bg-body-secondary" placeholder="" value='@if($materia_prima->designacao != null){{$materia_prima->designacao }}@endif' />
                             </div>
 
 
@@ -86,7 +85,7 @@ Adicionar Materia-prima
                                 </label>
                             </div>
                             <div class="col-5">
-                                <select class="form-select" name="familia">
+                                <select class="form-select bg-body-secondary" name="familia">
                                     <option value="1" selected>Tringo</option>
                                     <option>...</option>
                                 </select>
@@ -103,7 +102,7 @@ Adicionar Materia-prima
                                 </label>
                             </div>
                             <div class="col-5">
-                                <select name="subfamilia" class="form-select">
+                                <select name="subfamilia" class="form-select bg-body-secondary">
                                     <option value="2" >Tringo 2</option>
                                     <option value="1" >Tringo 1</option>
                                     <option>...</option>
@@ -120,7 +119,7 @@ Adicionar Materia-prima
                                 Código Europeu
                             </div>
                             <div class="col-9">
-                                <input type="text" name="codigo" class="form-control" value='@if($materia_prima->codigo != null){{$materia_prima->codigo }}@endif' />
+                                <input type="text" name="codigo" class="form-control bg-body-secondary" value='@if($materia_prima->codigo != null){{$materia_prima->codigo }}@endif' />
                             </div>
 
                             <div class="col-3">
@@ -128,7 +127,7 @@ Adicionar Materia-prima
                             </div>
 
                             <div class="col-2">
-                                <input type="float" name="concentracao" class="form-control" value='@if($materia_prima->concentracao != null){{$materia_prima->concentracao }}@endif' />
+                                <input type="float" name="concentracao" class="form-control bg-body-secondary" value='@if($materia_prima->concentracao != null){{$materia_prima->concentracao }}@endif' />
                             </div>
 
                             <div class="col-7  d-flex align-items-center ">
@@ -139,7 +138,7 @@ Adicionar Materia-prima
                                 Principio ativo
                             </div>
                             <div class="col-9">
-                                <input type="text" name="principio_activo" class="form-control" value='@if($materia_prima->principio_activo != null){{$materia_prima->principio_activo }}@endif'/>
+                                <input type="text" name="principio_activo" class="form-control bg-body-secondary" value='@if($materia_prima->principio_activo != null){{$materia_prima->principio_activo }}@endif'/>
                             </div>
 
                             <div class="col-12 mt-4 mb-4 text-end">

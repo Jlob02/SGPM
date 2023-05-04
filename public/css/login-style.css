@@ -23,7 +23,7 @@ body {
 .form-recuperar {
   max-width: 600px;
   padding: 30px;
-  background-color: white;
+  background-color: rgb(255, 255, 255) !important;
 }
 
 .form-signin .form-floating:focus-within {

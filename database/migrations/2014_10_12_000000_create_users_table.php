@@ -19,9 +19,10 @@ return new class extends Migration
             $table->integer('u_tipo');
             $table->integer('u_contacto'); 
             $table->integer('u_estado');
-            $table->integer('empresa_id')->default(1);;
+            $table->integer('empresa_id')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

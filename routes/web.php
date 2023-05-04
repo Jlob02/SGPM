@@ -4,6 +4,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PrecoController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\MateriaPrimaController;
+use App\Http\Controllers\RecuperarPasswordController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,14 @@ Route::get('recuperar-password', function () {
     return view('recuperar-password');
 });
 
+
+//routes para recuperar a password
+Route::post('/recuperar/password', [RecuperarPasswordController::class, 'recuperar_password']);
+
+Route::get('/recuperar/password/{token}', [RecuperarPasswordController::class, 'recuperar_password_token']);
+
+Route::post('/redefinir/password/{token}', [RecuperarPasswordController::class, 'redefinir_password']);
+
 //groupo de routes para verificar se o utilizar esta autenticado
 Route::middleware(['auth'])->group(function () {
 
@@ -82,7 +91,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('funcionarios/alterar/{id}', [UserController::class, 'alterar_funcionario']);
 
         Route::post('funcionarios/adicionar/funcao', [UserController::class, 'adicionar_funcao']);
-
     });
 
     //groupo de routes para verificar se o utilizar é administrador 

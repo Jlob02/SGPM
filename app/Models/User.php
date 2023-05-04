@@ -30,7 +30,8 @@ class User extends Authenticatable
         'u_estado',
         'empresa_id',
         //'email_verified_at',
-        'password'
+        'password',
+        'token'
     ];
 
     /**

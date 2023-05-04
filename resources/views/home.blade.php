@@ -179,6 +179,7 @@ Home
                 <div class="row m-1 ">
                     <div class="col-12 d-flex align-items-center justify-content-end bg-white shadow">
                         @isset($precos)
+                       
                         @if ($precos->links()->paginator->hasPages())
                         <ul class="pagination mb-0 p-1">
                             {{ $precos->onEachSide(3)->links() }}

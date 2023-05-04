@@ -21,8 +21,8 @@ class PrecoController extends Controller
                 'preco' => ['required'],
                 'unidade' => ['required'],
                 'fornecedor' => ['required', 'integer'],
-                'data_inicio' => ['required'],
-                'data_fim' => ['required'],
+                'data_inicio' => ['required', 'date'],
+                'data_fim' => ['required', 'date', 'after:data_inicio'],
             ],
             [
                 'preco.required' => 'Deve introduzir o preço da matéria-prima',
@@ -48,21 +48,23 @@ class PrecoController extends Controller
     }
 
 
-
     //funcao para retornar todas preços de matérias-primas de uma empresa
     public function precos_materias_primas(Request $request)
     {
         $search = $request->input('search');
-
-        if (!empty($search)) {
-            $precos = Preco::with('materiaprima', 'fornecedor')->where('designacao', 'LIKE', "%{$search}%")->sortable()->paginate(15);
-        } else {
-            $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
-        }
-
         $fornecedores = Fornecedor::all();
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
+
+        if (!empty($search)) {
+            $materiasprima = MateriaPrima::where('designacao', 'LIKE', "%{$search}%")->first();
+            if ($materiasprima != null)
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiasprima->id)->sortable()->paginate(15);
+            else
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', 0)->sortable()->paginate(15);
+        } else {
+            $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+        }
 
         return view('materia-prima')->with('precos', $precos)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
     }
@@ -84,7 +86,6 @@ class PrecoController extends Controller
         if (!empty($search)) {
             $materiaprima =  MateriaPrima::query()->where('designacao', 'LIKE', "%{$search}%")->pluck('id')->toArray();
             $precos = Preco::query()->whereIn('materiaprima_id', $materiaprima)->sortable()->paginate(15);
-            
         } else {
 
             if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id) and !empty($data1) and !empty($data2)) {
@@ -92,11 +93,10 @@ class PrecoController extends Controller
                 $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
 
                 if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=' , $data1)->whereDate('data_fim', '<=' , $data2)->sortable()->paginate(15);
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->sortable()->paginate(15);
                 } else {
-                    $precos = Preco::query()->sortable()->paginate(15);
+                    $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->sortable()->paginate(15);
                 }
-
             } else {
                 $precos = Preco::query()->sortable()->paginate(15);
             }
@@ -116,7 +116,6 @@ class PrecoController extends Controller
         }
         return  redirect()->back()->with('error', 'Não foi possivel apagar o preço');
     }
-
 
     //função para retornar os dados da matéria-prima 
     public function dados_materia_prima(Request $request)

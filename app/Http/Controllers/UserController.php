@@ -107,6 +107,7 @@ class UserController extends Controller
             'email.required' => 'Deve introduzir o email do funcionário',
             'email.unique' => 'Ja existe um funcionário com conta associada a este email',
             'password.required' => 'Deve introduzir uma password',
+            'password.min:8' => 'A password deve ter mais de 8 caracteres',
             'emali.email' => 'Deve introduzir um email válido',
             'empresa.required' => 'Deve selecionar um empresa',
         ]);
