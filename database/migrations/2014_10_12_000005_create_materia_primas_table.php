@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('designacao');
             $table->string('codigo', 20);
             $table->float('concentracao');
-            $table->integer('familia_id');
-            $table->integer('subfamilia_id');
-            $table->integer('empresa_id');
+            $table->unsignedBigInteger('familia_id');
+            $table->foreign('familia_id')->references('id')->on('familia')->onDelete('cascade');
+            $table->unsignedBigInteger('subfamilia_id');
+            $table->foreign('subfamilia_id')->references('id')->on('subfamilia')->onDelete('cascade');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->string('principio_activo');
             $table->timestamps();
         });

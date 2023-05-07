@@ -183,7 +183,7 @@ Funcionarios
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Tem a certeza que quer aparagr o fornecedor ` + nome + ` ?
+                                        Tem a certeza que quer apagar o funcionario ` + nome + ` ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

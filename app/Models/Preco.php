@@ -26,6 +26,7 @@ class Preco extends Model
         'empresa_id',
         'data_inicio',
         'data_fim',
+        'created_at',
     ];
 
     protected $sortable = ['id','preco'];

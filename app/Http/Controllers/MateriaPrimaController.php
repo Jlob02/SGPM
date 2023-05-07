@@ -136,12 +136,9 @@ class MateriaPrimaController extends Controller
         $id = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->pluck('id')->toArray();
         $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->first();
 
-        $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->get();
-        //dd($precos);
-        //$arr = $precos->pluck('materiaprima.empresa.pais');
-        $arr = $precos->pluck('preco');
- 
-        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('preco', $arr);
+        $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->orderBy('created_at', 'asc')->get();
+        
+        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos);
     }
 
     //função para registar familia de matéria-prima

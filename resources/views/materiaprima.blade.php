@@ -47,7 +47,7 @@ Empresas
                         <canvas class="" id="myChart" width="900" height="270"></canvas>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12 mb-5">
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h4>Tabela de preços</h4>
 
@@ -122,7 +122,10 @@ Empresas
     ];
 
 
+
     const data = JSON.parse('{!! $precos!!}');
+
+    const data1 = ['0.1234', '0.33545', '0.365765', '0.435365','0.34245', '0.2675265', '0.435365','0.34245', '0.2675265', '0.365765', '0.435365','0.34245', '0.2675265',];
 
     new Chart(ctx, {
         type: "line",
@@ -130,7 +133,7 @@ Empresas
             labels: month,
             datasets: [{
                 label: "AGRUPACION FAB. ACEITES MARINOS SA",
-                data: data,
+                data: data1,
                 borderWidth: 3,
             }, ],
         },

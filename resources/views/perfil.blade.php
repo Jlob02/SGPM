@@ -32,8 +32,8 @@ Empresas
                         <h4>Contacto : {{$user->u_contacto}}</h4> <br>
 
                         <h4>Tipo : @if($user->u_tipo == 1) Administrador @endif @if($user->u_tipo == 2) Administrador de empresa @endif @if($user->u_tipo == 3) Funcionário @endif </h4> <br>
-                        <h4>Empresa : </h4> <br>
-                        <h4>Função : </h4> <br>
+                        <h4>Empresa :{{$user->empresa->nome}} </h4> <br>
+                        <h4>Função : {{$user->funcao->funcao}}</h4> <br>
                     </div>
                 </div>
             </div>

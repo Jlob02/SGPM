@@ -15,11 +15,14 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->decimal('preco',5,4);
             $table->integer('unidade');
-            $table->integer('materiaprima_id');
-            $table->integer('fornecedor_id');
+            $table->unsignedBigInteger('materiaprima_id');
+            $table->foreign('materiaprima_id')->references('id')->on('materiasprimas')->onDelete('cascade');
+            $table->unsignedBigInteger('fornecedor_id');
+            $table->foreign('fornecedor_id')->references('id')->on('fornecedores')->onDelete('cascade');
             $table->date('data_inicio');
             $table->date('data_fim');
-            $table->integer('empresa_id');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }

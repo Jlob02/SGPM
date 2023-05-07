@@ -76,10 +76,22 @@ class UserController extends Controller
             'emali.email' => 'Deve introduzir um email válido',
         ]);
 
+        $empresa = new Empresa();
+        $empresa->email = 'admin@empresa.com';
+        $empresa->nome = 'DIM';
+        $empresa->contacto = '910000000';
+        $empresa->nome_responsavel = 'admin admin';
+        $empresa->estado = 1;
+        $empresa->localidade = 'Coimbra';
+        $empresa->pais = 'Portugal';
+
+        $empresa->save();
+
         $user = new User();
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
         $user->u_nome = $data['nome'];
+        $user->empresa_id = 1;
         $user->u_tipo = 1;
         $user->funcao_id = 1;
         $user->u_estado = 1;
@@ -223,7 +235,7 @@ class UserController extends Controller
     public function dados_funcionario(Request $request)
     {
         if (Auth::user()->u_tipo == 1) {
-            $user = User::where('id', '=', $request->id)->first();
+            $user = User::with('funcao', 'empresa')->where('id', '=', $request->id)->first();
         }
         return view('alterar-funcionario')->with('user', $user);
     }
@@ -259,7 +271,7 @@ class UserController extends Controller
     //função para retornar o perfil do utilizador
     public function  perfil(Request $request)
     {
-        $user = User::where('id', '=', Auth::user()->id)->first();
+        $user = User::with('funcao', 'empresa')->where('id', '=', Auth::user()->id)->first();
         return  view('perfil')->with('user', $user);
     }
 }

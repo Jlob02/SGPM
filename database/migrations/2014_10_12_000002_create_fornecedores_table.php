@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('nome');
             $table->string('email');
             $table->integer('contacto');
-            $table->integer('empresa_id');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }
