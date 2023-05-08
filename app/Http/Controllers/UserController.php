@@ -78,7 +78,7 @@ class UserController extends Controller
 
         $empresa = new Empresa();
         $empresa->email = 'admin@empresa.com';
-        $empresa->nome = 'DIM';
+        $empresa->nome = 'DIN';
         $empresa->contacto = '910000000';
         $empresa->nome_responsavel = 'admin admin';
         $empresa->estado = 1;
@@ -201,7 +201,6 @@ class UserController extends Controller
     }
 
     //função para apagar um funcionário
-
     public function apagar_funcionario(Request $request)
     {
         if (Auth::user()->u_tipo == 1) {
@@ -211,9 +210,9 @@ class UserController extends Controller
         $user->delete();
         return  redirect()->back()->with('success', 'Utilizador apagado com sucesso');
     }
+    
 
     //função para alterar o estado do funcionário
-
     public function alterar_estado_funcionario(Request $request)
     {
         if (Auth::user()->u_tipo == 1) {

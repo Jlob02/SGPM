@@ -56,10 +56,10 @@ Matéria-prima
                         <h6>Ordenar por</h6>
                     </div>
                     <div class=" col-2">
-                        <h6>Familia</h6>
+                        <h6>Família</h6>
                     </div>
                     <div class=" col-2">
-                        <h6>Sub Familia</h6>
+                        <h6>Sub Família</h6>
                     </div>
                     <div class=" col-2">
                         <h6>Fornecedor</h6>
@@ -79,7 +79,7 @@ Matéria-prima
 
                     <div class="col-2 ">
                         <select class="form-select form-select-sm bg-body-secondary">
-                            <option selected>Familia</option>
+                            <option selected>Família</option>
                             @isset($familias)
                             @foreach($familias as $familia)
                             <option value="{{$familia->id}}">{{$familia->familia}}</option>
@@ -90,7 +90,7 @@ Matéria-prima
 
                     <div class="col-2 ">
                         <select class="form-select form-select-sm bg-body-secondary">
-                            <option selected>Sub-familia</option>
+                            <option selected>Sub-família</option>
                             @isset($subfamilias)
                             @foreach($subfamilias as $subfamilia)
                             <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
@@ -162,8 +162,8 @@ Matéria-prima
                                 <tr class="text-start">
                                     <th>Designação</th>
                                     <th>Codigo</th>
-                                    <th>Familia</th>
-                                    <th>SubFamilia</th>
+                                    <th>Família</th>
+                                    <th>SubFamília</th>
                                     <th>Concentração %</th>
                                     <th>Principio ativo</th>
                                     <th>Opções</th>

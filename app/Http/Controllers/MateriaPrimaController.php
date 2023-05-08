@@ -123,9 +123,12 @@ class MateriaPrimaController extends Controller
     //função para retornar os dados da matéria-prima 
     public function dados_materia_prima(Request $request)
     {
-        $materiaprima = MateriaPrima::where('id', '=', $request->id)->first();
+        $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('id', '=', $request->id)->first();
+        
+        $subfamila = SubFamilia::all();
+        $famila = Familia::all();
 
-        return view('alterar-materia-prima')->with('materia_prima', $materiaprima);
+        return view('alterar-materia-prima')->with('materia_prima', $materiaprima)->with('subfamilias', $subfamila)->with('familias', $famila);
     }
 
 

@@ -86,8 +86,10 @@ Adicionar Materia-prima
                             </div>
                             <div class="col-5">
                                 <select class="form-select bg-body-secondary" name="familia">
-                                    <option value="1" selected>Tringo</option>
-                                    <option>...</option>
+                                    <option value="{{$materia_prima->familia->id}}" selected>{{$materia_prima->familia->familia}}</option>
+                                    @foreach($familias as $familia)
+                                    <option value="{{$familia->id}}">{{$familia->familia}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-1">
@@ -103,9 +105,10 @@ Adicionar Materia-prima
                             </div>
                             <div class="col-5">
                                 <select name="subfamilia" class="form-select bg-body-secondary">
-                                    <option value="2" >Tringo 2</option>
-                                    <option value="1" >Tringo 1</option>
-                                    <option>...</option>
+                                    <option value="{{$materia_prima->subfamilia->id}}" selected>{{$materia_prima->subfamilia->subfamilia}}</option>
+                                    @foreach($subfamilias as $subfamilia)
+                                    <option value="{{$familia->id}}">{{$subfamilia->subfamilia}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-1">
@@ -123,7 +126,7 @@ Adicionar Materia-prima
                             </div>
 
                             <div class="col-3">
-                                <label for="inputTel"  class="col-sm-2 col-form-label" >Concentração </label>
+                                <label for="inputTel" class="col-sm-2 col-form-label">Concentração </label>
                             </div>
 
                             <div class="col-2">
@@ -138,7 +141,7 @@ Adicionar Materia-prima
                                 Principio ativo
                             </div>
                             <div class="col-9">
-                                <input type="text" name="principio_activo" class="form-control bg-body-secondary" value='@if($materia_prima->principio_activo != null){{$materia_prima->principio_activo }}@endif'/>
+                                <input type="text" name="principio_activo" class="form-control bg-body-secondary" value='@if($materia_prima->principio_activo != null){{$materia_prima->principio_activo }}@endif' />
                             </div>
 
                             <div class="col-12 mt-4 mb-4 text-end">

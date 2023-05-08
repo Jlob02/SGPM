@@ -30,7 +30,7 @@ Home
 
                         <div class="btn-group  w-100">
                             <select name="familia_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
-                                <option value="0" selected>Familia</option>
+                                <option value="0" selected>Família</option>
                                 @isset($familias)
                                 @foreach($familias as $familia)
                                 <option value="{{$familia->id}}">{{$familia->familia}}</option>
@@ -41,7 +41,7 @@ Home
 
                         <div class="btn-group  w-100">
                             <select name="subfamilia_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
-                                <option value="0" selected>Sub-familia</option>
+                                <option value="0" selected>Sub-família</option>
                                 @isset($subfamilias)
                                 @foreach($subfamilias as $subfamilia)
                                 <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
@@ -105,7 +105,7 @@ Home
                                         CÓDIGO : {{$preco->materiaprima->codigo}}
                                     </div>
                                     <div class="col-3">
-                                        FAMILIA : {{$preco->materiaprima->familia->familia}}
+                                        FAMÍLIA : {{$preco->materiaprima->familia->familia}}
                                     </div>
                                     <div class="col-3">
 
@@ -117,7 +117,7 @@ Home
                                         EMPRESA : {{$preco->materiaprima->empresa->nome}}
                                     </div>
                                     <div class="col-3">
-                                        PAIS : Portugal
+                                        PAÍS : Portugal
                                     </div>
                                     <div class="col-3">
                                         PREÇO : {{$preco->preco}}
@@ -145,7 +145,7 @@ Home
                                         CÓDIGO: M33 5742
                                     </div>
                                     <div class="col-3">
-                                        FAMILIA :
+                                        FAMÍLIA :
                                     </div>
                                     <div class="col-3">
                                         PREÇO : 0.0229
@@ -157,7 +157,7 @@ Home
                                         EMPRESA: DIN
                                     </div>
                                     <div class="col-3">
-                                        PAIS : Portugal
+                                        PAÍS : Portugal
                                     </div>
                                     <div class="col-3">
                                         LOCALIDADE : Coimbra

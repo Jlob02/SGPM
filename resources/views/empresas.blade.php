@@ -64,7 +64,7 @@ Empresas
                                     <th>Contacto</th>
                                     <th>Nome do responsavel</th>
                                     <th>Localidade</th>
-                                    <th>Pais</th>
+                                    <th>País</th>
                                     <th>Estado</th>
                                     <th>Opções</th>
                                 </tr>

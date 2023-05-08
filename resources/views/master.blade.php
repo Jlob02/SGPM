@@ -15,7 +15,10 @@
     <div class="container-fluid">
         <!--navbar-->
         <header class="row _navbar ">
-            <div class="col-12 text-white  p-2 d-flex justify-content-end align-items-center">
+            <div class="col-2  d-flex align-items-center ">
+                <img class="ms-4 mt-3" width="100" height="60" src="{{asset('img/logo_1.png')}}">
+            </div>
+            <div class="col-10 text-white  p-2 d-flex justify-content-end align-items-center">
                 @auth
                 <span class="ms-1 me-2"> {{Auth::user()->u_nome}}</span> |
                 <a href="/perfil" class="text-white d-flex align-items-center ms-2 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2 bi bi-person-fill" viewBox="0 0 16 16">
@@ -38,9 +41,10 @@
                     </li>
                 </ul>
             </div>
+
             <div class="col-1"></div>
 
-            <div class="col-md-10 mt-3">
+            <div class="col-md-10 mt-1">
                 <ul class="nav nav-tabs ">
                     <li class="nav-item  me-1 ">
                         @if (Request::segment(1) =='home')
