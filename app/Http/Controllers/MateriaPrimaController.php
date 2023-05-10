@@ -86,7 +86,7 @@ class MateriaPrimaController extends Controller
     public function materias_primas(Request $request)
     {
         $search = $request->input('search');
-        $fornecedores = Fornecedor::all();
+        $fornecedores = Fornecedor::where('empresa_id', '=', Auth::User()->empresa_id)->get();
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
 

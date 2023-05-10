@@ -88,6 +88,8 @@ class PrecoController extends Controller
             $precos = Preco::query()->whereIn('materiaprima_id', $materiaprima)->sortable()->paginate(15);
         } else {
 
+           
+
             if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id) and !empty($data1) and !empty($data2)) {
 
                 $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
@@ -97,9 +99,25 @@ class PrecoController extends Controller
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->sortable()->paginate(15);
                 }
-            } else {
-                $precos = Preco::query()->sortable()->paginate(15);
+
+                return view('home')->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
             }
+            
+
+            if (!empty($empresa_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->sortable()->paginate(15);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->sortable()->paginate(15);
+                }
+                return view('home')->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+            }
+            
+            $precos = Preco::query()->sortable()->paginate(15);
+            
         }
 
         return view('home')->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);

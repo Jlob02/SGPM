@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
 
     $result = User::all();
-
     if ($result->isEmpty()) {
         return view('registar-admin');
     }
@@ -36,9 +35,11 @@ Route::get('/', function () {
 Route::post('login', [UserController::class, 'login']);
 
 Route::get('login', function () {
+    
     if (Auth::check()) {
         return  redirect('home');
     }
+
     return view('login');
 });
 
