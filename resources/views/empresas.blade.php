@@ -9,7 +9,7 @@ Empresas
 <!--main content-->
 <div class="row mt-1">
     <div class="col-1">
-
+    
     </div>
     <div class="col-10">
 
@@ -17,7 +17,6 @@ Empresas
             <div class="col-12">
                 <a href="/empresas/adicionar" class="btn btn-primary btn-sm _nav">Adicionar empresa</a>
             </div>
-
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Empresas
+Alterar empresas
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@ Empresas
     <div class="col-10">
         <div class="row bg-white shadow m-1 p-2">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
-                Funcionarios > Alterar Empresa > @if($empresa->nome != null)
+                Empresas > Alterar Empresa > @if($empresa->nome != null)
                 {{$empresa->nome}}
                 @endif
 

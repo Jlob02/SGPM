@@ -7,12 +7,12 @@ Adicionar Materia-prima
 @section('content')
 
 <!--main content-->
-<div class="row mt-4">
+<div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
         <div class="row bg-white shadow m-1 p-2">
             <div class="col-12 d-flex justify-content-between align-items-center  _text">
-                Funcionarios > Adicionar matéria-prima
+                Matéria-prima > Alterar matéria-prima
                 <a href="{{@url()->previous()}}" class="btn btn-sm btn-primary">Voltar</a>
             </div>
         </div>
@@ -30,18 +30,15 @@ Adicionar Materia-prima
                 </div>
                 @endif
             </div>
-            <div class="collapse" id="collapse1">
+
+             <div class="collapse" id="collapse1">
                 <div class="col-12 ">
-
-                    <div class="_navbar p-4 rounded-2">
-                        <form class="row ">
-                            <div class="col-10">
-
-                                <input type="email" class="form-control bg-body-secondary " placeholder="Familia">
-
-                            </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="bg-white shadow p-3 m-1">
+                        <form class="row " action="/materia-prima/adicionar/familia" method="post">
+                            @csrf
+                            <div class="col-12 d-flex justify-content-center align-items-center gap-2">
+                                <input type="text" name="familia" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="Familia">
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -49,15 +46,27 @@ Adicionar Materia-prima
             </div>
             <div class="collapse" id="collapse2">
                 <div class="col-12 mt-1">
-                    <div class="_navbar p-4 rounded-2">
-                        <form class="row  ">
-                            <div class="col-10">
-
-                                <input type="email" class="form-control bg-body-secondary" placeholder="Sub-familia">
-
+                    <div class="bg-white shadow p-3 m-1">
+                        <form class="row " action="/materia-prima/adicionar/subfamilia" method="post">
+                            @csrf
+                            <div class="col-12 d-flex justify-content-center align-items-center gap-2">
+                                <input type="text" name="subfamilia" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Sub-Familia">
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                             </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="collapse" id="collapse3">
+                <div class="col-12 mt-1">
+                    <div class="bg-white shadow p-3 m-1">
+                        <form class="row " action="/materia-prima/adicionar/codigo" method="post">
+                            @csrf
+                            <div class="col-12 d-flex justify-content-center align-items-center gap-2">
+                                <input type="text" name="codigo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="codigo">
+                                <input type="text" name="principio_activo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Principio ativo">
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -121,9 +130,19 @@ Adicionar Materia-prima
                             <div class="col-3  d-flex align-items-center">
                                 Código Europeu
                             </div>
-                            <div class="col-9">
-                                <input type="text" name="codigo" class="form-control bg-body-secondary" value='@if($materia_prima->codigo != null){{$materia_prima->codigo }}@endif' />
+                            <div class="col-5">
+                                <select name="codigo" class="form-select bg-body-secondary ">
+                                    @foreach($codigo as $codig)
+                                    <option value="{{$codig->id}}">{{$codig->codigo}}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                            <div class="col-1">
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                    +
+                                </button>
+                            </div>
+                            <div class="col-3"></div>
 
                             <div class="col-3">
                                 <label for="inputTel" class="col-sm-2 col-form-label">Concentração </label>
@@ -135,13 +154,6 @@ Adicionar Materia-prima
 
                             <div class="col-7  d-flex align-items-center ">
                                 %
-                            </div>
-
-                            <div class="col-3  d-flex align-items-center">
-                                Principio ativo
-                            </div>
-                            <div class="col-9">
-                                <input type="text" name="principio_activo" class="form-control bg-body-secondary" value='@if($materia_prima->principio_activo != null){{$materia_prima->principio_activo }}@endif' />
                             </div>
 
                             <div class="col-12 mt-4 mb-4 text-end">

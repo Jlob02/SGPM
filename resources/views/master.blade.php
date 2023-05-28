@@ -33,7 +33,7 @@
                         <a class="btn btn-sm text-white dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
                             PT
                         </a>
-                        <ul class="dropdown-menu ">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">EN</a></li>
                             <li><a class="dropdown-item" href="#">FR</a></li>
                             <li><a class="dropdown-item" href="#">JP</a></li>
@@ -88,9 +88,9 @@
                     </li>
                     <li class="nav-item me-1 ">
                         @if (Request::segment(1) =='forum' )
-                        <a class="nav-link text-black bg-light" href="/forum">Fórum</a>
+                        <a class="nav-link text-black bg-light" href="/forum">Fórum </a>
                         @else
-                        <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/forum">Fórum</a>
+                        <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/forum">Fórum <span class="badge text-bg-secondary">4</span></a>
                         @endif
                     </li>
                 </ul>

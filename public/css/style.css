@@ -3,6 +3,7 @@
 html,
 body {
     font-family: 'Roboto', sans-serif !important;
+    
 }
 
 ._list_item{
@@ -36,10 +37,6 @@ body {
     border: 1px solid;
 }
 
-._list a{
-    color: black;
-}
-
 .disabled{
     background-color: #EDECEC !important;
 }
@@ -57,4 +54,25 @@ body a{
     font-size: 15px;
 }
 
+.noticias{
+    max-height: 360px;
+    overflow: scroll;
+}
 
+.titulo-2{
+    font-size: medium;
+    font-weight: bold;
+}
+
+.titulo-1{
+    font-size: medium;
+    font-weight: bold;
+}
+
+.texto{
+    font-size: x-small;
+}
+
+.texto-1{
+    font-size: small;
+}

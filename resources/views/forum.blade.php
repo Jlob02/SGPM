@@ -15,7 +15,7 @@ Fórum
             <div class="col-3 ">
                 <div class="row bg-white shadow">
                     <div class="col-12 p-4">
-                        <h4>Categorias</h4>
+                        <h4 >Categorias</h4>
                         <hr>
                         <div class="d-flex justify-content-between">
                             <p>Familia 1</p>
@@ -33,12 +33,12 @@ Fórum
             <div class="col-8 ">
 
                 <div class="row d-flex align-items-center bg-white shadow p-1">
-                    <div class="col-9">
-                        <button class="btn btn-sm btn-success"> Start New Topic</button>
+                    <div class="col-8">
+                        <a href="forum/new-topic" class="btn btn-sm btn-success"> Criar novo tópico</a>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <form class="d-flex" role="search">
-                            <input class="form-control form-control-sm bg-body-tertiary me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                            <input class="form-control form-control-sm bg-body-secondary me-2" type="search" placeholder="Pesquisar" aria-label="Search">
                             <button class="btn btn-sm rounded-5 btn-success" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg></button>
@@ -47,21 +47,22 @@ Fórum
                 </div>
 
                 <div class="row">
-                    <div class="col-12 bg-white shadow mt-2 p-4">
-                        <H4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</H4>
-
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi reiciendis ipsa sit consectetur nostrum minima sed quae nam aliquam, repudiandae voluptatum, ipsum quasi minus hic laborum optio atque molestias debitis.</p>
-
-                        <div class="text-end d-flex justify-content-between">
-                            <small> Joaquim Lobo at 20 min</small>
-                            <button class="btn btn-sm btn-success"> See more </button>
-                        </div>
+                @isset($topicos)
+                @foreach($topicos as $topico)
+                <div class="col-12 bg-white mt-2 shadow p-3">
+                    <H4 class="titulo-1" >{{$topico->titulo}}</H4>
+                    <p class="texto-1">{{$topico->descricao}}</p>
+                    <div class="text-end d-flex justify-content-between">
+                        <small class="texto-1"> {{$topico->user->u_nome}} {{\Carbon\Carbon::parse($topico->data_hora)->diffForHumans()}} </small>
+                        <a href="forum/topic/{{$topico->id}}" class="btn texto btn-sm btn-success"> Ver mais</a>
                     </div>
                 </div>
+                @endforeach
+                @endisset
+                </div>
 
-                <div class="row m-1 ">
-
-                    <div class="col-12 d-flex align-items-center justify-content-end">
+                <div class="row mt-2">
+                    <div class="col-12 bg-white shadow d-flex align-items-center justify-content-end">
                         <ul class="pagination mb-0 p-1">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
@@ -78,7 +79,6 @@ Fórum
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>

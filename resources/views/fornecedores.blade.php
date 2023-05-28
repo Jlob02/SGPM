@@ -61,6 +61,7 @@ Fornecedores
                                     @endif
                                     <th>Fornecedor</th>
                                     <th>Email</th>
+                                    <th>País</th>
                                     <th>Telemovel</th>
                                     <th>Opções</th>
                                 </tr>
@@ -73,6 +74,7 @@ Fornecedores
                                     @endif
                                     <td class="p-1">{{$fornecedor->nome}}</td>
                                     <td class="p-1">{{$fornecedor->email}}</td>
+                                    <td class="p-1">{{$fornecedor->pais}}</td>
                                     <td class="p-1">{{$fornecedor->contacto}}</td>
                                     <td class="d-flex justify-content-around">
 

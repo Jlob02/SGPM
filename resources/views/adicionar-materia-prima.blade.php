@@ -11,8 +11,8 @@ Adicionar Materia-prima
     <div class="col-1"></div>
     <div class="col-10">
         <div class="row bg-white shadow m-1 p-2">
-            <div class="col-12 d-flex justify-content-between align-items-cente _text">
-                Funcionarios > Adicionar matéria-prima
+            <div class="col-12 d-flex justify-content-between align-items-center _text">
+                Matéria-prima > Adicionar matéria-prima
                 <a href="/materia-prima" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
@@ -57,10 +57,24 @@ Adicionar Materia-prima
                     </div>
                 </div>
             </div>
+            
+            <div class="collapse" id="collapse3">
+                <div class="col-12 mt-1">
+                    <div class="bg-white shadow p-3 m-1">
+                        <form class="row " action="/materia-prima/adicionar/codigo" method="post">
+                            @csrf
+                            <div class="col-12 d-flex justify-content-center align-items-center gap-2">
+                                <input type="text" name="codigo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="codigo">
+                                <input type="text" name="principio_ativo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Principio ativo">
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row bg-white shadow p-3 m-1">
-
             <div class="col-12 ">
                 <div class="row d-flex justify-content-center _text ">
                     <div class="col-7 d-flex mt-5 p-4">
@@ -114,10 +128,20 @@ Adicionar Materia-prima
                             <div class="col-3  d-flex align-items-center">
                                 Código Europeu
                             </div>
-                            <div class="col-9">
-                                <input type="text" name="codigo" class="form-control bg-body-secondary " value='{{old("codigo")}}' />
-                            </div>
 
+                            <div class="col-5">
+                                <select name="codigo" class="form-select bg-body-secondary ">
+                                    @foreach($codigo as $codig)
+                                    <option value="{{$codig->id}}">{{$codig->codigo}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse2">
+                                    +
+                                </button>
+                            </div>
+                            <div class="col-3"></div>
                             <div class="col-3">
                                 <label for="inputTel" class="col-sm-2 col-form-label">Concentração </label>
                             </div>
@@ -130,12 +154,6 @@ Adicionar Materia-prima
                                 %
                             </div>
 
-                            <div class="col-3  d-flex align-items-center">
-                                Principio ativo
-                            </div>
-                            <div class="col-9">
-                                <input type="text" name="principio_activo" class="form-control bg-body-secondary " value='{{old("principio_activo")}}' />
-                            </div>
 
                             <div class="col-12 mt-4 mb-4 text-end">
                                 <button type="submit" class="btn btn-primary">

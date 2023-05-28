@@ -17,7 +17,8 @@ class FornecedorController extends Controller
 
             'nome' => ['required', 'unique:fornecedores'],
             'email' => ['required', 'email', 'unique:fornecedores'],
-            'contacto' => ['required', 'max:9']
+            'contacto' => ['required', 'max:9'],
+            'pais' => ['required'],
         ], [
             'nome.required' => 'Deve introduzir o nome do fornecedor',
             'nome.unique' => 'Já existe um fornecedor com este nome',
@@ -25,12 +26,14 @@ class FornecedorController extends Controller
             'email.unique' => 'Já existe um fornecedor com este email',
             'email.email' => 'Deve introduzir um email válido',
             'contacto.required' => 'Deve introduzir o contacto do fornecedor',
+            'pais.required' => 'Deve introduzir o pais do fornecedor',
         ]);
 
         $fornecedor = new Fornecedor();
         $fornecedor->nome = $data['nome'];
         $fornecedor->email = $data['email'];
         $fornecedor->contacto = $data['contacto'];
+        $fornecedor->pais = $data['pais'];
         $fornecedor->empresa_id = Auth::User()->empresa_id;
 
         $fornecedor->save();
@@ -45,7 +48,8 @@ class FornecedorController extends Controller
 
             'nome' => ['required', "unique:fornecedores,nome,$request->id"],
             'email' => ['required', 'email', "unique:fornecedores,email,$request->id"],
-            'contacto' => ['required', 'max:9']
+            'contacto' => ['required', 'max:9'],
+            'pais' => ['required'],
         ], [
             'nome.required' => 'Deve introduzir o nome do fornecedor',
             'nome.unique' => 'Já existe um fornecedor com este nome',
@@ -53,11 +57,13 @@ class FornecedorController extends Controller
             'email.unique' => 'Já existe um fornecedor com este email',
             'email.email' => 'Deve introduzir um email válido',
             'contacto.required' => 'Deve introduzir o contacto do fornecedor',
+            'pais.required' => 'Deve introduzir o pais do fornecedor',
         ]);
 
         $fornecedor = Fornecedor::where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
         $fornecedor->nome = $data['nome'];
         $fornecedor->email = $data['email'];
+        $fornecedor->pais = $data['pais'];
         $fornecedor->contacto = $data['contacto'];
         $fornecedor->save();
 

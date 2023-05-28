@@ -34,22 +34,40 @@ Empresas
 
                 <div class="row">
 
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
-                            <h4>@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h4>
-                            <div class="btn-toolbar mb-2 mb-md-0">
-                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                                    <span data-feather="calendar" class="align-text-bottom"></span>
-                                    This week
-                                </button>
+                    <div class="col-8">
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-1 mb-1 border-bottom">
+                            <h5 class="titulo-1">@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h5>
+                            <div class="btn-toolbar mb-md-0 me-2">
+                                <select class="form-select form-select-sm ">
+                                    <option selected>1 mês</option>
+                                    <option value="1">3 meses</option>
+                                    <option value="2">6 meses</option>
+                                    <option value="3">1 ano</option>
+                                </select>
                             </div>
                         </div>
-                        <canvas class="" id="myChart" width="900" height="270"></canvas>
+                        <canvas class="" id="myChart" width="900" height="400px"></canvas>
+                    </div>
+
+                    <div class="col-4">
+                        <h5 class="titulo-1 p-2">Notícias</h5>
+
+                        <div class="row noticias">
+                            @isset($topicos)
+                            @foreach($topicos as $topico)
+                            <hr>
+                            <a href="#">
+                                <h6 class="mb-1 titulo-2">{{$topico->titulo}}</h6>
+                            </a>
+                            <p class="texto">{{$topico->descricao}}</p>
+                            @endforeach
+                            @endisset
+                        </div>
                     </div>
 
                     <div class="col-12 mb-5">
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                            <h4>Tabela de preços</h4>
+                            <h5 class="titulo-1">Tabela de preços</h5>
 
                             <div class="btn-toolbar mb-2 mb-md-0">
                                 <div class="btn-group me-2">
@@ -59,7 +77,7 @@ Empresas
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="table-responsive">
                             @isset($precos)
                             <table class="table table-striped table-sm">
@@ -122,20 +140,87 @@ Empresas
     ];
 
 
-
     const data = JSON.parse('{!! $precos!!}');
+    data.reverse();
 
-    const data1 = ['0.1234', '0.33545', '0.365765', '0.435365','0.34245', '0.2675265', '0.435365','0.34245', '0.2675265', '0.365765', '0.435365','0.34245', '0.2675265',];
+    var fornecedores = [];
+    const labels = [];
+
+    var indexforn = 0;
+
+
+
+    for (let index = 0; index < data.length; index++) {
+        
+
+        if (labelExists(data[index].fornecedor.nome)) {
+
+            fornecedores.push({
+                'label': data[index].fornecedor.nome,
+                'data': [data[index].preco]
+            });
+
+            indexforn = fornecedores.length - 1;
+            
+        } else {
+            fornecedores[indexforn].data.push(data[index].preco);
+        }
+
+        for (var i = 0; i < fornecedores.length; i++) {
+            
+            if (i != indexforn) {
+                fornecedores[i].data.push(fornecedores[i].data[fornecedores[i].data.length - 1]);
+            }
+        }
+
+
+        var dateTime = new Date(data[index].created_at);
+
+        var dia = dateTime.getDate();
+        var mes = dateTime.getMonth() + 1;
+        var ano = dateTime.getFullYear();
+
+        var dataFormatada = dia + "/" + mes + "/" + ano;
+
+
+        if (!dataExists(dataFormatada)) {
+            labels.push(dataFormatada);
+        }
+
+
+    }
+
+
+    function labelExists(label) {
+
+        for (var i = 0; i < fornecedores.length; i++) {
+            if (fornecedores[i].label === label) {
+                indexforn = i;
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    function dataExists(datatime) {
+
+        for (var i = 0; i < labels.length; i++) {
+            if (labels[i] === datatime) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     new Chart(ctx, {
         type: "line",
         data: {
-            labels: month,
-            datasets: [{
-                label: "AGRUPACION FAB. ACEITES MARINOS SA",
-                data: data1,
-                borderWidth: 3,
-            }, ],
+            labels: labels,
+            datasets: fornecedores,
         },
         options: {
             scales: {

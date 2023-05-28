@@ -7,12 +7,12 @@ Empresas
 @section('content')
 
 <!--main content-->
-<div class="row mt-4">
+<div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
         <div class="row bg-white shadow m-1 p-2">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
-                Funcionarios > Adicionar empresa
+                Empresas > Adicionar empresa
                 <a href="/empresas" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>

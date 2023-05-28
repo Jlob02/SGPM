@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alerta;
+use App\Models\Topico;
 use App\Models\Fornecedor;
 use App\Models\MateriaPrima;
 use App\Models\Familia;
+use App\Models\Codigo;
 use App\Models\Preco;
 use App\Models\SubFamilia;
 use Illuminate\Http\Request;
@@ -17,34 +20,55 @@ class MateriaPrimaController extends Controller
     {
         $data = $request->validate(
             [
-
-                'designacao' => ['required', 'unique:materiasprimas'],
-                'codigo' => ['required', 'unique:materiasprimas'],
+                'designacao' => ['required'],
+                'codigo' => ['required'],
                 'concentracao' => ['required'],
                 'familia' => ['required'],
                 'subfamilia' => ['required'],
-                'principio_activo' => ['required'],
             ],
             [
                 'designacao.required' => 'Deve introduzir a designação da matéria-prima',
-                'codigo.unique' => 'Já existe uma matéria-prima com este código',
                 'concentracao.required' => 'Deve introduzir a concentração da matéria-prima',
-                'familia.unique' => 'Deve selecionar a familia da matéria-prima',
-                'subfamilia.email' => 'Deve selecionar a sub-familia da matéria-prima',
+                'familia.required' => 'Deve selecionar a familia da matéria-prima',
+                'subfamilia.required' => 'Deve selecionar a sub-familia da matéria-prima',
+                'codigo.required' => 'Deve selecionar o codigo da matéria-prima',
             ]
         );
 
         $materiaprima = new MateriaPrima();
         $materiaprima->designacao = $data['designacao'];
-        $materiaprima->codigo = $data['codigo'];
+        $materiaprima->codigo_id = $data['codigo'];
         $materiaprima->concentracao = $data['concentracao'];
         $materiaprima->familia_id = $data['familia'];
         $materiaprima->subfamilia_id = $data['subfamilia'];
-        $materiaprima->principio_activo = $data['principio_activo'];
         $materiaprima->empresa_id = Auth::User()->empresa_id;
         $materiaprima->save();
 
         return  redirect()->back()->with('success', 'Matéria-prima registada com sucesso');
+    }
+
+    //função para registar alerta matéria-prima 
+    public function registar_alerta(Request $request)
+    {
+        $data = $request->validate(
+            [
+                'preco_minimo' => ['required', 'numeric'],
+                'preco_maximo' => ['required', 'numeric' , 'gt:preco_minimo'],
+            ],
+            [
+                'preco_minimo.required' => 'Deve introduzir o preço minimo',
+                'preco_maximo.required' => 'Deve introduzir o preço maximo',
+            ]
+        );
+
+        $alerta = new Alerta();
+        $alerta->materiaprima_id = $request->id;
+        $alerta->preco_minimo = $data['preco_minimo'];
+        $alerta->preco_maximo = $data['preco_maximo'];
+        $alerta->user_id = Auth::User()->id;
+        $alerta->save();
+
+        return  redirect()->back()->with('success', 'Alerta registada com sucesso');
     }
 
     //função para registar matéria-prima  
@@ -58,24 +82,22 @@ class MateriaPrimaController extends Controller
                 'concentracao' => ['required'],
                 'familia' => ['required'],
                 'subfamilia' => ['required'],
-                'principio_activo' => ['required'],
             ],
             [
                 'designacao.required' => 'Deve introduzir a designação da matéria-prima',
-                'codigo.unique' => 'Já existe uma matéria-prima com este código',
                 'concentracao.required' => 'Deve introduzir a concentração da matéria-prima',
-                'familia.unique' => 'Deve selecionar a familia da matéria-prima',
-                'subfamilia.email' => 'Deve selecionar a sub-familia da matéria-prima',
+                'familia.required' => 'Deve selecionar a familia da matéria-prima',
+                'subfamilia.required' => 'Deve selecionar a sub-familia da matéria-prima',
+                'codigo.required' => 'Deve selecionar o codigo da matéria-prima',
             ]
         );
 
         $materiaprima = MateriaPrima::where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
         $materiaprima->designacao = $data['designacao'];
-        $materiaprima->codigo = $data['codigo'];
+        $materiaprima->codigo_id = $data['codigo'];
         $materiaprima->concentracao = $data['concentracao'];
         $materiaprima->familia_id = $data['familia'];
         $materiaprima->subfamilia_id = $data['subfamilia'];
-        $materiaprima->principio_activo = $data['principio_activo'];
 
         $materiaprima->save();
 
@@ -86,7 +108,7 @@ class MateriaPrimaController extends Controller
     public function materias_primas(Request $request)
     {
         $search = $request->input('search');
-        $fornecedores = Fornecedor::where('empresa_id', '=', Auth::User()->empresa_id)->get();
+        $fornecedores = Fornecedor::all();
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
 
@@ -127,8 +149,9 @@ class MateriaPrimaController extends Controller
         
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
+        $codigo = Codigo::all();
 
-        return view('alterar-materia-prima')->with('materia_prima', $materiaprima)->with('subfamilias', $subfamila)->with('familias', $famila);
+        return view('alterar-materia-prima')->with('codigo', $codigo)->with('materia_prima', $materiaprima)->with('subfamilias', $subfamila)->with('familias', $famila);
     }
 
 
@@ -136,12 +159,35 @@ class MateriaPrimaController extends Controller
     //função para retornar os dados da matéria-prima 
     public function precos_materias_primas(Request $request)
     {
-        $id = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->pluck('id')->toArray();
-        $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('codigo', $request->codigo)->first();
+        $id = MateriaPrima::with('familia', 'subfamilia')->where('codigo_id', $request->codigo)->pluck('id')->toArray();
+        $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('codigo_id', $request->codigo)->first();
 
-        $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->orderBy('created_at', 'asc')->get();
+        $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->get();
+
+        $topicos = Topico::query()->where('familia_id', $materiaprima->familia->id)->orderBy('created_at', 'desc')->get();
         
-        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos);
+        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('topicos',$topicos);
+    }
+
+    //função para registar familia de matéria-prima
+    public function adicionar_codigo(Request $request)
+    {
+        $data = $request->validate([
+            'codigo' => ['required', 'unique:codigo'],
+            'principio_ativo' => ['required'],
+        ], [
+            'codigo.required' => 'Deve introduzir um codigo',
+            'codigo.unique' => 'O codigo já foi registado',
+            'principio_activo.required' => 'Deve introduzir o principio ativo',
+        ]);
+
+        $codigo = new Codigo();
+        $codigo->codigo = $data['codigo'];
+        $codigo->principio_ativo = $data['principio_ativo'];
+
+        $codigo->save();
+
+        return  redirect()->back()->with('success', 'Codigo registado com sucesso');
     }
 
     //função para registar familia de matéria-prima
@@ -185,7 +231,8 @@ class MateriaPrimaController extends Controller
     {
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
+        $codigo = Codigo::all();
 
-        return  view('adicionar-materia-prima')->with('subfamilias', $subfamila)->with('familias', $famila);
+        return  view('adicionar-materia-prima')->with('codigo', $codigo)->with('subfamilias', $subfamila)->with('familias', $famila);
     }
 }

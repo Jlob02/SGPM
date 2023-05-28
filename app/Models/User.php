@@ -29,7 +29,6 @@ class User extends Authenticatable
         'u_contacto',
         'u_estado',
         'empresa_id',
-        //'email_verified_at',
         'password',
         'token'
     ];
@@ -57,13 +56,16 @@ class User extends Authenticatable
 
     public function funcao()
     {
-
         return $this->belongsTo(Funcao::class);
     }
 
     public function empresa()
     {
-
         return $this->belongsTo(Empresa::class);
+    }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
     }
 }

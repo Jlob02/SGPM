@@ -21,6 +21,7 @@ class Fornecedor extends Model
         'id',
         'nome',
         'email',
+        'pais',
         'contacto',
         'empresa_id'
     ];

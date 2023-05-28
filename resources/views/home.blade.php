@@ -63,12 +63,21 @@ Home
                         </div>
                     </form>
                 </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 p-4 shadow  bg-white">
+                        <h6 class="mb-2">Actividades recentes</h6>
+                        <div class="bg-body-secondary">
+                          
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-9">
 
                 <div class="row bg-white shadow m-1 p-1">
-                    <div class="col-9 d-flex align-items-center ">
+                    <div class="col-8 d-flex align-items-center ">
                         Mostrar
                         <div class="me-2 ms-2">
                             <select class="form-select form-select-sm bg-body-secondary ">
@@ -81,7 +90,7 @@ Home
 
                         Resultados
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <form class="d-flex" role="search" action="/home" method="get">
                             <input name="search" class="form-control form-control-sm me-2 bg-body-secondary" type="search" placeholder="Pesquisar" aria-label="Search">
                             <button class="btn btn-sm rounded-5 btn-success" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -95,28 +104,28 @@ Home
                     <div class="col-12 ">
                         @isset($precos)
                         @foreach($precos as $preco)
-                        <a href="materia-prima/{{$preco->materiaprima->codigo}}" class="row d-flex align-items-center _list_item bg-white shadow mt-2 p-2 ">
+                        <a href="materia-prima/{{$preco->materiaprima->codigo->id}}" class="row d-flex align-items-center _list_item bg-white shadow mt-2 p-2 ">
                             <div class="col-11">
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         DESCRIÇÃO : {{$preco->materiaprima->designacao}}
                                     </div>
                                     <div class="col-3">
-                                        CÓDIGO : {{$preco->materiaprima->codigo}}
+                                        CÓDIGO : {{$preco->materiaprima->codigo->codigo}}
                                     </div>
                                     <div class="col-3">
                                         FAMÍLIA : {{$preco->materiaprima->familia->familia}}
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
 
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         DATA : {{$preco->data_inicio}} a {{$preco->data_fim}}
                                     </div>
                                     <div class="col-3">
                                         EMPRESA : {{$preco->materiaprima->empresa->nome}}
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         PAÍS : Portugal
                                     </div>
                                     <div class="col-3">
@@ -124,6 +133,9 @@ Home
                                     </div>
                                     <div class="col-12">
                                         FORNECEDOR : {{$preco->fornecedor->nome}}
+                                    </div>
+                                    <div class="col-12">
+                                        OBSERVAÇÕES : {{$preco->observacao}}
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +147,6 @@ Home
                         </a>
                         @endforeach
                         @endisset
-                        <!--
                         <a href="#" class="row d-flex align-items-center _list_item bg-white shadow mt-2 p-2">
                             <div class="col-11">
                                 <div class="row">
@@ -173,7 +184,7 @@ Home
                                     <path fill-rule="evenodd" d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z" />
                                 </svg>
                             </div>
-                        </a>-->
+                        </a>
                     </div>
                 </div>
 

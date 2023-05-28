@@ -21,6 +21,7 @@ class PrecoController extends Controller
                 'preco' => ['required'],
                 'unidade' => ['required'],
                 'fornecedor' => ['required', 'integer'],
+                'quantidade_minima' => ['required', 'integer'],
                 'data_inicio' => ['required', 'date'],
                 'data_fim' => ['required', 'date', 'after:data_inicio'],
             ],
@@ -30,12 +31,15 @@ class PrecoController extends Controller
                 'data_inicio.required' => 'Deve introduzir a data de inicio',
                 'data_fim.unique' => 'Já existe uma matéria-prima com este código',
                 'fornecedor.integer' => 'Deve selecionar um fornecedor',
+                'quantidade_minima.required' => 'Deve selecionar a quantidade minima da matéria-prima',
             ]
         );
 
         $preco = new Preco();
         $preco->preco = $data['preco'];
         $preco->unidade = $data['unidade'];
+        $preco->observacao = $request->observacao;
+        $preco->quantidade_minima = $data['quantidade_minima'];
         $preco->fornecedor_id = $data['fornecedor'];
         $preco->data_inicio = $data['data_inicio'];
         $preco->data_fim = $data['data_fim'];
@@ -85,39 +89,21 @@ class PrecoController extends Controller
 
         if (!empty($search)) {
             $materiaprima =  MateriaPrima::query()->where('designacao', 'LIKE', "%{$search}%")->pluck('id')->toArray();
-            $precos = Preco::query()->whereIn('materiaprima_id', $materiaprima)->sortable()->paginate(15);
+            $precos = Preco::query()->whereIn('materiaprima_id', $materiaprima)->orderBy('created_at', 'desc')->sortable()->paginate(15);
         } else {
-
-           
 
             if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id) and !empty($data1) and !empty($data2)) {
 
                 $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
 
                 if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->sortable()->paginate(15);
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(15);
                 } else {
-                    $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->sortable()->paginate(15);
+                    $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(15);
                 }
-
-                return view('home')->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+            } else {
+                $precos = Preco::query()->orderBy('created_at', 'desc')->sortable()->paginate(15);
             }
-            
-
-            if (!empty($empresa_id)) {
-
-                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id)->first();
-
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->sortable()->paginate(15);
-                } else {
-                    $precos = Preco::query()->where('materiaprima_id', 0)->sortable()->paginate(15);
-                }
-                return view('home')->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
-            }
-            
-            $precos = Preco::query()->sortable()->paginate(15);
-            
         }
 
         return view('home')->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);

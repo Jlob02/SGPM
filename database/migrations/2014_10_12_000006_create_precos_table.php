@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('precos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('preco',5,4);
+            $table->float('preco');
             $table->integer('unidade');
+            $table->integer('quantidade_minima');
+            $table->string("observacao")->nullable();;
             $table->unsignedBigInteger('materiaprima_id');
             $table->foreign('materiaprima_id')->references('id')->on('materiasprimas')->onDelete('cascade');
             $table->unsignedBigInteger('fornecedor_id');

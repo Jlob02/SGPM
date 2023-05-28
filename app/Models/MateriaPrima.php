@@ -20,15 +20,19 @@ class MateriaPrima extends Model
     protected $fillable = [
         'id',
         'designacao',
-        'codigo',
+        'codigo_id',
         'concentracao',
         'familia_id',
         'subfamilia_id',
-        'principio_activo',
         'empresa_id'
     ];
 
-    protected $sortable = ['desgnacao', 'codigo', 'id', 'familia', 'subfamilia', 'concentracao'];
+    protected $sortable = ['desgnacao', 'id', 'concentracao'];
+
+    public function codigo()
+    {
+        return $this->belongsTo(Codigo::class);
+    }
 
     public function familia()
     {
@@ -47,7 +51,6 @@ class MateriaPrima extends Model
 
     public function empresa()
     {
-
         return $this->belongsTo(Empresa::class);
     }
 }

@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Preco extends Model
+class Alerta extends Model
 {
-    use  HasFactory,  Sortable;
-    protected $table = 'precos';
+    use  HasFactory, Sortable;
+    protected $table = 'notificacoes';
     protected $primaryKey = 'id';
 
     /**
@@ -19,27 +19,20 @@ class Preco extends Model
      */
     protected $fillable = [
         'id',
-        'preco',
-        'unidade',
-        'quantidade_minima',
-        'observacao',
-        'materiaprima_id',
-        'fornecedor_id',
-        'empresa_id',
-        'data_inicio',
-        'data_fim',
-        'created_at',
+        'user_id',
+        'preco_minimo',
+        'preco_maximo',
+        'estado',
+        'materiaprima_id'
     ];
-
-    protected $sortable = ['id','preco'];
 
     public function materiaprima()
     {
         return $this->belongsTo(MateriaPrima::class);
     }
 
-    public function fornecedor()
+    public function user()
     {
-        return $this->belongsTo(Fornecedor::class);
+        return $this->belongsTo(User::class);
     }
 }
