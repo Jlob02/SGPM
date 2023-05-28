@@ -38,16 +38,17 @@ Fórum
                     </div>
                     <div class="col-4">
                         <form class="d-flex" role="search" action="/forum" method="get">
-                            <input class="form-control form-control-sm bg-body-secondary me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                            <input name="search" class="form-control form-control-sm bg-body-secondary me-2" type="search" placeholder="Pesquisar" aria-label="Search">
                             <button class="btn btn-sm rounded-5 btn-success" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg></button>
                         </form>
                     </div>
                 </div>
-
-                <div class="row _list">
-                    @isset($topicos)
+                <div class="row">
+                    <div class="col-12 _list">
+                        <div class="row">
+                        @isset($topicos)
                     @foreach($topicos as $topico)
                     <div class="col-12 bg-white mt-2 shadow p-3">
                         <H4 class="titulo-1">{{$topico->titulo}}</H4>
@@ -59,12 +60,20 @@ Fórum
                     </div>
                     @endforeach
                     @endisset
+                        </div>
+                    </div>
+
+
+
+                    
                 </div>
+
+
 
                 <div class="row mt-1 ">
                     <div class="col-12 d-flex align-items-center justify-content-end bg-white shadow">
                         @isset($topicos)
-                       
+
                         @if ($topicos->links()->paginator->hasPages())
                         <ul class="pagination mb-0 p-1">
                             {{ $topicos->onEachSide(3)->links() }}

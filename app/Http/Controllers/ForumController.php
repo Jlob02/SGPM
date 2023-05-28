@@ -71,9 +71,9 @@ class ForumController extends Controller
         $search = $request->input('search');
 
         if (!empty($search)) {
-            $topicos = Topico::query()->where('titulo', 'LIKE', "%{$search}%", 'OR', 'descricao', 'LIKE', "%{$search}%" )->orderBy('created_at', 'desc')->sortable()->paginate(15);
+            $topicos = Topico::query()->where('titulo', 'LIKE', "%{$search}%",'or', 'descricao','LIKE', "%{$search}%" )->orderBy('created_at', 'desc')->sortable()->paginate(15);
         } else {
-            $topicos = Topico::query()->orderBy('created_at', 'desc')->sortable()->paginate(15);
+            $topicos = Topico::query()->orderBy('created_at', 'desc')->sortable()->paginate(10);
         }
 
         return view('forum')->with('topicos', $topicos);
