@@ -6,6 +6,7 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\MateriaPrimaController;
 use App\Http\Controllers\RecuperarPasswordController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ForumController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
 
     $result = User::all();
+
     if ($result->isEmpty()) {
         return view('registar-admin');
     }
@@ -35,11 +37,9 @@ Route::get('/', function () {
 Route::post('login', [UserController::class, 'login']);
 
 Route::get('login', function () {
-    
     if (Auth::check()) {
         return  redirect('home');
     }
-
     return view('login');
 });
 
@@ -134,6 +134,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('materia-prima/preco/{id}', [PrecoController::class, 'registar_preco']);
 
+    Route::post('materia-prima/alerta/{id}', [MateriaPrimaController::class, 'registar_alerta']);
+
     Route::delete('materia-prima/preco/apagar/{id}', [PrecoController::class, 'apagar_preco']);
 
     Route::get('materia-prima/precos', [PrecoController::class, 'precos_materias_primas']);
@@ -141,6 +143,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('materia-prima/adicionar/familia', [MateriaPrimaController::class, 'adicionar_familia']);
 
     Route::post('materia-prima/adicionar/subfamilia', [MateriaPrimaController::class, 'adicionar_subfamilia']);
+
+    Route::post('materia-prima/adicionar/codigo', [MateriaPrimaController::class, 'adicionar_codigo']);
 
     Route::get('materia-prima/{codigo}', [MateriaPrimaController::class, 'precos_materias_primas']);
 
@@ -166,9 +170,15 @@ Route::middleware(['auth'])->group(function () {
 
 
     //routes para fórum------------------------------
-    Route::get('forum', function () {
-        return view('forum');
-    });
+    Route::get('forum', [ForumController::class, 'topicos']);
+
+    Route::get('forum/new-topic', [ForumController::class, 'veiw_adicionar_topico']);
+
+    Route::post('forum/new-topic', [ForumController::class, 'registar_topico']);
+
+    Route::post('forum/topic/{id}', [ForumController::class, 'adicionar_comentario']);
+
+    Route::get('forum/topic/{id}', [ForumController::class, 'topico']);
 
     //fim routes para fórum------------------------------
 
