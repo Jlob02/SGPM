@@ -172,13 +172,13 @@ Route::middleware(['auth'])->group(function () {
     //routes para fórum------------------------------
     Route::get('forum', [ForumController::class, 'topicos']);
 
-    Route::get('forum/new-topic', [ForumController::class, 'veiw_adicionar_topico']);
+    Route::get('forum/novo-topico', [ForumController::class, 'novo_topico']);
 
-    Route::post('forum/new-topic', [ForumController::class, 'registar_topico']);
+    Route::post('forum/novo-topico', [ForumController::class, 'registar_topico']);
 
-    Route::post('forum/topic/{id}', [ForumController::class, 'adicionar_comentario']);
+    Route::post('forum/topico/{id}', [ForumController::class, 'registar_comentario']);
 
-    Route::get('forum/topic/{id}', [ForumController::class, 'topico']);
+    Route::get('forum/topico/{id}', [ForumController::class, 'topico']);
 
     //fim routes para fórum------------------------------
 

@@ -34,7 +34,7 @@ Fórum
 
                 <div class="row d-flex align-items-center bg-white shadow p-1">
                     <div class="col-8">
-                        <a href="forum/new-topic" class="btn btn-sm btn-success"> Criar novo tópico</a>
+                        <a href="/forum/novo-topico" class="btn btn-sm btn-success"> Criar novo tópico</a>
                     </div>
                     <div class="col-4">
                         <form class="d-flex" role="search" action="/forum" method="get">
@@ -50,12 +50,12 @@ Fórum
                         <div class="row">
                         @isset($topicos)
                     @foreach($topicos as $topico)
-                    <div class="col-12 bg-white mt-2 shadow p-3">
+                    <div class="col-12 bg-white mt-2 shadow p-2 ps-3 pe-3">
                         <H4 class="titulo-1">{{$topico->titulo}}</H4>
-                        <p class="texto-1">{{$topico->descricao}}</p>
+                        <p class="texto-1 ">{{$topico->descricao}}</p>
                         <div class="text-end d-flex justify-content-between">
-                            <small class="texto-1"> {{$topico->user->u_nome}} {{\Carbon\Carbon::parse($topico->data_hora)->diffForHumans()}} </small>
-                            <a href="forum/topic/{{$topico->id}}" class="btn texto btn-sm btn-success"> Ver mais</a>
+                            <small class="texto "> {{$topico->user->u_nome}} {{\Carbon\Carbon::parse($topico->data_hora)->diffForHumans()}} </small>
+                            <a href="forum/topico/{{$topico->id}}" class="btn texto btn-sm btn-success"> Ver mais</a>
                         </div>
                     </div>
                     @endforeach

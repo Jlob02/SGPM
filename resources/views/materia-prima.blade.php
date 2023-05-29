@@ -52,8 +52,9 @@ Matéria-prima
         <div class="row m-1">
             <div class="col-12 ms-0 m-1 p-2 mt-0 bg-white shadow">
                 <a href="/materia-prima/adicionar" class="btn btn-sm _nav ">Adicionar matéria-prima</a>
-                <a href="/materia-prima" class="btn btn-primary btn-sm _nav">Listar matérias-primas</a>
-                <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Listar preços</a>
+                <a href="/materia-prima" class="btn btn-primary btn-sm _nav">Matérias-primas</a>
+                <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Preços</a>
+                <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Alertas</a>
             </div>
 
             <div class="col-12">

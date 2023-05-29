@@ -31,6 +31,13 @@ body {
 ._list{
     height: 70vh;
     overflow: scroll;
+    overflow-x: hidden;
+}
+
+._list1{
+    max-height: 80vh;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 ._filtros{
