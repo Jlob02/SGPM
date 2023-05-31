@@ -67,8 +67,10 @@ Home
                 <div class="row mt-2">
                     <div class="col-12 p-4 shadow  bg-white">
                         <h6 class="mb-2">Actividades recentes</h6>
-                        <div class="bg-body-secondary">
-                          
+                        <div class="bg-body-secondary p-2" style="max-height: 150px; overflow: scroll; overflow-x: hidden;">
+                            @foreach($logs as $log)
+                            <p class="texto mb-0">{{$log->user->u_nome}} {{$log->acao}} {{\Carbon\Carbon::parse($log->data_hora)->diffForHumans()}}</p>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -105,93 +107,62 @@ Home
                         @isset($precos)
                         @foreach($precos as $preco)
                         <a href="materia-prima/{{$preco->materiaprima->codigo->id}}" class="row d-flex align-items-center _list_item bg-white shadow mt-2 p-2 ">
-                            <div class="col-11">
+                            <div class="col-9">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-5">
                                         DESCRIÇÃO : {{$preco->materiaprima->designacao}}
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         CÓDIGO : {{$preco->materiaprima->codigo->codigo}}
                                     </div>
                                     <div class="col-3">
                                         FAMÍLIA : {{$preco->materiaprima->familia->familia}}
                                     </div>
-                                    <div class="col-2">
-
-                                    </div>
-                                    <div class="col-4">
+                                    <div class="col-5">
                                         DATA : {{$preco->data_inicio}} a {{$preco->data_fim}}
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         EMPRESA : {{$preco->materiaprima->empresa->nome}}
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         PAÍS : Portugal
                                     </div>
-                                    <div class="col-3">
-                                        PREÇO : {{$preco->preco}}
-                                    </div>
-                                    <div class="col-12">
+                                    <div class="col-5">
                                         FORNECEDOR : {{$preco->fornecedor->nome}}
+                                    </div>
+                                    <div class="col-7">
+                                        QUANTIDADE MINIMA : 
+                                        @if($preco->quantidade_minima==1) 
+                                                Camião completo
+                                        @endif
+                                        @if($preco->quantidade_minima==2) 
+                                                >= 1 Palete
+                                        @endif
+                                        @if($preco->quantidade_minima==3) 
+                                                < 1 Palete
+                                        @endif
+                                        @if($preco->quantidade_minima==4) 
+                                                Não aplicável
+                                        @endif
                                     </div>
                                     <div class="col-12">
                                         OBSERVAÇÕES : {{$preco->observacao}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-triangle-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z" />
-                                </svg>
+                            <div class="col-3">
+                                PREÇO : {{$preco->preco}} EUR
                             </div>
                         </a>
                         @endforeach
                         @endisset
-                        <a href="#" class="row d-flex align-items-center _list_item bg-white shadow mt-2 p-2">
-                            <div class="col-11">
-                                <div class="row">
-                                    <div class="col-3">
-                                        DESCRIÇÃO : DINPAC 84
-                                    </div>
-                                    <div class="col-3">
-                                        CÓDIGO: M33 5742
-                                    </div>
-                                    <div class="col-3">
-                                        FAMÍLIA :
-                                    </div>
-                                    <div class="col-3">
-                                        PREÇO : 0.0229
-                                    </div>
-                                    <div class="col-3">
-                                        DATA: 1/04/2023
-                                    </div>
-                                    <div class="col-3">
-                                        EMPRESA: DIN
-                                    </div>
-                                    <div class="col-3">
-                                        PAÍS : Portugal
-                                    </div>
-                                    <div class="col-3">
-                                        LOCALIDADE : Coimbra
-                                    </div>
-                                    <div class="col-12">
-                                        FORNECEDOR : AGRUPACION FAB. ACEITES MARINOS SA
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-triangle-fill down_triangle" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z" />
-                                </svg>
-                            </div>
-                        </a>
                     </div>
                 </div>
 
                 <div class="row m-1 ">
                     <div class="col-12 d-flex align-items-center justify-content-end bg-white shadow">
                         @isset($precos)
-                       
+
                         @if ($precos->links()->paginator->hasPages())
                         <ul class="pagination mb-0 p-1">
                             {{ $precos->onEachSide(3)->links() }}

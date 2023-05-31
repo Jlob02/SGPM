@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alerta;
+use App\Models\Log;
 use App\Models\Topico;
 use App\Models\Fornecedor;
 use App\Models\MateriaPrima;
@@ -43,6 +44,12 @@ class MateriaPrimaController extends Controller
         $materiaprima->subfamilia_id = $data['subfamilia'];
         $materiaprima->empresa_id = Auth::User()->empresa_id;
         $materiaprima->save();
+
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "adicionou matéria-prima";
+        $log->save();
 
         return  redirect()->back()->with('success', 'Matéria-prima registada com sucesso');
     }
@@ -101,6 +108,12 @@ class MateriaPrimaController extends Controller
 
         $materiaprima->save();
 
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "alterou matéria-prima";
+        $log->save();
+
         return  redirect('/materia-prima')->with('success', 'Matéria-prima alterada com sucesso');
     }
 
@@ -136,6 +149,13 @@ class MateriaPrimaController extends Controller
 
         if ($materiaprima != null) {
             $materiaprima->delete();
+
+            $log = new Log();
+            $log->user_id = Auth::User()->id;
+            $log->data_hora = now();
+            $log->acao = "removeu matéria-prima";
+            $log->save();
+
             return  redirect()->back()->with('success', 'Matéria-prima apagada com sucesso');
         }
         return  redirect()->back()->with('error', 'Não foi possivel apagar a matéria-prima ');
@@ -187,6 +207,12 @@ class MateriaPrimaController extends Controller
 
         $codigo->save();
 
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "adicionou codigo";
+        $log->save();
+
         return  redirect()->back()->with('success', 'Codigo registado com sucesso');
     }
 
@@ -205,6 +231,12 @@ class MateriaPrimaController extends Controller
 
         $familia->save();
 
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "adicionou famila de matéria-prima";
+        $log->save;
+
         return  redirect()->back()->with('success', 'Familia registada com sucesso');
     }
 
@@ -222,6 +254,12 @@ class MateriaPrimaController extends Controller
         $subfamilia->subfamilia = $data['subfamilia'];
 
         $subfamilia->save();
+
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "adicionou sub-famila de matéria-prima";
+        $log->save;
 
         return  redirect()->back()->with('success', 'Subfamilia registada com sucesso');
     }

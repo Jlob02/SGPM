@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Familia;
+use App\Models\Log;
 use App\Models\Comentario;
 use App\Models\Topico;
 use Illuminate\Http\Request;
@@ -34,6 +35,12 @@ class ForumController extends Controller
         $topico->familia_id = $data['familia'];
         $topico->save();
 
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "adicionou tópico";
+        $log->save();
+
         return  redirect('/forum')->with('success', 'Tópico registado com sucesso');
     }
 
@@ -53,6 +60,12 @@ class ForumController extends Controller
         $comentario->user_id = Auth::User()->id;
         $comentario->topico_id = $request->id;
         $comentario->save();
+
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "comentou tópico";
+        $log->save();
 
         return  redirect()->back();
     }
@@ -81,6 +94,13 @@ class ForumController extends Controller
 
         if ($topico != null) {
             $topico->delete();
+
+            $log = new Log();
+            $log->user_id = Auth::User()->id;
+            $log->data_hora = now();
+            $log->acao = "removeu tópico";
+            $log->save();
+
             return  redirect()->back()->with('success', 'Tópico apagado com sucesso');
         }
         return  redirect()->back()->with('error', 'Não foi possivel apagar o tópico');

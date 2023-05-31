@@ -29,7 +29,7 @@ body {
 }
 
 ._list{
-    height: 70vh;
+    height: 75vh;
     overflow: scroll;
     overflow-x: hidden;
 }
@@ -64,6 +64,7 @@ body a{
 .noticias{
     max-height: 360px;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 .titulo-2{

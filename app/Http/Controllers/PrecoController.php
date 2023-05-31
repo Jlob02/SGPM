@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empresa;
+use App\Models\Log;
 use App\Models\Familia;
 use App\Models\Fornecedor;
 use App\Models\Preco;
@@ -48,6 +49,12 @@ class PrecoController extends Controller
 
         $preco->save();
 
+        $log = new Log();
+        $log->user_id = Auth::User()->id;
+        $log->data_hora = now();
+        $log->acao = "adicionou preço de matéria-prima";
+        $log->save();
+
         return  redirect()->back()->with('success', 'Preço registado com sucesso');
     }
 
@@ -86,6 +93,7 @@ class PrecoController extends Controller
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
         $empresas = Empresa::all();
+        $logs = Log::query()->orderBy('created_at', 'desc')->sortable()->paginate(25);
 
         if (!empty($search)) {
             $materiaprima =  MateriaPrima::query()->where('designacao', 'LIKE', "%{$search}%")->pluck('id')->toArray();
@@ -106,7 +114,7 @@ class PrecoController extends Controller
             }
         }
 
-        return view('home')->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+        return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
     }
 
     //função para apagar uma matéria-prima 
@@ -116,6 +124,13 @@ class PrecoController extends Controller
 
         if ($preco != null) {
             $preco->delete();
+
+            $log = new Log();
+            $log->user_id = Auth::User()->id;
+            $log->data_hora = now();
+            $log->acao = "removeu preço de matéria-prima";
+            $log->save();
+
             return  redirect()->back()->with('success', 'Preço apagado com sucesso');
         }
         return  redirect()->back()->with('error', 'Não foi possivel apagar o preço');

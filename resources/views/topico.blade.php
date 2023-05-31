@@ -70,7 +70,7 @@ Fórum
 
                     <form class="row" method="post" action="/forum/topico/{{$topico->id}}">
                         @csrf
-                        <div class="col-12 bg-white shadow mt-2 mb-4 p-4">
+                        <div class="col-12 bg-white shadow mt-2 mb-4 p-3">
                             <div class="form">
                                 <textarea name="comentario" class="form-control bg-body-secondary" style="min-height: 80px;
                           " placeholder="Escreva aqui o seu comentário..." id="floatingTextarea"></textarea>

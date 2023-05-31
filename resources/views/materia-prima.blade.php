@@ -43,8 +43,8 @@ Matéria-prima
             </div>
         </div>
 
-         <!-- Modal -->
-         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" id="dialog1">
 
             </div>
@@ -58,31 +58,10 @@ Matéria-prima
             </div>
 
             <div class="col-12">
-                <div class="row _navbar  d-flex  align-items-center bg-white shadow p-2">
-                    <div class=" mt-2 mb-2 col-2">
-                        <h6>Ordenar por</h6>
-                    </div>
-                    <div class=" col-2">
-                        <h6>Família</h6>
-                    </div>
-                    <div class=" col-2">
-                        <h6>Sub Família</h6>
-                    </div>
-                    <div class=" col-2">
-                        <h6>Fornecedor</h6>
-                    </div>
-                    <div class=" col-4 d-flex ">
-                        <h6>Data</h6>
-                    </div>
+                <div class="row _navbar  d-flex align-items-center bg-white shadow p-2">
 
-                    <div class=" col-2">
-                        <select class="form-select form-select-sm bg-body-secondary">
-                            <option value="1">Designação A-Z</option>
-                            <option value="1">Designação Z-A</option>
-                        </select>
-                    </div>
-
-                    <div class="col-2 ">
+                    <div class="col-2">
+                        <h7 class="titulo-1">Família</h7>
                         <select class="form-select form-select-sm bg-body-secondary">
                             <option selected>Selecionar</option>
                             @isset($familias)
@@ -93,7 +72,8 @@ Matéria-prima
                         </select>
                     </div>
 
-                    <div class="col-2 ">
+                    <div class="col-2">
+                        <h7 class="titulo-1">Sub Família</h7>
                         <select class="form-select form-select-sm bg-body-secondary">
                             <option selected>Selecionar</option>
                             @isset($subfamilias)
@@ -105,6 +85,7 @@ Matéria-prima
                     </div>
 
                     <div class="col-2">
+                        <h7 class="titulo-1">Fornecedor</h7>
                         <select class="form-select form-select-sm bg-body-secondary">
                             <option selected>Selecionar</option>
                             @isset($fornecedores)
@@ -115,12 +96,17 @@ Matéria-prima
                         </select>
                     </div>
 
-                    <div class="col-4 d-flex">
-                        <input class="form-control form-control-sm bg-body-secondary" type="date">
+                    <div class="col-5 ">
+                        <h7 class="titulo-1">Data</h7>
 
-                        <input class="ms-1 form-control form-control-sm bg-body-secondary" type="date">
+                        <div class="d-flex">
+                            <input class="form-control form-control-sm bg-body-secondary" type="date">
 
-                        <button class="ms-2 btn btn-sm rounded-2 btn-success btn-sm" type="submit">Filtrar</button>
+                            <input class="ms-1 form-control form-control-sm bg-body-secondary" type="date">
+                        </div>
+                    </div>
+                    <div class="col-1 d-flex justify-content-bottom ">
+                        <button class=" mt-4 ms-1 btn rounded-2 btn-success btn-sm" type="submit">Filtrar</button>
                     </div>
 
                     <div class="col-9 d-flex align-items-center">
@@ -222,10 +208,11 @@ Matéria-prima
                                 <tr class="text-start">
                                     <th>Materia prima</th>
                                     <th>Fornecedor</th>
-                                    <th>preco</th>
-                                    <th>Unidade</th>
+                                    <th>Quant. minima</th>
                                     <th>Data de inicio</th>
                                     <th>Data de fim</th>
+                                    <th>preco</th>
+                                    <th>Unidade</th> 
                                     <th>Opções</th>
                                 </tr>
                             </thead>
@@ -234,15 +221,28 @@ Matéria-prima
                                 <tr>
                                     <td>{{$preco->materiaprima->designacao}}</td>
                                     <td>{{$preco->fornecedor->nome}}</td>
-                                    <td>{{$preco->preco}}</td>
+                                    <td> @if($preco->quantidade_minima==1) 
+                                                Camião completo
+                                        @endif
+                                        @if($preco->quantidade_minima==2) 
+                                                >= 1 Palete
+                                        @endif
+                                        @if($preco->quantidade_minima==3) 
+                                                < 1 Palete
+                                        @endif
+                                        @if($preco->quantidade_minima==4) 
+                                                Não aplicável
+                                        @endif</td>
+                                    <td>{{$preco->data_inicio}}</td>
+                                    <td>{{$preco->data_fim}}</td>
+                                    <td>{{$preco->preco}} EUR</td>
                                     <td>@if($preco->unidade == 1)
                                         Kg
                                         @else
                                         T
                                         @endif
                                     </td>
-                                    <td>{{$preco->data_inicio}}</td>
-                                    <td>{{$preco->data_fim}}</td>
+                                    
                                     <td class=" d-flex justify-content-around">
 
                                         <form action="/materia-prima/preco/apagar/{{$preco->id}}" method="post">
@@ -332,9 +332,8 @@ Matéria-prima
                                     <div class="modal-body">
                                         <h5>` + nome + `</h5>
                                         <hr>
-                                       <h6> condições </h6> 
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-4 ">
                                                Preço minimo
                                             </div>
                                             <div class="col-4">
