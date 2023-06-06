@@ -76,13 +76,31 @@ class ForumController extends Controller
     {
         $search = $request->input('search');
 
+
+        $top = Topico::query()->orderBy('created_at', 'desc')->get();
+        $categorias = $top->groupBy('familia_id')->take(10);
+
+
         if (!empty($search)) {
-            $topicos = Topico::query()->where('titulo', 'LIKE', "%{$search}%", 'or', 'descricao', 'LIKE', "%{$search}%")->orderBy('created_at', 'desc')->sortable()->paginate(15);
+            $topicos = Topico::query()->where('titulo', 'LIKE', "%{$search}%", 'OR', 'descricao', 'LIKE', "%{$search}%")->orderBy('created_at', 'desc')->sortable()->paginate(15);
         } else {
             $topicos = Topico::query()->orderBy('created_at', 'desc')->sortable()->paginate(10);
         }
 
-        return view('forum')->with('topicos', $topicos);
+        return view('forum')->with('topicos', $topicos)->with('categorias', $categorias);
+    }
+
+
+    //funcao para retornar todos topicos de uma categoria
+    public function topicos_categoria(Request $request)
+    {
+        $top = Topico::query()->orderBy('created_at', 'desc')->get();
+        $categorias = $top->groupBy('familia_id')->take(10);
+
+
+        $topicos = Topico::query()->where('familia_id', $request->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+
+        return view('forum')->with('topicos', $topicos)->with('categorias', $categorias);
     }
 
 
@@ -110,7 +128,11 @@ class ForumController extends Controller
     public function novo_topico(Request $request)
     {
         $familas = Familia::all();
-        return view('novo-topico')->with('familias', $familas);
+
+        $top = Topico::query()->orderBy('created_at', 'desc')->get();
+        $categorias = $top->groupBy('familia_id');
+
+        return view('novo-topico')->with('familias', $familas)->with('categorias', $categorias);
     }
 
 
@@ -120,6 +142,9 @@ class ForumController extends Controller
         $topico = Topico::where('id', '=', $request->id)->first();
         $comentarios = Comentario::where('topico_id', '=', $request->id)->get();
 
-        return view('topico')->with('topico', $topico)->with('comentarios', $comentarios);
+        $top = Topico::query()->orderBy('created_at', 'desc')->get();
+        $categorias = $top->groupBy('familia_id');
+
+        return view('topico')->with('topico', $topico)->with('comentarios', $comentarios)->with('categorias', $categorias);
     }
 }

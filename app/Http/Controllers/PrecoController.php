@@ -93,11 +93,11 @@ class PrecoController extends Controller
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
         $empresas = Empresa::all();
-        $logs = Log::query()->orderBy('created_at', 'desc')->sortable()->paginate(25);
+        $logs = Log::query()->take(25)->orderBy('created_at', 'desc')->get();
 
         if (!empty($search)) {
             $materiaprima =  MateriaPrima::query()->where('designacao', 'LIKE', "%{$search}%")->pluck('id')->toArray();
-            $precos = Preco::query()->whereIn('materiaprima_id', $materiaprima)->orderBy('created_at', 'desc')->sortable()->paginate(15);
+            $precos = Preco::query()->whereIn('materiaprima_id', $materiaprima)->orderBy('created_at', 'desc')->sortable()->paginate(10);
         } else {
 
             if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id) and !empty($data1) and !empty($data2)) {
@@ -105,12 +105,12 @@ class PrecoController extends Controller
                 $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
 
                 if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                 } else {
-                    $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                    $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                 }
             } else {
-                $precos = Preco::query()->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                $precos = Preco::query()->orderBy('created_at', 'desc')->sortable()->paginate(10);
             }
         }
 

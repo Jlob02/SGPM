@@ -26,9 +26,9 @@ class Topico extends Model
         'familia_id'
     ];
 
-    public function materiaprima()
+    public function familia()
     {
-        return $this->belongsTo(MateriaPrima::class);
+        return $this->belongsTo(Familia::class);
     }
 
     public function user()

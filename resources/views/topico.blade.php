@@ -13,19 +13,17 @@ Fórum
     <div class="col-10">
         <div class="row m-1 gap-3">
             <div class="col-3 ">
-                <div class="row bg-white shadow">
+                <div class="row bg-white shadow" style="height: 250px;">
                     <div class="col-12 p-4">
-                        <h4>Categorias</h4>
+                        <h6 class="titulo-1">Categorias</h6>
                         <hr>
-                        <div class="d-flex justify-content-between">
-                            <p>Familia 1</p>
-                            <p class="me-4">5</p>
-                        </div>
+                        @foreach($categorias as $categoria)
 
-                        <div class="d-flex justify-content-between">
-                            <p>Familia 1</p>
-                            <p class="me-4">5</p>
+                        <div class="d-flex mb-0 justify-content-between">
+                            <a href="/forum/topicos/{{$categoria[0]->familia->id}}" class="mb-0 mt-0">{{$categoria[0]->familia->familia}}</a>
+                            <p class="me-4 mb-0 mt-0">{{$categoria->count()}}</p>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

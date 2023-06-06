@@ -180,6 +180,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('forum/topico/{id}', [ForumController::class, 'topico']);
 
+    Route::get('forum/topicos/{id}', [ForumController::class, 'topicos_categoria']);
+
     //fim routes para fórum------------------------------
 
 });

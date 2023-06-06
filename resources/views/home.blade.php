@@ -10,7 +10,7 @@ Home
 <div class="row">
     <div class="col-1">
     </div>
-    <div class="col-10">
+    <div class="col-10 mb-4">
         <div class="row m-1 g-4">
             <div class="col-3">
                 <div class="row ">
@@ -82,11 +82,11 @@ Home
                     <div class="col-8 d-flex align-items-center ">
                         Mostrar
                         <div class="me-2 ms-2">
-                            <select class="form-select form-select-sm bg-body-secondary ">
-                                <option selected>10</option>
-                                <option value="1">20</option>
-                                <option value="2">30</option>
-                                <option value="3">40</option>
+                            <select name="result" class="form-select form-select-sm bg-body-secondary ">
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
                             </select>
                         </div>
 

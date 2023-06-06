@@ -11,7 +11,7 @@ Matéria-prima
 <div class="row mt-1">
     <div class="col-1">
     </div>
-    <div class="col-10">
+    <div class="col-10 mb-4">
         <div class="row">
             <div class="col-12  mt-0 text-center">
                 @if($errors->any())
@@ -454,15 +454,29 @@ Matéria-prima
         document.getElementById("add").innerHTML += `
         
                         <div class="col-12 d-flex justify-content-lg-between align-items-center mt-1">
-                            <div class="d-flex w-25">
-                                <input name="preco" class="form-control form-control-sm bg-body-secondary" type="text"  placeholder="Preço de Mercado" />
-
-                                <select name="unidade" class="w-25 ms-3 form-select form-select-sm bg-body-secondary ">
-                                <option value="1" selected>Kg</option>
-                                <option value="2">T</option>
-                                </select>
+                        <div class="d-flex">
+                            
+                            <input name="preco" class="form-control form-control-sm bg-body-secondary" type="text"  placeholder="Preço de Mercado" />
+                            
+                            <select style="max-width: 70px;" name="unidade" class=" ms-1 form-select form-select-sm bg-body-secondary">
+                            <option value="1" selected>Kg</option>
+                            <option value="2">T</option>
+                            </select>
+                            
                             </div>
-                        
+
+                            <spam> Quant. minima: </spam> 
+
+                            <div class="d-flex justify-content-between ">
+                            
+                            <select name="quantidade_minima" class="ms-1 form-select form-select-sm bg-body-secondary">
+                                <option selected>Selecionar</option>
+                                <option value="1">Camião completo</option>
+                                <option value="2"> >= 1 Palete</option>
+                                <option value="3"> < 1 Palete</option>
+                                <option value="4">Não aplicável</option>
+                            </select>
+                            </div>
                             Fornecedor:
 
                             <div class="d-flex justify-content-between ">
