@@ -138,7 +138,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('materia-prima/preco/apagar/{id}', [PrecoController::class, 'apagar_preco']);
 
+    Route::delete('materia-prima/apagar/alerta/{id}', [PrecoController::class, 'apagar_alerta']);
+
     Route::get('materia-prima/precos', [PrecoController::class, 'precos_materias_primas']);
+
+    Route::get('materia-prima/alertas', [PrecoController::class, 'alertas_precos']);
 
     Route::post('materia-prima/adicionar/familia', [MateriaPrimaController::class, 'adicionar_familia']);
 

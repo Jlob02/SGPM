@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alerta;
 use App\Models\Empresa;
 use App\Models\Log;
 use App\Models\Familia;
@@ -11,49 +12,62 @@ use App\Models\MateriaPrima;
 use App\Models\SubFamilia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AlertaPrecoMail;
 
 class PrecoController extends Controller
 {
     //função para registar matéria-prima 
     public function registar_preco(Request $request)
     {
-        $data = $request->validate(
+        $inputs = $request->validate(
             [
-                'preco' => ['required'],
-                'unidade' => ['required'],
-                'fornecedor' => ['required', 'integer'],
-                'quantidade_minima' => ['required', 'integer'],
-                'data_inicio' => ['required', 'date'],
-                'data_fim' => ['required', 'date', 'after:data_inicio'],
+                'inputs.*.preco' => ['required'],
+                'inputs.*.unidade' => ['required'],
+                'inputs.*.fornecedor' => ['required', 'integer'],
+                'inputs.*.quantidade_minima' => ['required', 'integer'],
+                'inputs.*.data_inicio' => ['required', 'date'],
+                'inputs.*.data_fim' => ['required', 'date', 'after:data_inicio'],
             ],
             [
-                'preco.required' => 'Deve introduzir o preço da matéria-prima',
-                'unidade.required' => 'Deve selecionar a unidade da matéria-prima',
-                'data_inicio.required' => 'Deve introduzir a data de inicio',
-                'data_fim.unique' => 'Já existe uma matéria-prima com este código',
-                'fornecedor.integer' => 'Deve selecionar um fornecedor',
-                'quantidade_minima.required' => 'Deve selecionar a quantidade minima da matéria-prima',
+                'inputs.*.preco.required' => 'Deve introduzir o preço da matéria-prima',
+                'inputs.*.unidade.required' => 'Deve selecionar a unidade da matéria-prima',
+                'inputs.*.data_inicio.required' => 'Deve introduzir a data de inicio',
+                'inputs.*.data_fim.unique' => 'Já existe uma matéria-prima com este código',
+                'inputs.*.fornecedor.integer' => 'Deve selecionar um fornecedor',
+                'inputs.*.quantidade_minima.required' => 'Deve selecionar a quantidade minima da matéria-prima',
             ]
         );
 
-        $preco = new Preco();
-        $preco->preco = $data['preco'];
-        $preco->unidade = $data['unidade'];
-        $preco->observacao = $request->observacao;
-        $preco->quantidade_minima = $data['quantidade_minima'];
-        $preco->fornecedor_id = $data['fornecedor'];
-        $preco->data_inicio = $data['data_inicio'];
-        $preco->data_fim = $data['data_fim'];
-        $preco->empresa_id = Auth::User()->empresa_id;
-        $preco->materiaprima_id = $request->id;
+        foreach ($request->inputs as $data) {
+            $preco = new Preco();
+            $preco->preco = $data['preco'];
+            $preco->unidade = $data['unidade'];
+            $preco->observacao = $data['observacao'];
+            $preco->quantidade_minima = $data['quantidade_minima'];
+            $preco->fornecedor_id = $data['fornecedor'];
+            $preco->data_inicio = $data['data_inicio'];
+            $preco->data_fim = $data['data_fim'];
+            $preco->empresa_id = Auth::User()->empresa_id;
+            $preco->materiaprima_id = $request->id;
 
-        $preco->save();
+            $preco->save();
+
+            $alertas = Alerta::with('materiaprima', 'user')->where('preco_minimo', '<=', $data['preco'], 'AND', 'preco_maximo', '>=', $data['preco'])->get();
+
+            foreach ($alertas as $alerta) {
+                Mail::to($alerta->user->email)->send(new AlertaPrecoMail($alerta->materiaprima->nome, $data['preco']));
+                $alerta->delete();
+            }
+        }
 
         $log = new Log();
         $log->user_id = Auth::User()->id;
         $log->data_hora = now();
         $log->acao = "adicionou preço de matéria-prima";
         $log->save();
+
+
 
         return  redirect()->back()->with('success', 'Preço registado com sucesso');
     }
@@ -80,6 +94,23 @@ class PrecoController extends Controller
         return view('materia-prima')->with('precos', $precos)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
     }
 
+    //funcao para retornar todos alertas de de preço de cada utilizador
+    public function alertas_precos(Request $request)
+    {
+        $search = $request->input('search');
+
+        if (!empty($search)) {
+            $materiasprima = MateriaPrima::where('designacao', 'LIKE', "%{$search}%", 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
+            if ($materiasprima != null) {
+                $alertas = Alerta::with('materiaprima')->where('user_id', '=',  Auth::User()->id, 'AND', 'materiaprima_id', '=', $materiasprima->id)->sortable()->paginate(15);
+                return view('alertas')->with('alertas', $alertas);
+            }
+        }
+
+        $alertas = Alerta::with('materiaprima')->where('user_id', '=',  Auth::User()->id)->sortable()->paginate(15);
+        return view('alertas')->with('alertas', $alertas);
+    }
+
     //funcao para retornar todas preços de matérias-primas 
     public function precos(Request $request)
     {
@@ -98,6 +129,7 @@ class PrecoController extends Controller
         if (!empty($search)) {
             $materiaprima =  MateriaPrima::query()->where('designacao', 'LIKE', "%{$search}%")->pluck('id')->toArray();
             $precos = Preco::query()->whereIn('materiaprima_id', $materiaprima)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+            return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
         } else {
 
             if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id) and !empty($data1) and !empty($data2)) {
@@ -106,13 +138,112 @@ class PrecoController extends Controller
 
                 if ($materiaprima != null) {
                     $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 }
-            } else {
-                $precos = Preco::query()->orderBy('created_at', 'desc')->sortable()->paginate(10);
+            }
+
+            if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                }
+            }
+
+            if (!empty($empresa_id) and !empty($familia_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                }
+            }
+
+            if (!empty($empresa_id) and !empty($subfamilia_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'subfamilia_id', '=', $subfamilia_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                }
+            }
+
+            if (!empty($familia_id) and !empty($subfamilia_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                }
+            }
+
+            if (!empty($empresa_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                }
+            }
+
+            if (!empty($familia_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('familia_id', '=', $familia_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                }
+            }
+
+            if (!empty($subfamilia_id)) {
+
+                $materiaprima =  MateriaPrima::query()->where('subfamilia_id', '=', $subfamilia_id)->first();
+
+                if ($materiaprima != null) {
+                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                } else {
+                    $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                    return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
+                }
+            }
+
+            if (!empty($data1) and !empty($data2)) {
+
+                $precos = Preco::query()->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
             }
         }
+
+        $precos = Preco::query()->orderBy('created_at', 'desc')->sortable()->paginate(10);
 
         return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
     }
@@ -134,6 +265,19 @@ class PrecoController extends Controller
             return  redirect()->back()->with('success', 'Preço apagado com sucesso');
         }
         return  redirect()->back()->with('error', 'Não foi possivel apagar o preço');
+    }
+
+    //função para apagar alerta
+    public function apagar_alerta(Request $request)
+    {
+        $alerta = Alerta::where('id', '=', $request->id, 'AND', 'user_id', '=', Auth::User()->id)->first();
+
+        if ($alerta != null) {
+            $alerta->delete();
+
+            return  redirect()->back()->with('success', 'Alerta removida com sucesso');
+        }
+        return  redirect()->back()->with('error', 'Não foi possivel remover o alerta');
     }
 
     //função para retornar os dados da matéria-prima 

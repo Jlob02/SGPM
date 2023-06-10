@@ -54,7 +54,7 @@ Matéria-prima
                 <a href="/materia-prima/adicionar" class="btn btn-sm _nav ">Adicionar matéria-prima</a>
                 <a href="/materia-prima" class="btn btn-primary btn-sm _nav">Matérias-primas</a>
                 <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Preços</a>
-                <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Alertas</a>
+                <a href="/materia-prima/alertas" class="btn btn-primary btn-sm _nav">Alertas</a>
             </div>
 
             <div class="col-12">
@@ -212,7 +212,7 @@ Matéria-prima
                                     <th>Data de inicio</th>
                                     <th>Data de fim</th>
                                     <th>preco</th>
-                                    <th>Unidade</th> 
+                                    <th>Unidade</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
@@ -221,18 +221,17 @@ Matéria-prima
                                 <tr>
                                     <td>{{$preco->materiaprima->designacao}}</td>
                                     <td>{{$preco->fornecedor->nome}}</td>
-                                    <td> @if($preco->quantidade_minima==1) 
-                                                Camião completo
+                                    <td> @if($preco->quantidade_minima==1)
+                                        Camião completo
                                         @endif
-                                        @if($preco->quantidade_minima==2) 
-                                                >= 1 Palete
+                                        @if($preco->quantidade_minima==2)
+                                        >= 1 Palete
                                         @endif
-                                        @if($preco->quantidade_minima==3) 
-                                                < 1 Palete
-                                        @endif
-                                        @if($preco->quantidade_minima==4) 
-                                                Não aplicável
-                                        @endif</td>
+                                        @if($preco->quantidade_minima==3)
+                                        < 1 Palete @endif @if($preco->quantidade_minima==4)
+                                            Não aplicável
+                                            @endif
+                                    </td>
                                     <td>{{$preco->data_inicio}}</td>
                                     <td>{{$preco->data_fim}}</td>
                                     <td>{{$preco->preco}} EUR</td>
@@ -242,7 +241,7 @@ Matéria-prima
                                         T
                                         @endif
                                     </td>
-                                    
+
                                     <td class=" d-flex justify-content-around">
 
                                         <form action="/materia-prima/preco/apagar/{{$preco->id}}" method="post">
@@ -319,6 +318,7 @@ Matéria-prima
 </div>
 
 <script>
+    var i = 0;
     function adicionar_alerta(id, nome) {
 
         document.getElementById("dialog1").innerHTML = `
@@ -376,9 +376,9 @@ Matéria-prima
                         <div class="col-12 d-flex justify-content-lg-between align-items-center">
                             <div class="d-flex">
  
-                                <input name="preco" class="form-control form-control-sm bg-body-secondary" type="text"  placeholder="Preço de Mercado" />
+                                <input name="inputs[0][preco]" class="form-control form-control-sm bg-body-secondary" type="text"  placeholder="Preço de Mercado" />
                                 
-                                <select style="max-width: 70px;" name="unidade" class=" ms-1 form-select form-select-sm bg-body-secondary">
+                                <select style="max-width: 70px;" name="inputs[0][unidade]" class=" ms-1 form-select form-select-sm bg-body-secondary">
                                 <option value="1" selected>Kg</option>
                                 <option value="2">T</option>
                                 </select>
@@ -389,7 +389,7 @@ Matéria-prima
 
                             <div class="d-flex justify-content-between ">
                                 
-                                <select name="quantidade_minima" class="ms-1 form-select form-select-sm bg-body-secondary">
+                                <select name="inputs[0][quantidade_minima]" class="ms-1 form-select form-select-sm bg-body-secondary">
                                     <option selected>Selecionar</option>
                                     <option value="1">Camião completo</option>
                                     <option value="2"> >= 1 Palete</option>
@@ -403,7 +403,7 @@ Matéria-prima
 
                             <div class="d-flex justify-content-between ">
                                 
-                                <select name="fornecedor" class="ms-1 form-select form-select-sm bg-body-secondary">
+                                <select name="inputs[0][fornecedor]" class="ms-1 form-select form-select-sm bg-body-secondary">
                                     <option selected>Selecionar</option>
                                     @isset($fornecedores)
                                     @foreach($fornecedores as $fornecedor)
@@ -417,13 +417,13 @@ Matéria-prima
                             Periodo:
 
                             <div class="d-flex align-items-center w-25">
-                                <input name="data_inicio" class="me-2 form-control form-control-sm bg-body-secondary" type="date">
+                                <input name="inputs[0][data_inicio]" class="me-2 form-control form-control-sm bg-body-secondary" type="date">
                                 a
-                                <input name="data_fim" class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
+                                <input name="inputs[0][data_fim]" class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
                             </div>
                         </div>
                         <div class="col-12 d-flex mt-2">
-                           <input type="text" name="observacao" class="form-control bg-body-secondary " placeholder="Observacões" />
+                           <input type="text" name="inputs[0][observacao]" class="form-control bg-body-secondary " placeholder="Observacões" />
                         </div>
                         <span id="add">
 
@@ -436,8 +436,7 @@ Matéria-prima
                             <button type="submit" class="btn btn-success btn-sm">Guardar</button>
                         </div>
                     </div>
-                </form>     
-                `;
+                </form>`;
     };
 
 
@@ -450,15 +449,14 @@ Matéria-prima
 
 
     function add() {
-
+        ++i;
         document.getElementById("add").innerHTML += `
-        
                         <div class="col-12 d-flex justify-content-lg-between align-items-center mt-1">
                         <div class="d-flex">
                             
-                            <input name="preco" class="form-control form-control-sm bg-body-secondary" type="text"  placeholder="Preço de Mercado" />
+                            <input name="inputs[`+i+`][preco]" class="form-control form-control-sm bg-body-secondary" type="text"  placeholder="Preço de Mercado" />
                             
-                            <select style="max-width: 70px;" name="unidade" class=" ms-1 form-select form-select-sm bg-body-secondary">
+                            <select style="max-width: 70px;" name="inputs[`+i+`][unidade]" class=" ms-1 form-select form-select-sm bg-body-secondary">
                             <option value="1" selected>Kg</option>
                             <option value="2">T</option>
                             </select>
@@ -469,7 +467,7 @@ Matéria-prima
 
                             <div class="d-flex justify-content-between ">
                             
-                            <select name="quantidade_minima" class="ms-1 form-select form-select-sm bg-body-secondary">
+                            <select name="inputs[`+i+`][quantidade_minima]" class="ms-1 form-select form-select-sm bg-body-secondary">
                                 <option selected>Selecionar</option>
                                 <option value="1">Camião completo</option>
                                 <option value="2"> >= 1 Palete</option>
@@ -481,7 +479,7 @@ Matéria-prima
 
                             <div class="d-flex justify-content-between ">
                                 
-                                <select name="fornecedor" class="ms-1 form-select form-select-sm bg-body-secondary">
+                                <select name="inputs[`+i+`][fornecedor]" class="ms-1 form-select form-select-sm bg-body-secondary">
                                     <option selected>Selecionar</option>
                                     @isset($fornecedores)
                                     @foreach($fornecedores as $fornecedor)
@@ -494,15 +492,14 @@ Matéria-prima
                             Periodo:
 
                             <div class="d-flex align-items-center w-25">
-                                <input name="data_inicio" class="me-2 form-control form-control-sm bg-body-secondary" type="date">
+                                <input name="inputs[`+i+`][data_inicio]" class="me-2 form-control form-control-sm bg-body-secondary" type="date">
                                 a
-                                <input name="data_fim" class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
+                                <input name="inputs[`+i+`][data_fim]" class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
                             </div>
                         </div>
                         <div class="col-12 d-flex mt-2">
-                           <input type="text" name="observacao" class="form-control bg-body-secondary " placeholder="Observacões" />
+                           <input type="text" name="inputs[`+i+`][observacao]" class="form-control bg-body-secondary " placeholder="Observacões" />
                         </div>`;
-
     };
 
     function dialog(id, nome) {
@@ -511,7 +508,7 @@ Matéria-prima
         <form action="/materia-prima/apagar/` + id + `" method="post">
             @csrf
              @method('DELETE')
-                                <div class="modal-content">
+                <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -523,8 +520,8 @@ Matéria-prima
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                         <button type="submit" class="btn btn-primary">Apagar</button>
                                     </div>
-                                </div>
-                            </form>`;
+                </div>
+        </form>`;
 
     }
 </script>
