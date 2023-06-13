@@ -66,7 +66,7 @@ Empresas
                     </div>
 
                     <div class="col-12 mb-5">
-                    <hr>
+                        <hr>
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pb-2 mb-3 border-bottom">
                             <h5 class="titulo-1">Tabela de preços</h5>
 
@@ -81,7 +81,7 @@ Empresas
 
                         <div class="table-responsive">
                             @isset($precos)
-                            <table class="table table-striped table-sm">
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Pais</th>
@@ -90,9 +90,12 @@ Empresas
                                         <th>Quant. minima</th>
                                         <th>Data de inicio</th>
                                         <th>Data de fim</th>
-                                        <th>preco</th>
+                                        <th class="d-flex">preco <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                                                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                                            </svg>
+                                        </th>
                                         <th>Unidade</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -101,18 +104,17 @@ Empresas
                                         <td>{{$preco->materiaprima->empresa->pais}}</td>
                                         <td>{{$preco->materiaprima->empresa->nome}}</td>
                                         <td>{{$preco->fornecedor->nome}}</td>
-                                        <td> @if($preco->quantidade_minima==1) 
-                                                Camião completo
-                                        @endif
-                                        @if($preco->quantidade_minima==2) 
-                                                >= 1 Palete
-                                        @endif
-                                        @if($preco->quantidade_minima==3) 
-                                                < 1 Palete
-                                        @endif
-                                        @if($preco->quantidade_minima==4) 
+                                        <td> @if($preco->quantidade_minima==1)
+                                            Camião completo
+                                            @endif
+                                            @if($preco->quantidade_minima==2)
+                                            >= 1 Palete
+                                            @endif
+                                            @if($preco->quantidade_minima==3)
+                                            < 1 Palete @endif @if($preco->quantidade_minima==4)
                                                 Não aplicável
-                                        @endif</td>
+                                                @endif
+                                        </td>
                                         <td>{{$preco->data_inicio}}</td>
                                         <td>{{$preco->data_fim}}</td>
                                         <td>{{$preco->preco}}</td>
@@ -121,7 +123,7 @@ Empresas
                                             @else
                                             T
                                             @endif</td>
-                                        
+
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -167,7 +169,7 @@ Empresas
 
 
     for (let index = 0; index < data.length; index++) {
-        
+
 
         if (labelExists(data[index].fornecedor.nome)) {
 
@@ -177,13 +179,13 @@ Empresas
             });
 
             indexforn = fornecedores.length - 1;
-            
+
         } else {
             fornecedores[indexforn].data.push(data[index].preco);
         }
 
         for (var i = 0; i < fornecedores.length; i++) {
-            
+
             if (i != indexforn) {
                 fornecedores[i].data.push(fornecedores[i].data[fornecedores[i].data.length - 1]);
             }

@@ -11,20 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('precos', function (Blueprint $table) {
+        Schema::create('alertas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->float('preco');
-            $table->integer('unidade');
-            $table->integer('quantidade_minima');
-            $table->string("observacao")->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('estado');
+            $table->float('preco_minimo');
+            $table->float('preco_maximo');
             $table->unsignedBigInteger('materiaprima_id');
             $table->foreign('materiaprima_id')->references('id')->on('materiasprimas')->onDelete('cascade');
-            $table->unsignedBigInteger('fornecedor_id');
-            $table->foreign('fornecedor_id')->references('id')->on('fornecedores')->onDelete('cascade');
-            $table->date('data_inicio');
-            $table->date('data_fim');
-            $table->unsignedBigInteger('empresa_id');
-            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }

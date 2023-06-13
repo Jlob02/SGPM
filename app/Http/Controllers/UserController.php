@@ -76,6 +76,10 @@ class UserController extends Controller
             'emali.email' => 'Deve introduzir um email válido',
         ]);
 
+        $funcao = new Funcao();
+        $funcao->funcao = "Administrador";
+        $funcao->save();
+
         $empresa = new Empresa();
         $empresa->email = 'admin@empresa.com';
         $empresa->nome = 'DIN';
@@ -84,7 +88,6 @@ class UserController extends Controller
         $empresa->estado = 1;
         $empresa->localidade = 'Coimbra';
         $empresa->pais = 'Portugal';
-
         $empresa->save();
 
         $user = new User();

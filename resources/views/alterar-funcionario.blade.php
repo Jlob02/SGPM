@@ -10,7 +10,7 @@ Alterar funcionário
 <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row bg-white shadow m-1 p-2">
+        <div class="row m-1 p-2">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Funcionarios > alterar funcionário >
                 @if($user->u_nome != null)

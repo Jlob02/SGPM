@@ -12,27 +12,11 @@ Fornecedores
     </div>
     <div class="col-10">
 
-        <div class="row bg-white shadow m-1 p-1">
-            <div class="col-12">
-                <a href="/fornecedores/adicionar" class="btn _nav btn-sm">Adicionar Fornecedor</a>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-12">
-                <div class="row d-flex  align-items-center bg-white shadow m-1 p-1">
+                <div class="row d-flex  align-items-center bg-white shadow m-1 mt-2 p-2">
                     <div class="col-9 d-flex align-items-center">
-                        Mostrar
-                        <form class="me-2 ms-2">
-                            <select class="form-select form-select-sm bg-body-secondary">
-                                <option selected>15</option>
-                                <option value="1">20</option>
-                                <option value="2">30</option>
-                                <option value="3">40</option>
-                            </select>
-                        </form>
-
-                        Resultados
+                        <a href="/fornecedores/adicionar" class="btn _nav btn-sm">Adicionar Fornecedor</a>
                     </div>
                     <div class="col-3">
                         <form class="d-flex" role="search" action="/fornecedores" method="get">
@@ -53,7 +37,7 @@ Fornecedores
 
                 <div class="row bg-white shadow m-1 p-1 _list">
                     <div class="col-12 ">
-                        <table class="table table-sm table-striped table-hover">
+                        <table class="table table-striped table-hover">
                             <thead>
                                 <tr class="text-start ps-2">
                                     @if(Auth::user()->u_tipo == 1)

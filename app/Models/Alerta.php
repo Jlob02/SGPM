@@ -9,7 +9,7 @@ use Kyslik\ColumnSortable\Sortable;
 class Alerta extends Model
 {
     use  HasFactory, Sortable;
-    protected $table = 'notificacoes';
+    protected $table = 'alertas';
     protected $primaryKey = 'id';
 
     /**

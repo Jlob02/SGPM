@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('funcao_id');
+            $table->foreign('funcao_id')->references('id')->on('funcao')->onDelete('cascade');
             $table->string('u_nome');
             $table->string('email')->unique();
             $table->integer('u_tipo');

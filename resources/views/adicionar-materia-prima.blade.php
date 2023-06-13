@@ -10,7 +10,7 @@ Adicionar Materia-prima
 <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row bg-white shadow m-1 p-2">
+        <div class="row m-1 p-2">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Matéria-prima > Adicionar matéria-prima
                 <a href="/materia-prima" class="btn btn-primary btn-sm">Voltar</a>

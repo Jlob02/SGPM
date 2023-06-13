@@ -42,8 +42,7 @@ Alerta
         </div>
 
         <div class="row m-1">
-            <div class="col-12 ms-0 m-1 p-2 mt-0 bg-white shadow">
-                <a href="/materia-prima/adicionar" class="btn btn-sm _nav ">Adicionar matéria-prima</a>
+            <div class="col-12 ms-0 m-1 p-2 mt-0 ">
                 <a href="/materia-prima" class="btn btn-primary btn-sm _nav">Matérias-primas</a>
                 <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Preços</a>
                 <a href="/materia-prima/alertas" class="btn btn-primary btn-sm _nav">Alertas</a>
@@ -52,16 +51,7 @@ Alerta
             <div class="col-12">
                 <div class="row _navbar  d-flex align-items-center bg-white shadow p-2">
                     <div class="col-9 d-flex align-items-center">
-                        Mostrar
-                        <div class="me-2 ms-2">
-                            <select class="form-select form-select-sm bg-body-secondary">
-                                <option selected>10</option>
-                                <option value="1">20</option>
-                                <option value="2">30</option>
-                                <option value="3">40</option>
-                            </select>
-                        </div>
-                        Resultados
+                       
                     </div>
 
                     <div class="col-3 ">

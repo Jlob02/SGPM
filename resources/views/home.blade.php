@@ -80,17 +80,7 @@ Home
 
                 <div class="row bg-white shadow m-1 p-1">
                     <div class="col-8 d-flex align-items-center ">
-                        Mostrar
-                        <div class="me-2 ms-2">
-                            <select name="result" class="form-select form-select-sm bg-body-secondary ">
-                                <option value="10" selected>10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="40">40</option>
-                            </select>
-                        </div>
-
-                        Resultados
+                        
                     </div>
                     <div class="col-4">
                         <form class="d-flex" role="search" action="/home" method="get">
