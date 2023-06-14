@@ -18,13 +18,13 @@
     <div class="row">
       <div class="col-12 fixed-top d-flex justify-content-end p-4">
         <div class="dropdown">
-          <button class="btn btn-sm bg-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            PT
-          </button>
+          <a class="btn btn-sm text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ strtoupper(str_replace('_', '-', app()->getLocale()))}}
+          </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">EN</a></li>
-            <li><a class="dropdown-item" href="#">FR</a></li>
-            <li><a class="dropdown-item" href="#">JP</a></li>
+            <li><a class="dropdown-item" href="locale/en">EN</a></li>
+            <li><a class="dropdown-item" href="locale/pt">PT</a></li>
+            <li><a class="dropdown-item" href="locale/fr">FR</a></li>
           </ul>
         </div>
       </div>
@@ -35,7 +35,7 @@
     <main class="form-signin w-100 m-auto">
       <form method="POST" action="/login">
         @csrf
-        <h1 class="h3 mb-3 fw-normal">Login</h1>
+        <h1 class="h3 mb-3 fw-normal">{{__('login.login')}}</h1>
         @if(session('sucesso') != null)
         <div class="alert alert-success" role="alert">
           {{session('sucesso')}}
@@ -48,21 +48,21 @@
         @endif
         <div class="form-floating">
           <input type="email" name='email' class="form-control mb-2" id="floatingInput" placeholder="name@example.com" value='{{old("email")}}'>
-          <label for="floatingInput">Email address</label>
+          <label for="floatingInput">{{__('login.email')}}</label>
         </div>
         <div class="form-floating">
           <input type="password" name='password' class="form-control" id="floatingPassword" placeholder="Password"  value='{{old("pasword")}}'>
-          <label for="floatingPassword">Password</label>
+          <label for="floatingPassword">{{__('login.password')}}</label>
         </div>
 
         <div class="checkbox mb-3">
           <label>
-            <input type="checkbox" name="remember_me" value="1"> Remember me
+            <input type="checkbox" name="remember_me" value="1"> {{__('login.remember-me')}}
           </label>
         </div>
-        <button class="w-100 mb-4 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="w-100 mb-4 btn btn-lg btn-primary" type="submit">{{__('login.sign-in')}}</button>
 
-        <a href="/recuperar-password" >Não sabes a tua palavra-passe?</a>
+        <a href="/recuperar-password" >{{__('login.forgot')}}</a>
       </form>
     </main>
 

@@ -10,6 +10,8 @@ use App\Http\Controllers\ForumController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,26 +24,36 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
 
+ 
+Route::get('locale/{locale}', function (string $locale) {
+    if (!in_array($locale, ['en', 'pt', 'fr'])) {
+        abort(400);
+    }
+    Session::put('locale' , $locale);
+    return  redirect()->back();
+});
+
+Route::get('/', function () {
+    return  redirect('login');
+});
+
+Route::get('login', function () {
     $result = User::all();
 
     if ($result->isEmpty()) {
         return view('registar-admin');
     }
 
-    return redirect('login');
+    if (Auth::check()) {
+        return  redirect('home');
+    }
+    
+    return view('login');
 });
 
 //routes de autentincação login e logout
 Route::post('login', [UserController::class, 'login']);
-
-Route::get('login', function () {
-    if (Auth::check()) {
-        return  redirect('home');
-    }
-    return view('login');
-});
 
 Route::get('logout', [UserController::class, 'logout'])->middleware(['auth']);
 
