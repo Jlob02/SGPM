@@ -30,6 +30,7 @@ class User extends Authenticatable
         'u_estado',
         'empresa_id',
         'password',
+        'forum_notificacao',
         'token'
     ];
 

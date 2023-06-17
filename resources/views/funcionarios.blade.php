@@ -18,7 +18,10 @@ Funcionarios
                 <div class="row  d-flex  align-items-center bg-white shadow m-1 mt-2 p-2">
 
                     <div class="col-9 d-flex align-items-center">
-                        <a href="/funcionarios/adicionar" class="btn btn-primary btn-sm _nav">Adicionar funcionario</a>
+                        <a href="/funcionarios/adicionar" class="btn btn-primary btn-sm _nav"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle me-1" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg> Funcionario</a>
                     </div>
                     <div class="col-3">
                         <form class="d-flex" role="search" action="/funcionarios" method="get">
@@ -57,9 +60,9 @@ Funcionarios
                                 @foreach($users as $user)
                                 @if(Auth::id() != $user->id)
                                 <tr>
-                                    <td class="p-1">{{$user->u_nome}}</td>
-                                    <td class="p-1">{{$user->email}}</td>
-                                    <td class="p-1">
+                                    <td >{{$user->u_nome}}</td>
+                                    <td >{{$user->email}}</td>
+                                    <td >
                                         @if($user->u_tipo == 1)
                                         Administrador
                                         @endif
@@ -70,14 +73,14 @@ Funcionarios
                                         Funcionário
                                         @endif
                                     </td>
-                                    <td class="p-1">
+                                    <td >
                                         {{$user->empresa->nome}}
                                     </td>
-                                    <td class="p-1">
+                                    <td >
                                         {{$user->funcao->funcao}}
                                     </td>
-                                    <td class="p-1">{{$user->u_contacto}}</td>
-                                    <td class="">
+                                    <td >{{$user->u_contacto}}</td>
+                                    <td >
                                         @if($user->u_estado == 1)
                                         ativo
                                         @else

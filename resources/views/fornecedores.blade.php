@@ -16,7 +16,10 @@ Fornecedores
             <div class="col-12">
                 <div class="row d-flex  align-items-center bg-white shadow m-1 mt-2 p-2">
                     <div class="col-9 d-flex align-items-center">
-                        <a href="/fornecedores/adicionar" class="btn _nav btn-sm">Adicionar Fornecedor</a>
+                        <a href="/fornecedores/adicionar" class="btn _nav btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle me-1" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>Fornecedor</a>
                     </div>
                     <div class="col-3">
                         <form class="d-flex" role="search" action="/fornecedores" method="get">
@@ -54,12 +57,12 @@ Fornecedores
                                 @foreach($fornecedores as $fornecedor)
                                 <tr>
                                     @if(Auth::user()->u_tipo == 1)
-                                    <td class="p-1">{{$fornecedor->empresa->nome}}</td>
+                                    <td>{{$fornecedor->empresa->nome}}</td>
                                     @endif
-                                    <td class="p-1">{{$fornecedor->nome}}</td>
-                                    <td class="p-1">{{$fornecedor->email}}</td>
-                                    <td class="p-1">{{$fornecedor->pais}}</td>
-                                    <td class="p-1">{{$fornecedor->contacto}}</td>
+                                    <td>{{$fornecedor->nome}}</td>
+                                    <td>{{$fornecedor->email}}</td>
+                                    <td>{{$fornecedor->pais}}</td>
+                                    <td>{{$fornecedor->contacto}}</td>
                                     <td class="d-flex justify-content-around">
 
                                         <form action="/fornecedores/alterar/{{$fornecedor->id}}" method="get">
@@ -74,7 +77,6 @@ Fornecedores
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                             </svg></button>
-
                                     </td>
                                 </tr>
                                 @endforeach

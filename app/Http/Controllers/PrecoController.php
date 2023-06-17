@@ -79,10 +79,7 @@ class PrecoController extends Controller
     public function precos_materias_primas(Request $request)
     {
         $search = $request->input('search');
-        $fornecedores = Fornecedor::all();
-        $subfamila = SubFamilia::all();
-        $famila = Familia::all();
-
+    
         if (!empty($search)) {
             $materiasprima = MateriaPrima::where('designacao', 'LIKE', "%{$search}%")->first();
             if ($materiasprima != null)
@@ -93,7 +90,7 @@ class PrecoController extends Controller
             $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         }
 
-        return view('materia-prima')->with('precos', $precos)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+        return view('precos')->with('precos', $precos);
     }
 
     //funcao para retornar todos alertas de de preço de cada utilizador
@@ -292,6 +289,6 @@ class PrecoController extends Controller
 
     public function export(Request $request) 
     {
-        return Excel::download(new PrecoExport( $request->id), 'precos.csv');
+        return Excel::download(new PrecoExport( $request->id), 'Preço_'.now().'.csv');
     }
 }

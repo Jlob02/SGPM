@@ -11,34 +11,21 @@ Matéria-prima
     <div class="col-1"></div>
     <div class="col-10">
         <div class="row mt-3">
-            <div class="col-12 d-flex justify-content-between">
-                Matéria-prima >
+            <div class="col-12 d-flex justify-content-end">
                 <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class=" row">
-            <div class="col-12 text-center">
-                @if($errors->any())
-                <div class="alert alert-warning" role="alert">
-                    {{$errors->first()}}
-                </div>
-                @endif
-                @if (\Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{session('success')}}
-                </div>
-                @endif
-            </div>
-
+         
             <div class="col-12">
 
                 <div class="row">
 
                     <div class="col-8">
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-1 mb-1 border-bottom">
-                            <h5 class="titulo-1">@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h5>
-                            <div class="btn-toolbar  me-4">
-                                <select class="form-select bg-body-secondary form-select-sm ">
+                            <h4 class="">@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h4>
+                            <div class=" me-4 mb-2">
+                                <select class="form-select bg-body-secondary ">
                                     <option selected>1 mês</option>
                                     <option value="1">3 meses</option>
                                     <option value="2">6 meses</option>
@@ -50,7 +37,7 @@ Matéria-prima
                     </div>
 
                     <div class="col-4">
-                        <h5 class="titulo-1 p-2">Notícias</h5>
+                        <h5 class=" p-2">Notícias</h5>
 
                         <div class="row noticias">
                             @isset($topicos)
@@ -84,15 +71,54 @@ Matéria-prima
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Pais</th>
-                                        <th>Empresa</th>
-                                        <th>Fornecedor</th>
-                                        <th>Quant. minima</th>
-                                        <th>Data de inicio</th>
-                                        <th>Data de fim</th>
-                                        <th class="d-flex">Preço <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
-                                                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                                            </svg>
+                                        <th>
+                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black ">
+                                                País
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                                Empresa
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                                Fornecedor
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>Quant. Minima</th>
+                                        <th>
+                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                                Data de Inicio
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                                Data de Fim
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                                                </svg>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                                Preço
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                                                </svg>
+                                            </a>
                                         </th>
                                         <th>Unidade</th>
 

@@ -90,7 +90,7 @@
                         @if (Request::segment(1) =='forum' )
                         <a class="nav-link text-black bg-light" href="/forum">{{__('global.forum')}}</a>
                         @else
-                        <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/forum">{{__('global.forum')}} <span class="badge text-bg-secondary">4</span></a>
+                        <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/forum">{{__('global.forum')}} @if(Auth::user()->forum_notificacao > 0)<span class="badge text-bg-secondary"> {{Auth::user()->forum_notificacao}} </span>@endif</a>
                         @endif
                     </li>
                 </ul>

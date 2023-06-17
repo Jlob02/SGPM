@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Preco;
 use App\Models\MateriaPrima;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -28,10 +29,12 @@ class PrecoExport implements FromCollection, WithHeadings
         return Preco::join('materiasprimas', 'materiasprimas.id', '=', 'precos.materiaprima_id')
         ->join('fornecedores', 'fornecedores.id', '=', 'precos.fornecedor_id')
         ->join('empresas', 'empresas.id' ,'=', 'precos.empresa_id')
-        ->where('materiasprimas.codigo_id', '=', $this->id)->orderBy('precos.created_at', 'desc')->get(['fornecedores.pais','empresas.nome','fornecedores.nome AS name', 'precos.quantidade_minima', 'precos.data_inicio', 'precos.data_fim', 'precos.preco', 'precos.unidade']);
+        ->where('materiasprimas.codigo_id', '=', $this->id)->orderBy('precos.created_at', 'desc')->get(['fornecedores.pais','empresas.nome','fornecedores.nome AS name', 'precos.quantidade_minima', 'precos.data_inicio', 'precos.data_fim', 'precos.preco', DB::Raw('(CASE WHEN precos.unidade = "1" THEN "Kg" 
+        ELSE "T" 
+        END) AS unidade') ]);
     }
 
     public function headings(): array{
-        return ["Pais","Empresa", "Fornecedor", "Quant Minima", "Data de Inicio", "Data de Fim", "Preço","Unidade"];
+        return ["Pais","Empresa", "Fornecedor", "Quant Minima", "Data de Inicio", "Data de Fim", "Preco","Unidade"];
     }
 }

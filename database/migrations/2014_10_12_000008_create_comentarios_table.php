@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('comentarios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("comentario");
+            $table->longtext("comentario");
             $table->unsignedBigInteger('topico_id');
             $table->foreign('topico_id')->references('id')->on('topicos')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');

@@ -6,9 +6,10 @@ use App\Models\Familia;
 use App\Models\Log;
 use App\Models\Comentario;
 use App\Models\Topico;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use PhpParser\Node\Stmt\Foreach_;
 
 class ForumController extends Controller
 {
@@ -34,6 +35,15 @@ class ForumController extends Controller
         $topico->user_id = Auth::User()->id;
         $topico->familia_id = $data['familia'];
         $topico->save();
+
+        $users = User::All();
+
+        foreach ($users as $user) {
+            if($user->u_estado == 1){
+                $user->forum_notificacao = $user->forum_notificacao + 1;
+                $user->save();
+            }
+        }
 
         $log = new Log();
         $log->user_id = Auth::User()->id;
@@ -80,6 +90,9 @@ class ForumController extends Controller
         $top = Topico::query()->orderBy('created_at', 'desc')->get();
         $categorias = $top->groupBy('familia_id')->take(10);
 
+        $user = User::where('id', '=', Auth::User()->id)->first();
+        $user->forum_notificacao = 0;
+        $user->save();
 
         if (!empty($search)) {
             $topicos = Topico::query()->where('titulo', 'LIKE', "%{$search}%", 'OR', 'descricao', 'LIKE', "%{$search}%")->orderBy('created_at', 'desc')->sortable()->paginate(15);
@@ -96,8 +109,7 @@ class ForumController extends Controller
     {
         $top = Topico::query()->orderBy('created_at', 'desc')->get();
         $categorias = $top->groupBy('familia_id')->take(10);
-
-
+        
         $topicos = Topico::query()->where('familia_id', $request->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
 
         return view('forum')->with('topicos', $topicos)->with('categorias', $categorias);

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('topicos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("titulo");
-            $table->string("descricao");
+            $table->longtext("descricao");
             $table->unsignedBigInteger('familia_id');
             $table->foreign('familia_id')->references('id')->on('familia')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');

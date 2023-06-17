@@ -200,6 +200,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('forum/topicos/{id}', [ForumController::class, 'topicos_categoria']);
 
+    Route::delete('forum/topico/{id}', [ForumController::class, 'apagar_topico']);
+
     //fim routes para fórum------------------------------
 
 });

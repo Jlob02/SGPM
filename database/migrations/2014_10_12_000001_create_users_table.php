@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('u_tipo');
             $table->integer('u_contacto'); 
             $table->integer('u_estado');
+            $table->integer('forum_notificacao')->default(0);
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
