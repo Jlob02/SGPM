@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AlertaPrecoMail;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PrecoExport;
 
 class PrecoController extends Controller
 {
@@ -286,5 +288,10 @@ class PrecoController extends Controller
         $preco = Preco::where('id', '=', $request->id)->first();
 
         return view('alterar-materia-prima')->with('materia_prima', $preco);
+    }
+
+    public function export(Request $request) 
+    {
+        return Excel::download(new PrecoExport( $request->id), 'precos.csv');
     }
 }

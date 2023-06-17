@@ -164,6 +164,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('materia-prima/{codigo}', [MateriaPrimaController::class, 'precos_materias_primas']);
 
+    Route::get('materia-prima/precos/export/{id}', [PrecoController::class, 'export']);
+
     //fim route para matéria-prima -------------------------
 
 

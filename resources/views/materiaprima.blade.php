@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Empresas
+Matéria-prima
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@ Empresas
     <div class="col-10">
         <div class="row mt-3">
             <div class="col-12 d-flex justify-content-between">
-                Materia-prima >
+                Matéria-prima >
                 <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
@@ -72,9 +72,9 @@ Empresas
 
                             <div class="btn-toolbar mb-1 ">
                                 <div class="btn-group me-2">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                    <a href="/materia-prima/precos/export/{{$materiaprima->codigo->id}}" type="button" class="btn btn-sm btn-outline-secondary">
                                         Export CSV
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ Empresas
                                         <th>Quant. minima</th>
                                         <th>Data de inicio</th>
                                         <th>Data de fim</th>
-                                        <th class="d-flex">preco <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                                        <th class="d-flex">Preço <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                                                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
                                             </svg>
                                         </th>
