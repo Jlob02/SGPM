@@ -69,8 +69,8 @@ Matéria-prima
                             <h7 class="titulo-1">Familia</h7>
                         </div>
 
-                        <select class="form-select form-select-sm bg-body-secondary">
-                            <option selected>Selecionar</option>
+                        <select onchange="filtra_familia()" id="familia" class="form-select form-select-sm bg-body-secondary">
+                            <option value="0" selected>Selecionar</option>
                             @isset($familias)
                             @foreach($familias as $familia)
                             <option value="{{$familia->id}}">{{$familia->familia}}</option>
@@ -84,8 +84,8 @@ Matéria-prima
                             <h7 class="titulo-1 ">Sub-Família</h7>
                         </div>
 
-                        <select class="form-select form-select-sm bg-body-secondary">
-                            <option selected>Selecionar</option>
+                        <select onchange="filtra_subfamilia()" id="subfamilia" class="form-select form-select-sm bg-body-secondary">
+                            <option value="0" selected>Selecionar</option>
                             @isset($subfamilias)
                             @foreach($subfamilias as $subfamilia)
                             <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
@@ -98,14 +98,10 @@ Matéria-prima
                         <div class="w-100">
                             Ordenar por
                         </div>
-                        <select class="form-select form-select-sm bg-body-secondary">
-                            <option selected>Selecionar</option>
+                        <select onchange="ordena()" id="ordena" class="form-select form-select-sm bg-body-secondary">
+                            <option value="0" selected>Selecionar</option>
                             <option value="1">Designação</option>
-                            <option value="1">Codigo</option>
-                            <option value="1">Familia</option>
-                            <option value="1">Sub-familia</option>
-                            <option value="1">Concentração</option>
-                            
+                            <option value="2">Codigo</option>
                         </select>
                     </div>
 
@@ -144,16 +140,16 @@ Matéria-prima
                             <tbody class="table-group-divider">
                                 @foreach($materias_primas as $materia_prima)
                                 <tr>
-                                    <td> <a href="materia-prima/{{$materia_prima->codigo->id}}">{{$materia_prima->designacao}}</a></td>
-                                    <td>{{$materia_prima->codigo->codigo}}</td>
+                                    <td> <a href="materia-prima/{{$materia_prima->codigo_id}}">{{$materia_prima->designacao}}</a></td>
+                                    <td>@isset($materia_prima->codigo->codigo){{$materia_prima->codigo->codigo}} @else {{$materia_prima->codigo}}@endif </td>
                                     <td>@isset($materia_prima->familia->familia){{$materia_prima->familia->familia}} @endisset</td>
                                     <td>@isset($materia_prima->subfamilia->subfamilia){{$materia_prima->subfamilia->subfamilia}} @endisset</td>
                                     <td>{{$materia_prima->concentracao}}</td>
-                                    <td>{{$materia_prima->codigo->principio_ativo}}</td>
+                                    <td>@isset($materia_prima->codigo->principio_ativo){{$materia_prima->codigo->principio_ativo}}@else {{$materia_prima->principio_ativo}}@endif</td>
                                     <td class=" d-flex justify-content-around">
 
                                         @if($materia_prima->empresa_id == Auth::user()->empresa_id )
-                                        <button onclick='adicionar_preco("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="border border-0 bg-transparent" type="button">
+                                        <button data-bs-toggle="tooltip" title="Adicionar preço" onclick='adicionar_preco("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="border border-0 bg-transparent" type="button">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -163,19 +159,19 @@ Matéria-prima
 
                                         <form action="/materia-prima/alterar/{{$materia_prima->id}}" method="get">
                                             @csrf
-                                            <button class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <button data-bs-toggle="tooltip" title="Alterar Matéria-prima" class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                                 </svg></button>
                                         </form>
 
-                                        <button onclick='adicionar_alerta("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="border border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                        <button onclick='adicionar_alerta("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="border border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal1"  data-bs-toggle="tooltip" title="Adicionar alerta">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
                                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
                                             </svg>
                                         </button>
 
-                                        <button onclick='dialog("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button onclick='dialog("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' data-bs-toggle="tooltip" title="Remover" class=" border border-0 bg-transparent" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                             </svg></button>
@@ -222,6 +218,22 @@ Matéria-prima
 
 <script>
     var i = 0;
+
+    function filtra_familia() {
+        if (document.getElementById("familia").value != 0) {
+            document.location.href = '/materia-prima/filtros/1/' + document.getElementById("familia").value + '';
+        }
+    };
+
+    function filtra_subfamilia() {
+        if (document.getElementById("subfamilia").value != 0) {
+            document.location.href = '/materia-prima/filtros/2/' + document.getElementById("subfamilia").value + '';
+        }
+    };
+
+    function ordena() {
+        document.location.href = '/materia-prima/filtros/3/' + document.getElementById("ordena").value + '';
+    };
 
     function adicionar_alerta(id, nome) {
 

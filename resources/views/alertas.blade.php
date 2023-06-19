@@ -41,14 +41,14 @@ Alerta
             </div>
         </div>
 
-        <div class="row m-1">
-            <div class="col-12 ms-0 m-1 p-2 mt-0 ">
+        <div class="row ">
+            <div class="col-12 m-1 mt-2">
                 <a href="/materia-prima" class="btn btn-primary btn-sm _nav">Matérias-primas</a>
                 <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Preços</a>
             </div>
 
-            <div class="col-12">
-                <div class="row _navbar  d-flex align-items-center bg-white shadow p-2">
+            <div class="col-12 ">
+                <div class="row m-1 _navbar  d-flex align-items-center bg-white shadow p-2">
                     <div class="col-9 d-flex align-items-center">
                        
                     </div>
@@ -63,7 +63,7 @@ Alerta
                     </div>
                 </div>
 
-                <div class="row mt-2 _list ">
+                <div class="row m-1 mt-2 _list ">
                     <div class="col-12 bg-white shadow">
                         <table class="table table-striped table-sm table-hover">
                             <thead>

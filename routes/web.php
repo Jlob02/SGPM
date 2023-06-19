@@ -134,6 +134,8 @@ Route::middleware(['auth'])->group(function () {
     //route para matéria-prima ------------------------
     Route::get('materia-prima', [MateriaPrimaController::class, 'materias_primas']);
 
+    Route::get('materia-prima/filtros/{tipo}/{id}', [MateriaPrimaController::class, 'materias_primas_filtros']);
+
     Route::post('materia-prima/adicionar', [MateriaPrimaController::class, 'registar']);
 
     Route::get('materia-prima/adicionar', [MateriaPrimaController::class, 'veiw_adicionar_materia_prima']);
@@ -201,6 +203,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('forum/topicos/{id}', [ForumController::class, 'topicos_categoria']);
 
     Route::delete('forum/topico/{id}', [ForumController::class, 'apagar_topico']);
+
+    Route::delete('forum/comentario/{id}', [ForumController::class, 'apagar_comentario']);
 
     //fim routes para fórum------------------------------
 

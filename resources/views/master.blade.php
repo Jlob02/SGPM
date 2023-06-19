@@ -34,9 +34,9 @@
                         {{ strtoupper(str_replace('_', '-', app()->getLocale()))}}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="locale/en">EN</a></li>
-                            <li><a class="dropdown-item" href="locale/pt">PT</a></li>
-                            <li><a class="dropdown-item" href="locale/fr">FR</a></li>
+                            <li><a class="dropdown-item" href="/locale/en">EN</a></li>
+                            <li><a class="dropdown-item" href="/locale/pt">PT</a></li>
+                            <li><a class="dropdown-item" href="/locale/fr">FR</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -114,7 +114,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
     <script type="text/javascript">
         function zoom() {
-           // document.body.style.zoom = "90%" 
+           document.body.style.zoom = "100%" 
         }
     </script>
 </body>

@@ -9,12 +9,12 @@ Fórum
 <!--main content-->
 <div class="row mt-3">
 
-     <!-- Modal -->
-     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" id="dialog">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="dialog">
 
-            </div>
         </div>
+    </div>
 
     <div class="col-1"></div>
 
@@ -26,7 +26,7 @@ Fórum
                         <h6 class="titulo-1">Categorias</h6>
                         <hr>
                         @foreach($categorias as $categoria)
-                       
+
                         <div class="d-flex mb-0 justify-content-between">
                             <a href="/forum/topicos/{{$categoria[0]->familia->id}}" class="mb-0 mt-0">{{$categoria[0]->familia->familia}}</a>
                             <p class="me-4 mb-0 mt-0">{{$categoria->count()}}</p>
@@ -56,18 +56,18 @@ Fórum
                         <div class="row">
                             @isset($topicos)
                             @foreach($topicos as $topico)
-                            <div class="col-12 bg-white mt-2 shadow p-2 ps-3 pe-3">
-                                <H4 class="titulo-1">{{$topico->titulo}}</H4>
+                            <div class="col-12 bg-white mt-3 shadow  p-3 ps-3 pe-3">
+                                <h5 class="">{{$topico->titulo}}</h5>
                                 <p class="texto-1 ">{{$topico->descricao}}</p>
                                 <div class="text-end d-flex justify-content-between">
                                     <small class="texto "> {{$topico->user->u_nome}} {{\Carbon\Carbon::parse($topico->data_hora)->diffForHumans()}} </small>
                                     <div class="">
                                         @if($topico->user->id == Auth::user()->id)
-                                    <button onclick='dialog("{{$topico->id}}")' class=" border border-0 bg-transparent" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button onclick='dialog("{{$topico->id}}")' data-bs-toggle="tooltip" title="Remover" class=" border border-0 bg-transparent" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                             </svg></button> @endif
-                                            <a href="forum/topico/{{$topico->id}}" class="btn texto btn-sm btn-success"> Ver mais</a>
+                                        <a href="forum/topico/{{$topico->id}}" class="btn texto btn-sm btn-success"> Ver mais</a>
                                     </div>
                                 </div>
                             </div>
@@ -113,9 +113,9 @@ Fórum
 </div>
 
 <script>
-function dialog(id) {
+    function dialog(id) {
 
-document.getElementById("dialog").innerHTML = `
+        document.getElementById("dialog").innerHTML = `
 <form action="/forum/topico/` + id + `" method="post">
     @csrf
      @method('DELETE')
@@ -134,7 +134,7 @@ document.getElementById("dialog").innerHTML = `
         </div>
 </form>`;
 
-}
+    };
 </script>
 
 @endsection

@@ -20,7 +20,7 @@ class ForumController extends Controller
         $data = $request->validate([
 
             'titulo' => ['required'],
-            'descricao' => ['required', 'max:255'],
+            'descricao' => ['required'],
             'familia' => ['required'],
         ], [
             'titulo.required' => 'Deve introduzir um titulo',
@@ -59,7 +59,7 @@ class ForumController extends Controller
     public function registar_comentario(Request $request)
     {
         $data = $request->validate([
-            'comentario' => ['required', 'max:255'],
+            'comentario' => ['required'],
         ], [
             'comentario.required' => 'Deve introduzir um comentario',
         ]);
@@ -135,6 +135,26 @@ class ForumController extends Controller
         }
         return  redirect()->back()->with('error', 'Não foi possivel apagar o tópico');
     }
+
+
+      //função para apagar comentário
+      public function apagar_comentario(Request $request)
+      {
+          $comentario = Comentario::where('id', '=', $request->id, 'AND', 'user_id', '=', Auth::User()->id)->first();
+  
+          if ($comentario != null) {
+                $comentario->delete();
+  
+              $log = new Log();
+              $log->user_id = Auth::User()->id;
+              $log->data_hora = now();
+              $log->acao = "removeu um comentário";
+              $log->save();
+  
+              return  redirect()->back()->with('success', 'Comentário apagado com sucesso');
+          }
+          return  redirect()->back()->with('error', 'Não foi possivel apagar o comentário');
+      }
 
     //retorna a view novo topico
     public function novo_topico(Request $request)

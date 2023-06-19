@@ -19,13 +19,13 @@
     <div class="row">
       <div class="col-12 fixed-top d-flex justify-content-end p-4">
         <div class="dropdown">
-          <button class="btn bg-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            PT
-          </button>
+          <a class="btn btn-sm text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ strtoupper(str_replace('_', '-', app()->getLocale()))}}
+          </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">EN</a></li>
-            <li><a class="dropdown-item" href="#">FR</a></li>
-            <li><a class="dropdown-item" href="#">JP</a></li>
+            <li><a class="dropdown-item" href="locale/en">EN</a></li>
+            <li><a class="dropdown-item" href="locale/pt">PT</a></li>
+            <li><a class="dropdown-item" href="locale/fr">FR</a></li>
           </ul>
         </div>
       </div>

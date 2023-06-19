@@ -60,7 +60,7 @@ class MateriaPrimaController extends Controller
         $data = $request->validate(
             [
                 'preco_minimo' => ['required', 'numeric'],
-                'preco_maximo' => ['required', 'numeric' , 'gt:preco_minimo'],
+                'preco_maximo' => ['required', 'numeric', 'gt:preco_minimo'],
             ],
             [
                 'preco_minimo.required' => 'Deve introduzir o preço minimo',
@@ -142,6 +142,52 @@ class MateriaPrimaController extends Controller
         return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
     }
 
+    //filtra matérias-primas 
+    public function materias_primas_filtros(Request $request)
+    {
+        $fornecedores = Fornecedor::all();
+        $subfamila = SubFamilia::all();
+        $famila = Familia::all();
+
+        if (Auth::User()->u_tipo == 1) {
+
+            if ($request->tipo == 1) {
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('familia_id',$request->id )->paginate(15);
+                return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+            }
+
+            if ($request->tipo == 2) {
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('subfamilia_id',$request->id )->paginate(15);
+                return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+            }
+
+            if ($request->tipo == 3) {
+
+                if ($request->id == 1) {
+
+                    $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->orderBy('designacao', 'ASC')->paginate(15);
+                    return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+                }
+                if ($request->id == 2) {
+                    $materiasprimas = MateriaPrima::with('familia', 'subfamilia', 'codigo')->join('codigo', 'codigo.id' ,'=', 'materiasprimas.codigo_id')->orderBy('codigo.codigo', 'ASC')->sortable()->paginate(15);
+                    return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+                }
+                if ($request->id == 3) {
+                    $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->orderBy('familia.familia', 'ASC')->sortable()->paginate(15);
+                    return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+                }
+                if ($request->id == 4) {
+                    $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->orderBy('subfamilia.subfamilia', 'ASC')->sortable()->paginate(15);
+                    return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+                }
+            }
+        } else {
+            $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+        }
+
+        return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
+    }
+
     //função para apagar uma matéria-prima 
     public function apagar_materia_prima(Request $request)
     {
@@ -166,7 +212,7 @@ class MateriaPrimaController extends Controller
     public function dados_materia_prima(Request $request)
     {
         $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('id', '=', $request->id)->first();
-        
+
         $subfamila = SubFamilia::all();
         $famila = Familia::all();
         $codigo = Codigo::all();
@@ -185,8 +231,8 @@ class MateriaPrimaController extends Controller
         $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->get();
 
         $topicos = Topico::query()->where('familia_id', $materiaprima->familia->id)->orderBy('created_at', 'desc')->get();
-        
-        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('topicos',$topicos);
+
+        return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('topicos', $topicos);
     }
 
     //função para registar familia de matéria-prima
