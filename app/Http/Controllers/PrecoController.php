@@ -52,6 +52,7 @@ class PrecoController extends Controller
             $preco->data_fim = $data['data_fim'];
             $preco->empresa_id = Auth::User()->empresa_id;
             $preco->materiaprima_id = $request->id;
+            $preco->user_id = Auth::User()->id;
 
             $preco->save();
 

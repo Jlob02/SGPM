@@ -48,8 +48,9 @@ Fornecedores
                                     @endif
                                     <th>Fornecedor</th>
                                     <th>Email</th>
-                                    <th>País</th>
                                     <th>Telemovel</th>
+                                    <th>Pessoa de contacto</th>
+                                    <th>País</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
@@ -61,8 +62,10 @@ Fornecedores
                                     @endif
                                     <td>{{$fornecedor->nome}}</td>
                                     <td>{{$fornecedor->email}}</td>
-                                    <td>{{$fornecedor->pais}}</td>
                                     <td>{{$fornecedor->contacto}}</td>
+                                    <td>{{$fornecedor->pessoa_contacto}}</td>
+                                    <td>{{$fornecedor->pais}}</td>
+                                    
                                     <td class="d-flex justify-content-around">
 
                                         <form action="/fornecedores/alterar/{{$fornecedor->id}}" method="get">

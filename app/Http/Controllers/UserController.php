@@ -30,8 +30,8 @@ class UserController extends Controller
         $remember_me = $request->has('remember_me') ? true : false;
 
         //verifica as credenciais e tenta fazer o login
-        if (Auth::attempt($credentials, $remember_me )) {
-            
+        if (Auth::attempt($credentials, $remember_me)) {
+
             if (auth()->user()->u_estado == 0) {
                 auth()->logout();
                 return back()->withErrors(['erro' => 'Utilizador inativo']);
@@ -183,6 +183,55 @@ class UserController extends Controller
         return  redirect('/funcionarios')->with('success', 'Utilizador alterado com sucesso');
     }
 
+
+    //função para alterar um funcionario 
+    public function alterar_perfil(Request $request)
+    {
+        $data = $request->validate(
+            [
+                'nome' => ['required'],
+                'email' => ['required', 'email', "unique:users,email,$request->id"],
+                'contacto' => ['required', 'max:9'],
+
+            ],
+            [
+                'nome.required' => 'Deve introduzir o nome do funcionário',
+                'email.required' => 'Deve introduzir o email do funcionário',
+                'email.unique' => 'Ja existe um funcionário com conta associada a este email',
+                'emali.email' => 'Deve introduzir um email válido',
+            ]
+        );
+
+        $user = User::where('id', '=',  Auth::user()->id)->first();
+        $user->email = $data['email'];
+
+        if (!empty($request->password)) {
+
+            $data1 = $request->validate(
+                [
+                    'password' => ['required', 'min:8'],
+                    'new_password' => ['required', 'min:8'],
+                ],
+                [
+                ]
+            );
+
+            if (Hash::check($data1['password'], $user->password)) {
+                $user->password = Hash::make($data1['new_password']);
+            } else {
+                return  redirect('/perfil')->with('error', 'Password inválida');
+            }
+        }
+
+        $user->u_nome = $data['nome'];
+        $user->email = $data['email'];
+        $user->u_contacto = $data['contacto'];
+
+        $user->save();
+
+        return  redirect('/perfil')->with('success', 'Utilizador alterado com sucesso');
+    }
+
     //funcao para retornar todos funcionários
     public function funcionarios(Request $request)
     {
@@ -213,7 +262,7 @@ class UserController extends Controller
         $user->delete();
         return  redirect()->back()->with('success', 'Utilizador apagado com sucesso');
     }
-    
+
 
     //função para alterar o estado do funcionário
     public function alterar_estado_funcionario(Request $request)
@@ -236,10 +285,24 @@ class UserController extends Controller
     //função para retornar os dados do funcionário
     public function dados_funcionario(Request $request)
     {
+        $funcoes = Funcao::all();
+        $empresas = Empresa::all();
+
         if (Auth::user()->u_tipo == 1) {
             $user = User::with('funcao', 'empresa')->where('id', '=', $request->id)->first();
         }
-        return view('alterar-funcionario')->with('user', $user);
+        return view('alterar-funcionario')->with('user', $user)->with('funcoes', $funcoes)->with('empresas', $empresas);
+    }
+
+    //função para retornar os dados do funcionário
+    public function dados_perfil(Request $request)
+    {
+        $funcoes = Funcao::all();
+        $empresas = Empresa::all();
+
+        $user = User::with('funcao', 'empresa')->where('id', '=', Auth::user()->id)->first();
+
+        return view('perfil-alterar-funcionario')->with('user', $user)->with('funcoes', $funcoes)->with('empresas', $empresas);
     }
 
     //função para registar funcionario 

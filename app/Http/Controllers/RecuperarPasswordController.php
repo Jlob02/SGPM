@@ -47,7 +47,7 @@ class RecuperarPasswordController extends Controller
         $user = User::where('token', '=', $request->token)->first();
 
         if ($user == null) {
-            return abort(400);;
+            abort(404);
         } else {
             return view('redefinir-password')->with('token', $request->token);;
         }
@@ -67,7 +67,7 @@ class RecuperarPasswordController extends Controller
         $user = User::where('token', '=', $request->token)->first();
 
         if ($user == null) {
-            return abort(400);;
+            abort(404);;
         } else {
             $user->token = null;
             $user->password = Hash::make($data['password']);

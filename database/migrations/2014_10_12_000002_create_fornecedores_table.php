@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('pais');
             $table->integer('contacto');
+            $table->string('pessoa_contacto');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();

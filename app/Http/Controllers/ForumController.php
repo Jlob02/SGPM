@@ -32,6 +32,7 @@ class ForumController extends Controller
         $topico->titulo = $data['titulo'];
         $topico->descricao = $data['descricao'];
         $topico->data_hora = now();
+        $topico->comentado = now();
         $topico->user_id = Auth::User()->id;
         $topico->familia_id = $data['familia'];
         $topico->save();
@@ -71,6 +72,10 @@ class ForumController extends Controller
         $comentario->topico_id = $request->id;
         $comentario->save();
 
+        $topico = Topico::where('id', '=', $request->id)->first();
+        $topico->comentado = now();
+        $topico->save();
+
         $log = new Log();
         $log->user_id = Auth::User()->id;
         $log->data_hora = now();
@@ -95,9 +100,9 @@ class ForumController extends Controller
         $user->save();
 
         if (!empty($search)) {
-            $topicos = Topico::query()->where('titulo', 'LIKE', "%{$search}%", 'OR', 'descricao', 'LIKE', "%{$search}%")->orderBy('created_at', 'desc')->sortable()->paginate(15);
+            $topicos = Topico::query()->where('titulo', 'LIKE', "%{$search}%", 'OR', 'descricao', 'LIKE', "%{$search}%")->orderBy('comentado', 'desc')->sortable()->paginate(15);
         } else {
-            $topicos = Topico::query()->orderBy('created_at', 'desc')->sortable()->paginate(10);
+            $topicos = Topico::query()->orderBy('comentado', 'desc')->sortable()->paginate(10);
         }
 
         return view('forum')->with('topicos', $topicos)->with('categorias', $categorias);
@@ -110,7 +115,7 @@ class ForumController extends Controller
         $top = Topico::query()->orderBy('created_at', 'desc')->get();
         $categorias = $top->groupBy('familia_id')->take(10);
         
-        $topicos = Topico::query()->where('familia_id', $request->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+        $topicos = Topico::query()->where('familia_id', $request->id)->orderBy('comentado', 'desc')->sortable()->paginate(10);
 
         return view('forum')->with('topicos', $topicos)->with('categorias', $categorias);
     }

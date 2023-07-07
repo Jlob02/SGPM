@@ -23,6 +23,7 @@ class Topico extends Model
         'titulo',
         'descricao',
         'data_hora',
+        'comentado',
         'familia_id'
     ];
 

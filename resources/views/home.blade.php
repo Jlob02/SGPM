@@ -80,7 +80,7 @@ Home
 
                 <div class="row bg-white shadow m-1 p-1">
                     <div class="col-8 d-flex align-items-center ">
-                        
+
                     </div>
                     <div class="col-4">
                         <form class="d-flex" role="search" action="/home" method="get">
@@ -92,7 +92,7 @@ Home
                     </div>
                 </div>
 
-                <div class="row m-1  _list">
+                <div class="row m-1   _list ">
                     <div class="col-12 ">
                         @isset($precos)
                         @foreach($precos as $preco)
@@ -121,27 +121,30 @@ Home
                                         FORNECEDOR : {{$preco->fornecedor->nome}}
                                     </div>
                                     <div class="col-7">
-                                        QUANTIDADE MINIMA : 
-                                        @if($preco->quantidade_minima==1) 
-                                                Camião completo
+                                        QUANTIDADE MINIMA :
+                                        @if($preco->quantidade_minima==1)
+                                        Camião completo
                                         @endif
-                                        @if($preco->quantidade_minima==2) 
-                                                >= 1 Palete
+                                        @if($preco->quantidade_minima==2)
+                                        >= 1 Palete
                                         @endif
-                                        @if($preco->quantidade_minima==3) 
-                                                < 1 Palete
-                                        @endif
-                                        @if($preco->quantidade_minima==4) 
-                                                Não aplicável
-                                        @endif
+                                        @if($preco->quantidade_minima==3)
+                                        < 1 Palete @endif @if($preco->quantidade_minima==4)
+                                            Não aplicável
+                                            @endif
                                     </div>
                                     <div class="col-12">
                                         OBSERVAÇÕES : {{$preco->observacao}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 PREÇO : {{$preco->preco}} EUR
+                            </div>
+                            <div class="col-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" fill="red" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                </svg>
                             </div>
                         </a>
                         @endforeach

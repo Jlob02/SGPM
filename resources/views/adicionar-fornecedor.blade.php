@@ -10,7 +10,7 @@ Adicionar fornecedor
 <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row m-1 p-2">
+        <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Forncecedores > Adicionar fornecedor
                 <a href="/fornecedores" class="btn btn-primary btn-sm ">Voltar</a>
@@ -49,6 +49,21 @@ Adicionar fornecedor
                             <div class="col-9">
                                 <input type="email" name="email" class="form-control bg-body-secondary" id="inputEmail4" placeholder="Email do fornecedor" value='{{old("email")}}' />
                             </div>
+                            <div class="col-3">
+                                <label for="inputTel" class="form-label">Contacto :</label>
+                            </div>
+
+                            <div class="col-5">
+                                <input type="tel" name="contacto" class="form-control bg-body-secondary" id="inputNumber" placeholder="Contacto do fornecedor" value='{{old("contacto")}}' />
+                            </div>
+                            <div class="col-4"></div>
+
+                            <div class="col-3">
+                                <label for="inputName" class="form-label">Pessoa de contacto : </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" name="pessoa_contacto" class="form-control bg-body-secondary" id="inputName" placeholder="Nome da pessoa de contacto" value='{{old("pessoa_contacto")}}' />
+                            </div>
 
                             <div class="col-3">
                                 <label for="inputTel" class="form-label">País :</label>
@@ -59,14 +74,7 @@ Adicionar fornecedor
                             </div>
                             <div class="col-4"></div>
 
-                            <div class="col-3">
-                                <label for="inputTel" class="form-label">Contacto :</label>
-                            </div>
-
-                            <div class="col-5">
-                                <input type="tel" name="contacto" class="form-control bg-body-secondary" id="inputNumber" placeholder="Contacto do fornecedor" value='{{old("contacto")}}' />
-                            </div>
-                            <div class="col-4"></div>
+                            
     
                             <div class="col-12 mt-4 text-end">
                                 <button type="submit" class="btn btn-primary">

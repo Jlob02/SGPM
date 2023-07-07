@@ -10,7 +10,7 @@ Adicionar Materia-prima
 <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row m-1 p-2">
+        <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Matéria-prima > Adicionar matéria-prima
                 <a href="/materia-prima" class="btn btn-primary btn-sm">Voltar</a>
@@ -38,7 +38,7 @@ Adicionar Materia-prima
                             @csrf
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
                                 <input type="text" name="familia" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="Familia">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -51,7 +51,7 @@ Adicionar Materia-prima
                             @csrf
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
                                 <input type="text" name="subfamilia" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Sub-Familia">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -66,7 +66,7 @@ Adicionar Materia-prima
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
                                 <input type="text" name="codigo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="codigo">
                                 <input type="text" name="principio_ativo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Principio ativo">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>

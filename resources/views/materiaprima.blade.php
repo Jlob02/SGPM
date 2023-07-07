@@ -16,7 +16,7 @@ Matéria-prima
             </div>
         </div>
         <div class=" row">
-         
+
             <div class="col-12">
 
                 <div class="row">
@@ -25,19 +25,18 @@ Matéria-prima
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-1 mb-1 border-bottom">
                             <h4 class="">@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h4>
                             <div class=" me-4 mb-2">
-                                <select class="form-select bg-body-secondary ">
-                                    <option selected>1 mês</option>
-                                    <option value="1">3 meses</option>
-                                    <option value="2">6 meses</option>
-                                    <option value="3">1 ano</option>
-                                </select>
+                                <div class="d-flex align-items-center ">
+                                    <input  class="me-2 form-control form-control-sm bg-body-secondary" type="date">
+                                    a
+                                    <input  class="form-control form-control-sm ms-2 bg-body-secondary" type="date">
+                                </div>
                             </div>
                         </div>
                         <canvas class="" id="myChart" width="900" height="400px"></canvas>
                     </div>
 
                     <div class="col-4">
-                        <h5 class=" p-2">Notícias</h5>
+                        <h5 class=" p-2">Tópicos</h5>
 
                         <div class="row noticias">
                             @isset($topicos)

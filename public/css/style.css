@@ -7,9 +7,9 @@ body {
 }
 
 ._list_item{
-    font-size: small;
-    font-weight: 560;
-    color: rgb(124, 124, 124) !important;
+    font-size: x-small;
+    font-weight:lighter;
+    color: rgb(40, 40, 40) !important;
 }
 
 .down_triangle{
@@ -34,8 +34,9 @@ body {
     overflow-x: hidden;
 }
 
+
 ._list1{
-    max-height: 80vh;
+    max-height: 50vh;
     overflow: scroll;
     overflow-x: hidden;
 }

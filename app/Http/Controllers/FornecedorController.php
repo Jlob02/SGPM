@@ -16,6 +16,7 @@ class FornecedorController extends Controller
         $data = $request->validate([
 
             'nome' => ['required', 'unique:fornecedores'],
+            'pessoa_contacto' => ['required'],
             'email' => ['required', 'email', 'unique:fornecedores'],
             'contacto' => ['required', 'max:9'],
             'pais' => ['required'],
@@ -33,6 +34,7 @@ class FornecedorController extends Controller
         $fornecedor->nome = $data['nome'];
         $fornecedor->email = $data['email'];
         $fornecedor->contacto = $data['contacto'];
+        $fornecedor->pessoa_contacto = $data['pessoa_contacto'];
         $fornecedor->pais = $data['pais'];
         $fornecedor->empresa_id = Auth::User()->empresa_id;
 
@@ -47,6 +49,7 @@ class FornecedorController extends Controller
         $data = $request->validate([
 
             'nome' => ['required', "unique:fornecedores,nome,$request->id"],
+            'pessoa_contacto' => ['required'],
             'email' => ['required', 'email', "unique:fornecedores,email,$request->id"],
             'contacto' => ['required', 'max:9'],
             'pais' => ['required'],
@@ -65,6 +68,7 @@ class FornecedorController extends Controller
         $fornecedor->email = $data['email'];
         $fornecedor->pais = $data['pais'];
         $fornecedor->contacto = $data['contacto'];
+        $fornecedor->pessoa_contacto = $data['pessoa_contacto'];
         $fornecedor->save();
 
         return  redirect('/fornecedores')->with('success', 'Fornecedor alterado com sucesso');

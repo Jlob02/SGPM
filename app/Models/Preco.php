@@ -19,6 +19,7 @@ class Preco extends Model
      */
     protected $fillable = [
         'id',
+        'user_id',
         'preco',
         'unidade',
         'quantidade_minima',

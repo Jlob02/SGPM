@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-
  
 Route::get('locale/{locale}', function (string $locale) {
     if (!in_array($locale, ['en', 'pt', 'fr'])) {
@@ -101,7 +100,11 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('funcionarios/alterar/{id}', [UserController::class, 'dados_funcionario']);
 
+        Route::get('perfil/alterar/{id}', [UserController::class, 'dados_perfil']);
+        
         Route::post('funcionarios/alterar/{id}', [UserController::class, 'alterar_funcionario']);
+
+        Route::post('perfil/alterar/{id}', [UserController::class, 'alterar_perfil']);
 
         Route::post('funcionarios/adicionar/funcao', [UserController::class, 'adicionar_funcao']);
     });

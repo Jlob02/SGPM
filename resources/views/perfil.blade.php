@@ -11,7 +11,7 @@ Empresas
     <div class="col-1"></div>
     <div class="col-10">
         <div class="row">
-            
+
             <div class="col-12 text-center">
                 @if($errors->any())
                 <div class="alert alert-warning" role="alert">
@@ -34,9 +34,13 @@ Empresas
                         <h4>Tipo : @if($user->u_tipo == 1) Administrador @endif @if($user->u_tipo == 2) Administrador de empresa @endif @if($user->u_tipo == 3) Funcionário @endif </h4> <br>
                         <h4>Empresa :{{$user->empresa->nome}} </h4> <br>
                         <h4>Função : {{$user->funcao->funcao}}</h4> <br>
+                        <div class="text-end">
+                            <a href="perfil/alterar/{{$user->id}}" class="btn texto btn-sm btn-success">Alterar dados</a>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="col-1"></div>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('materiasprimas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('designacao');
-            $table->float('concentracao');
+            $table->float('concentracao')->nullable();
             $table->unsignedBigInteger('codigo_id');
             $table->foreign('codigo_id')->references('id')->on('codigo')->onDelete('cascade');
             $table->unsignedBigInteger('familia_id');

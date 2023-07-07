@@ -10,7 +10,7 @@ Empresas
 <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row  m-1 p-2">
+        <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Empresas > Adicionar empresa
                 <a href="/empresas" class="btn btn-primary btn-sm">Voltar</a>

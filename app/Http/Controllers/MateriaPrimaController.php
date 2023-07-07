@@ -23,13 +23,11 @@ class MateriaPrimaController extends Controller
             [
                 'designacao' => ['required'],
                 'codigo' => ['required'],
-                'concentracao' => ['required'],
                 'familia' => ['required'],
                 'subfamilia' => ['required'],
             ],
             [
                 'designacao.required' => 'Deve introduzir a designação da matéria-prima',
-                'concentracao.required' => 'Deve introduzir a concentração da matéria-prima',
                 'familia.required' => 'Deve selecionar a familia da matéria-prima',
                 'subfamilia.required' => 'Deve selecionar a sub-familia da matéria-prima',
                 'codigo.required' => 'Deve selecionar o codigo da matéria-prima',
@@ -39,7 +37,8 @@ class MateriaPrimaController extends Controller
         $materiaprima = new MateriaPrima();
         $materiaprima->designacao = $data['designacao'];
         $materiaprima->codigo_id = $data['codigo'];
-        $materiaprima->concentracao = $data['concentracao'];
+        if (isset($request->concentracao))
+            $materiaprima->concentracao = $request->concentracao;
         $materiaprima->familia_id = $data['familia'];
         $materiaprima->subfamilia_id = $data['subfamilia'];
         $materiaprima->empresa_id = Auth::User()->empresa_id;
@@ -86,13 +85,11 @@ class MateriaPrimaController extends Controller
 
                 'designacao' => ['required'], // "unique:materiasprimas,designacao,$request->id"
                 'codigo' => ['required'], //, "unique:materiasprimas,codigo,$request->id"
-                'concentracao' => ['required'],
                 'familia' => ['required'],
                 'subfamilia' => ['required'],
             ],
             [
                 'designacao.required' => 'Deve introduzir a designação da matéria-prima',
-                'concentracao.required' => 'Deve introduzir a concentração da matéria-prima',
                 'familia.required' => 'Deve selecionar a familia da matéria-prima',
                 'subfamilia.required' => 'Deve selecionar a sub-familia da matéria-prima',
                 'codigo.required' => 'Deve selecionar o codigo da matéria-prima',
@@ -102,7 +99,8 @@ class MateriaPrimaController extends Controller
         $materiaprima = MateriaPrima::where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
         $materiaprima->designacao = $data['designacao'];
         $materiaprima->codigo_id = $data['codigo'];
-        $materiaprima->concentracao = $data['concentracao'];
+        if (isset($request->concentracao))
+            $materiaprima->concentracao = $request->concentracao;
         $materiaprima->familia_id = $data['familia'];
         $materiaprima->subfamilia_id = $data['subfamilia'];
 
@@ -152,12 +150,12 @@ class MateriaPrimaController extends Controller
         if (Auth::User()->u_tipo == 1) {
 
             if ($request->tipo == 1) {
-                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('familia_id',$request->id )->paginate(15);
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('familia_id', $request->id)->paginate(15);
                 return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
             }
 
             if ($request->tipo == 2) {
-                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('subfamilia_id',$request->id )->paginate(15);
+                $materiasprimas = MateriaPrima::with('familia', 'subfamilia')->where('subfamilia_id', $request->id)->paginate(15);
                 return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
             }
 
@@ -169,7 +167,7 @@ class MateriaPrimaController extends Controller
                     return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
                 }
                 if ($request->id == 2) {
-                    $materiasprimas = MateriaPrima::with('familia', 'subfamilia', 'codigo')->join('codigo', 'codigo.id' ,'=', 'materiasprimas.codigo_id')->orderBy('codigo.codigo', 'ASC')->sortable()->paginate(15);
+                    $materiasprimas = MateriaPrima::with('familia', 'subfamilia', 'codigo')->join('codigo', 'codigo.id', '=', 'materiasprimas.codigo_id')->orderBy('codigo.codigo', 'ASC')->sortable()->paginate(15);
                     return view('materia-prima')->with('materias_primas', $materiasprimas)->with('fornecedores', $fornecedores)->with('subfamilias', $subfamila)->with('familias', $famila);
                 }
                 if ($request->id == 3) {

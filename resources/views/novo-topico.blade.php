@@ -30,7 +30,7 @@ Fórum
 
             <div class="col-8 ">
 
-                <div class="row d-flex align-items-center bg-white shadow p-2">
+                <div class="row d-flex align-items-center bg-white shadow p-1">
                     <div class="col-8">
                         <a href="/forum/novo-topico" class="btn btn-sm btn-success"> Criar novo tópico</a>
                     </div>

@@ -10,24 +10,11 @@ Empresas
 <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row m-1 p-2">
+        <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Funcionarios > Adicionar funcionario
                 <a href="/funcionarios" class="btn btn-primary btn-sm">Voltar</a>
             </div>
-
-            <div class="col-12 bg-white shadow ">
-                <div class="collapse" id="collapseExample">
-                    <form class="row" action="/funcionarios/adicionar/funcao" method="post">
-                        @csrf
-                        <div class="col-12 d-flex justify-content-center align-items-center gap-2 p-2 ">
-                            <input type="text" name="funcao" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="Função">
-                            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
         </div>
         <div class="row">
             <div class="col-12 mb-0 mt-1 text-center">
@@ -44,6 +31,18 @@ Empresas
             </div>
         </div>
         <div class="row m-1 ">
+
+            <div class="col-12 mb-2 ">
+                <div class="collapse" id="collapseExample">
+                    <form class="row" action="/funcionarios/adicionar/funcao" method="post">
+                        @csrf
+                        <div class="col-12 bg-white shadow d-flex justify-content-center align-items-center gap-2 p-2 ">
+                            <input type="text" name="funcao" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="Função">
+                            <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="col-12">
                 <div class="row  d-flex justify-content-center bg-white shadow  p-1 _text">
                     <div class="col-md-10 d-flex p-4">

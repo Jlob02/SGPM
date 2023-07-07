@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('precos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->float('preco');
             $table->integer('unidade');
             $table->integer('quantidade_minima');

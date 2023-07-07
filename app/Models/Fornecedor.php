@@ -23,6 +23,7 @@ class Fornecedor extends Model
         'email',
         'pais',
         'contacto',
+        'pessoa_contacto',
         'empresa_id'
     ];
 

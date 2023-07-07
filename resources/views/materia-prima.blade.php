@@ -63,12 +63,14 @@ Matéria-prima
                             Filtrar por
                         </div>
                     </div>
-                    <div class="col-2 d-flex gap-3 align-items-center">
+                    <div class="col-1 d-flex gap-3 align-items-center">
 
                         <div class="">
                             <h7 class="titulo-1">Familia</h7>
                         </div>
+                    </div>
 
+                    <div class="col-1">
                         <select onchange="filtra_familia()" id="familia" class="form-select form-select-sm bg-body-secondary">
                             <option value="0" selected>Selecionar</option>
                             @isset($familias)
@@ -79,11 +81,13 @@ Matéria-prima
                         </select>
                     </div>
 
-                    <div class="col-2 d-flex align-items-center">
+                    <div class="col-1 d-flex align-items-center">
                         <div class=" w-100">
                             <h7 class="titulo-1 ">Sub-Família</h7>
                         </div>
+                    </div>
 
+                    <div class="col-1">
                         <select onchange="filtra_subfamilia()" id="subfamilia" class="form-select form-select-sm bg-body-secondary">
                             <option value="0" selected>Selecionar</option>
                             @isset($subfamilias)
@@ -94,10 +98,12 @@ Matéria-prima
                         </select>
                     </div>
 
-                    <div class="col-2 d-flex gap-3 align-items-center">
-                        <div class="w-100">
+                    <div class="col-1 d-flex gap-3 align-items-center">
+                        <div class="">
                             Ordenar por
                         </div>
+                    </div>
+                    <div class="col-1">
                         <select onchange="ordena()" id="ordena" class="form-select form-select-sm bg-body-secondary">
                             <option value="0" selected>Selecionar</option>
                             <option value="1">Designação</option>
@@ -165,7 +171,7 @@ Matéria-prima
                                                 </svg></button>
                                         </form>
 
-                                        <button onclick='adicionar_alerta("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="border border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal1"  data-bs-toggle="tooltip" title="Adicionar alerta">
+                                        <button onclick='adicionar_alerta("{{$materia_prima->id}}","{{$materia_prima->designacao}}")' class="border border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-toggle="tooltip" title="Adicionar alerta">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
                                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
                                             </svg>
@@ -183,7 +189,7 @@ Matéria-prima
 
                     </div>
                 </div>
-                <div class="row bg-white shadow mt-2 p-1">
+                <div class="row m-1 bg-white shadow mt-2 p-1">
                     <div class="col-12 d-flex align-items-center justify-content-end">
                         @isset($materias_primas)
                         @if ($materias_primas->links()->paginator->hasPages())
@@ -317,7 +323,7 @@ Matéria-prima
                            
                             Fornecedor:
 
-                            <div class="d-flex justify-content-between ">
+                            <div class="d-flex justify-content-between">
                                 
                                 <select name="inputs[0][fornecedor]" class="ms-1 form-select form-select-sm bg-body-secondary">
                                     <option selected>Selecionar</option>
@@ -358,26 +364,25 @@ Matéria-prima
 
 
     function fechar() {
-
         document.getElementById("adicionar_preco").innerHTML = "";
-
     };
 
 
     function add() {
         ++i;
-        document.getElementById("add").innerHTML += `
+        document.getElementById("add").insertAdjacentHTML('beforeend', `
+                    <div id="` + i + `" >
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn-close" aria-label="Close" onclick="removerDiv(` + i + `)"></button>
+                        </div>
                         <div class="col-12 d-flex justify-content-lg-between align-items-center mt-1">
                         <div class="d-flex">
-                            
                             <input name="inputs[` + i + `][preco]" class="form-control form-control-sm bg-body-secondary" type="text"  placeholder="Preço de Mercado" />
-                            
                             <select style="max-width: 70px;" name="inputs[` + i + `][unidade]" class=" ms-1 form-select form-select-sm bg-body-secondary">
                             <option value="1" selected>Kg</option>
                             <option value="2">T</option>
                             </select>
-                            
-                            </div>
+                        </div>
 
                             <spam> Quant. minima: </spam> 
 
@@ -415,8 +420,10 @@ Matéria-prima
                         </div>
                         <div class="col-12 d-flex mt-2">
                            <input type="text" name="inputs[` + i + `][observacao]" class="form-control bg-body-secondary " placeholder="Observacões" />
-                        </div>`;
-    };
+                        </div>
+                    </div>
+                        `);
+    }
 
     function dialog(id, nome) {
 
@@ -439,6 +446,13 @@ Matéria-prima
                 </div>
         </form>`;
 
+    }
+
+    function removerDiv(idDiv) {
+        var div = document.getElementById(idDiv);
+        if (div) {
+            div.parentNode.removeChild(div);
+        }
     }
 </script>
 

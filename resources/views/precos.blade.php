@@ -50,7 +50,7 @@ Alerta
             <div class="col-12">
                 <div class=" row m-1 _navbar  d-flex align-items-center bg-white shadow p-2">
                     <div class="col-2 d-flex align-items-center">
-                    <div class="w-100">
+                        <div class="w-100">
                             Ordenar por
                         </div>
                         <select class="form-select form-select-sm bg-body-secondary">
@@ -60,11 +60,11 @@ Alerta
                             <option value="1">Familia</option>
                             <option value="1">Sub-familia</option>
                             <option value="1">Concentração</option>
-                            
+
                         </select>
                     </div>
                     <div class="col-7"></div>
-                    
+
                     <div class="col-3 ">
                         <form class="d-flex" role="search" action="/materia-prima/precos" method="get">
                             <input name="search" class="form-control form-control-sm me-2 bg-body-secondary" type="search" placeholder="Pesquisar" aria-label="Search">
@@ -95,7 +95,7 @@ Alerta
                             <tbody class="table-group-divider">
                                 @foreach($precos as $preco)
                                 <tr>
-                                    <td>{{$preco->materiaprima->designacao}}</td>
+                                    <td><a href="/materia-prima/{{$preco->materiaprima->codigo_id}}">{{$preco->materiaprima->designacao}}</a> </td>
                                     <td>{{$preco->fornecedor->nome}}</td>
                                     <td> @if($preco->quantidade_minima==1)
                                         Camião completo
@@ -117,9 +117,8 @@ Alerta
                                         T
                                         @endif
                                     </td>
-
-                                    <td class=" d-flex justify-content-around">
-
+                                    @if($preco->user_id == Auth::user()->id)
+                                    <td class=" d-flex justify-content-around">    
                                         <form action="/materia-prima/preco/apagar/{{$preco->id}}" method="post">
                                             @csrf
                                             @method('DELETE')
@@ -127,8 +126,11 @@ Alerta
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                                 </svg></button>
-                                        </form>
+                                        </form>             
                                     </td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                 </tr>
                                 @endforeach
 
