@@ -29,6 +29,7 @@ class Preco extends Model
         'empresa_id',
         'data_inicio',
         'data_fim',
+        'sinal',
         'created_at',
     ];
 

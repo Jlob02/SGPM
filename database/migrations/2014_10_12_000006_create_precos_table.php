@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreign('fornecedor_id')->references('id')->on('fornecedores')->onDelete('cascade');
             $table->date('data_inicio');
             $table->date('data_fim');
+            $table->integer('sinal')->default(1);;
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();

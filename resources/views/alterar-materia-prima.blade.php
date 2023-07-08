@@ -10,12 +10,13 @@ Adicionar Materia-prima
 <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-10">
-        <div class="row m-1 p-2">
+        <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center  _text">
                 Matéria-prima > Alterar matéria-prima
                 <a href="{{@url()->previous()}}" class="btn btn-sm btn-primary">Voltar</a>
             </div>
         </div>
+
         <div class="row ">
 
             <div class="col-12 mt-1 mb-1 text-center">
@@ -38,7 +39,7 @@ Adicionar Materia-prima
                             @csrf
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
                                 <input type="text" name="familia" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="Familia">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -51,7 +52,7 @@ Adicionar Materia-prima
                             @csrf
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
                                 <input type="text" name="subfamilia" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Sub-Familia">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -66,7 +67,7 @@ Adicionar Materia-prima
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
                                 <input type="text" name="codigo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="codigo">
                                 <input type="text" name="principio_activo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Principio ativo">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -138,9 +139,6 @@ Adicionar Materia-prima
                                 </select>
                             </div>
                             <div class="col-1">
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    +
-                                </button>
                             </div>
                             <div class="col-3"></div>
 

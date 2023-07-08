@@ -16,7 +16,9 @@
         <!--navbar-->
         <header class="row _navbar ">
             <div class="col-2  d-flex align-items-center ">
-                <img class="ms-4 mt-3" width="100" height="60" src="{{asset('img/logo_1.png')}}">
+                <a href="/home">
+                    <img class="ms-4 mt-3" width="100" height="60" src="{{asset('img/logo_1.png')}}">
+                </a>
             </div>
             <div class="col-10 text-white  p-2 d-flex justify-content-end align-items-center">
                 @auth
@@ -31,7 +33,7 @@
                 <ul class="navbar-nav me-2 ">
                     <li class="nav-item dropdown">
                         <a class="btn btn-sm text-white dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ strtoupper(str_replace('_', '-', app()->getLocale()))}}
+                            {{ strtoupper(str_replace('_', '-', app()->getLocale()))}}
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/locale/en">EN</a></li>
@@ -100,7 +102,7 @@
             </div>
             @endauth
         </header>
-      
+
         <main>
             @yield('content')
         </main>
@@ -114,7 +116,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
     <script type="text/javascript">
         function zoom() {
-           document.body.style.zoom = "100%" 
+            document.body.style.zoom = "100%"
         }
     </script>
 </body>

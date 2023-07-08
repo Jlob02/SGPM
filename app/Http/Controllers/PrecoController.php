@@ -42,6 +42,9 @@ class PrecoController extends Controller
         );
 
         foreach ($request->inputs as $data) {
+
+            $sinal = Preco::where('materiaprima_id', '=', $request->id, 'AND', 'fornecedor_id', '=', $data['fornecedor'],'AND', 'empresa_id', '=', Auth::User()->empresa_id )->orderBy('created_at', 'desc')->first();
+            
             $preco = new Preco();
             $preco->preco = $data['preco'];
             $preco->unidade = $data['unidade'];
@@ -53,6 +56,18 @@ class PrecoController extends Controller
             $preco->empresa_id = Auth::User()->empresa_id;
             $preco->materiaprima_id = $request->id;
             $preco->user_id = Auth::User()->id;
+
+            if ($sinal != null){
+                if($sinal->preco > $data['preco']){
+                    $preco->sinal = 1;
+                }else{
+                    if($sinal->preco < $data['preco']){
+                        $preco->sinal = 3;
+                    }else{
+                        $preco->sinal = 2;
+                    }
+                }
+            }
 
             $preco->save();
 
@@ -69,7 +84,6 @@ class PrecoController extends Controller
         $log->data_hora = now();
         $log->acao = "adicionou preço de matéria-prima";
         $log->save();
-
 
 
         return  redirect()->back()->with('success', 'Preço registado com sucesso');
@@ -134,10 +148,10 @@ class PrecoController extends Controller
 
             if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id) and !empty($data1) and !empty($data2)) {
 
-                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
+                $id =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->whereDate('data_inicio', '>=', $data1)->whereDate('data_fim', '<=', $data2)->orderBy('created_at', 'desc')->sortable()->paginate(10);
@@ -147,10 +161,10 @@ class PrecoController extends Controller
 
             if (!empty($empresa_id) and !empty($familia_id) and !empty($subfamilia_id)) {
 
-                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
+                $id =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
@@ -160,10 +174,10 @@ class PrecoController extends Controller
 
             if (!empty($empresa_id) and !empty($familia_id)) {
 
-                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id)->first();
+                $id =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'AND', 'familia_id', '=', $familia_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
@@ -173,10 +187,10 @@ class PrecoController extends Controller
 
             if (!empty($empresa_id) and !empty($subfamilia_id)) {
 
-                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'subfamilia_id', '=', $subfamilia_id)->first();
+                $id =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id, 'subfamilia_id', '=', $subfamilia_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
@@ -186,10 +200,10 @@ class PrecoController extends Controller
 
             if (!empty($familia_id) and !empty($subfamilia_id)) {
 
-                $materiaprima =  MateriaPrima::query()->where('familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->first();
+                $id =  MateriaPrima::query()->where('familia_id', '=', $familia_id, 'AND', 'subfamilia_id', '=', $subfamilia_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
@@ -199,10 +213,10 @@ class PrecoController extends Controller
 
             if (!empty($empresa_id)) {
 
-                $materiaprima =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id)->first();
+                $id =  MateriaPrima::query()->where('empresa_id', '=', $empresa_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
@@ -212,10 +226,10 @@ class PrecoController extends Controller
 
             if (!empty($familia_id)) {
 
-                $materiaprima =  MateriaPrima::query()->where('familia_id', '=', $familia_id)->first();
+                $id =  MateriaPrima::query()->where('familia_id', '=', $familia_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
@@ -225,10 +239,10 @@ class PrecoController extends Controller
 
             if (!empty($subfamilia_id)) {
 
-                $materiaprima =  MateriaPrima::query()->where('subfamilia_id', '=', $subfamilia_id)->first();
+                $id =  MateriaPrima::query()->where('subfamilia_id', '=', $subfamilia_id)->pluck('id')->toArray();
 
-                if ($materiaprima != null) {
-                    $precos = Preco::query()->where('materiaprima_id', $materiaprima->id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
+                if ($id != null) {
+                    $precos = Preco::query()->whereIn('materiaprima_id', $id)->orderBy('created_at', 'desc')->sortable()->paginate(10);
                     return view('home')->with('logs', $logs)->with('precos', $precos)->with('subfamilias', $subfamila)->with('familias', $famila)->with('empresas', $empresas);
                 } else {
                     $precos = Preco::query()->where('materiaprima_id', 0)->orderBy('created_at', 'desc')->sortable()->paginate(10);
