@@ -58,38 +58,37 @@ Matéria-prima
 
             <div class="col-12">
                 <div class="row m-1 _navbar  d-flex align-items-center bg-white shadow p-2 pt-3 pb-3">
-                    <div class="col-1 d-flex gap-3 align-items-center">
+
+                    <div class="col-3 d-flex gap-3 align-items-center">
+                        <div class="w-100">
+                            Ordenar por
+                        </div>
+                  
+                        <select onchange="ordena()" id="ordena" class="form-select form-select-sm bg-body-secondary">
+                            <option value="0" selected>Selecionar</option>
+                            <option value="1">Designação</option>
+                            <option value="2">Codigo</option>
+                        </select>
+                    </div>
+                  
+
+                    <div class="col-4 d-flex gap-3 align-items-center">
                         <div class="w-100">
                             Filtrar por
                         </div>
-                    </div>
-                    <div class="col-1 d-flex gap-3 align-items-center">
 
-                        <div class="">
-                            <h7 class="titulo-1">Familia</h7>
-                        </div>
-                    </div>
-
-                    <div class="col-1">
                         <select onchange="filtra_familia()" id="familia" class="form-select form-select-sm bg-body-secondary">
-                            <option value="0" selected>Selecionar</option>
+                            <option value="0" selected>Familia</option>
                             @isset($familias)
                             @foreach($familias as $familia)
                             <option value="{{$familia->id}}">{{$familia->familia}}</option>
                             @endforeach
                             @endisset
                         </select>
-                    </div>
-
-                    <div class="col-1 d-flex align-items-center">
-                        <div class=" w-100">
-                            <h7 class="titulo-1 ">Sub-Família</h7>
-                        </div>
-                    </div>
-
-                    <div class="col-1">
+                    
+                        
                         <select onchange="filtra_subfamilia()" id="subfamilia" class="form-select form-select-sm bg-body-secondary">
-                            <option value="0" selected>Selecionar</option>
+                            <option value="0" selected>Sub Familia</option>
                             @isset($subfamilias)
                             @foreach($subfamilias as $subfamilia)
                             <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
@@ -98,18 +97,6 @@ Matéria-prima
                         </select>
                     </div>
 
-                    <div class="col-1 d-flex gap-3 align-items-center">
-                        <div class="">
-                            Ordenar por
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <select onchange="ordena()" id="ordena" class="form-select form-select-sm bg-body-secondary">
-                            <option value="0" selected>Selecionar</option>
-                            <option value="1">Designação</option>
-                            <option value="2">Codigo</option>
-                        </select>
-                    </div>
 
                     <div class="col-2 d-flex justify-content-end">
                         <a href="/materia-prima/adicionar" class="btn btn-sm _nav "><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle me-1" viewBox="0 0 16 16">
@@ -146,7 +133,7 @@ Matéria-prima
                             <tbody class="table-group-divider">
                                 @foreach($materias_primas as $materia_prima)
                                 <tr>
-                                    <td> <a href="materia-prima/{{$materia_prima->codigo_id}}">{{$materia_prima->designacao}}</a></td>
+                                    <td> <a href="/materia-prima/empresa/{{$materia_prima->id}}">{{$materia_prima->designacao}}</a></td>
                                     <td>@isset($materia_prima->codigo->codigo){{$materia_prima->codigo->codigo}} @else {{$materia_prima->codigo}}@endif </td>
                                     <td>@isset($materia_prima->familia->familia){{$materia_prima->familia->familia}} @endisset</td>
                                     <td>@isset($materia_prima->subfamilia->subfamilia){{$materia_prima->subfamilia->subfamilia}} @endisset</td>
@@ -162,6 +149,13 @@ Matéria-prima
                                             </svg>
                                         </button>
                                         @endif
+
+                                        <a data-bs-toggle="tooltip" title="Comparar preços" href="materia-prima/{{$materia_prima->codigo_id}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="black" class="bi bi-card-list" viewBox="0 0 15 15">
+                                                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                                <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                                            </svg>
+                                        </a>
 
                                         <form action="/materia-prima/alterar/{{$materia_prima->id}}" method="get">
                                             @csrf

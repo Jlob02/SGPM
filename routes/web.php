@@ -159,6 +159,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('materia-prima/precos', [PrecoController::class, 'precos_materias_primas']);
 
+    Route::get('materia-prima/precos/filtros/{tipo}/{id}', [PrecoController::class,  'precos_materias_primas_filtros']);
+
     Route::get('materia-prima/alertas', [PrecoController::class, 'alertas_precos']);
 
     Route::post('materia-prima/adicionar/familia', [MateriaPrimaController::class, 'adicionar_familia']);
@@ -168,6 +170,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('materia-prima/adicionar/codigo', [MateriaPrimaController::class, 'adicionar_codigo']);
 
     Route::get('materia-prima/{codigo}', [MateriaPrimaController::class, 'precos_materias_primas']);
+
+    Route::get('/materia-prima/empresa/{id}', [MateriaPrimaController::class, 'precos_materias_primas_empresa']);
 
     Route::get('materia-prima/precos/export/{id}', [PrecoController::class, 'export']);
 

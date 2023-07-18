@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Alerta
+Preços
 @endsection
 
 @section('content')
@@ -53,17 +53,37 @@ Alerta
                         <div class="w-100">
                             Ordenar por
                         </div>
-                        <select class="form-select form-select-sm bg-body-secondary">
-                            <option selected>Selecionar</option>
-                            <option value="1">Designação</option>
-                            <option value="1">Codigo</option>
-                            <option value="1">Familia</option>
-                            <option value="1">Sub-familia</option>
-                            <option value="1">Concentração</option>
-
+                        <select onchange="ordena()" id="ordena" class="form-select form-select-sm bg-body-secondary">
+                            <option value="0" selected>Selecionar</option>
+                            <option value="1">Matéria-prima</option>
+                            <option value="2">Fornecedor</option>
+                            <option value="3">Data Inicio</option>
+                            <option value="4">Data Fim</option>
+                            <option value="5">Preço</option>
                         </select>
                     </div>
-                    <div class="col-7"></div>
+                    <div class="col-4 d-flex align-items-center">
+                        <div class="w-75">
+                            Filtar por
+                        </div>
+                        <select onchange="filtra_materia_prima()" id="filtrar_materia_prima" class="form-select me-2 form-select-sm bg-body-secondary">
+                            <option value="0" selected>Matéria-prima</option>
+                            @isset($materiasprimas)
+                            @foreach($materiasprimas as $materiaprima)
+                            <option value="{{$materiaprima->id}}">{{$materiaprima->designacao}}</option>
+                            @endforeach
+                            @endisset
+                        </select>
+                        <select onchange="filtra_fornecedor()" id="filtrar_fornecedor" class="form-select form-select-sm bg-body-secondary">
+                            <option value="0" selected>Fornecedor</option>
+                            @isset($fornecedores)
+                            @foreach($fornecedores as $fornecedor)
+                            <option value="{{$fornecedor->id}}">{{$fornecedor->nome}}</option>
+                            @endforeach
+                            @endisset
+                        </select>
+                    </div>
+                    <div class="col-3"></div>
 
                     <div class="col-3 ">
                         <form class="d-flex" role="search" action="/materia-prima/precos" method="get">
@@ -82,7 +102,7 @@ Alerta
                         <table class="table table-striped table-sm table-hover">
                             <thead>
                                 <tr class="text-start">
-                                    <th>Materia prima</th>
+                                    <th>Matéria-prima</th>
                                     <th>Fornecedor</th>
                                     <th>Quant. minima</th>
                                     <th>Data de inicio</th>
@@ -95,7 +115,7 @@ Alerta
                             <tbody class="table-group-divider">
                                 @foreach($precos as $preco)
                                 <tr>
-                                    <td><a href="/materia-prima/{{$preco->materiaprima->codigo_id}}">{{$preco->materiaprima->designacao}}</a> </td>
+                                    <td><a href="/materia-prima/empresa/{{$preco->materiaprima->id}}">{{$preco->materiaprima->designacao}}</a> </td>
                                     <td>{{$preco->fornecedor->nome}}</td>
                                     <td> @if($preco->quantidade_minima==1)
                                         Camião completo
@@ -118,7 +138,7 @@ Alerta
                                         @endif
                                     </td>
                                     @if($preco->user_id == Auth::user()->id)
-                                    <td class=" d-flex justify-content-around">    
+                                    <td class=" d-flex justify-content-around">
                                         <form action="/materia-prima/preco/apagar/{{$preco->id}}" method="post">
                                             @csrf
                                             @method('DELETE')
@@ -126,7 +146,7 @@ Alerta
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                                 </svg></button>
-                                        </form>             
+                                        </form>
                                     </td>
                                     @else
                                     <td></td>
@@ -138,7 +158,7 @@ Alerta
                         @endisset
                     </div>
                 </div>
-                <div class="row bg-white shadow mt-2 p-1">
+                <div class="row m-1 bg-white shadow mt-2 p-1">
                     <div class="col-12 d-flex align-items-center justify-content-end">
                         @isset($precos)
                         @if ($precos->links()->paginator->hasPages())
@@ -172,6 +192,23 @@ Alerta
 </div>
 
 <script>
+
+    function filtra_materia_prima() {
+        if (document.getElementById("filtrar_materia_prima").value != 0) {
+            document.location.href = '/materia-prima/precos/filtros/1/' + document.getElementById("filtrar_materia_prima").value + '';
+        }
+    };
+
+    function filtra_fornecedor() {
+        if (document.getElementById("filtrar_fornecedor").value != 0) {
+            document.location.href = '/materia-prima/precos/filtros/2/' + document.getElementById("filtrar_fornecedor").value + '';
+        }
+    };
+
+    function ordena() {
+        document.location.href = '/materia-prima/precos/filtros/3/' + document.getElementById("ordena").value + '';
+    };
+
     function dialog(id, nome) {
         document.getElementById("dialog").innerHTML = `
         <form action="/materia-prima/apagar/alerta/` + id + `" method="post">

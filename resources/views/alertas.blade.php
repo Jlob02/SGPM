@@ -93,7 +93,7 @@ Alerta
                         </table>
                     </div>
                 </div>
-                <div class="row bg-white shadow mt-2 p-1">
+                <div class="row m-1 bg-white shadow mt-2 p-1">
                     <div class="col-12 d-flex align-items-center justify-content-end">
                         @isset($alertas)
                         @if ($alertas->links()->paginator->hasPages())

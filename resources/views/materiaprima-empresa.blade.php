@@ -15,53 +15,48 @@ Matéria-prima
                 <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
-        <div class="row ">
+        <div class=" row">
 
             <div class="col-12">
 
                 <div class="row m-1">
-
-                    <div class="col-8 bg-white shadow p-3">
-                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-1 mb-1 border-bottom">
-                            <h3>@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h3>
-                            <form class=" me-4 mb-2 d-flex align-items-center " action="/materia-prima/{{$materiaprima->id}}" method="get">
-                                @csrf
-                                <p class="m-0 me-2">Data :</p>
-                                <div class="d-flex align-items-center me-2">
-                                    <input name="data_inicio" class="me-2 form-control form-control-sm bg-body-secondary" type="date" @isset($data_inicio) value="{{$data_inicio}}" @endisset>
-                                    a
-                                    <input name="data_fim" class="form-control form-control-sm ms-2 bg-body-secondary" type="date" @isset($data_inicio) value="{{$data_fim}}" @endisset>
+                    <div class="col-12 bg-white shadow  p-2">
+                        <div class="d-flex align-items-center me-3">
+                            <h5 class="m-0 ms-2"> @isset($materiaprima) {{$materiaprima->designacao}} @endisset</h5>
+                            <p class="m-0 ms-2 mt-2 texto-1"> @isset($materiaprima) {{$materiaprima->codigo->codigo}} @endisset</p>
+                        </div>
+                        <div class="d-flex me-3">
+                            <p class="m-0 ms-2 texto-1"> @isset($materiaprima) {{$materiaprima->familia->familia}} @endisset</p>
+                        </div>
+                        <div class="d-flex me-3">
+                            <p class="m-0 ms-2 texto-1"> @isset($materiaprima) {{$materiaprima->subfamilia->subfamilia}} @endisset</p>
+                        </div>
+                        <div class="row p-1">
+                            <form class="col-12 d-flex align-items-center" action="/materia-prima/empresa/{{$materiaprima->id}}" method="get">
+                                <h5 class="m-0 ms-1 me-2">Mostrar preços de :</h5>
+                                <div class=" me-4">
+                                    <div class="d-flex align-items-center ">
+                                        <input name="data_inicio" class="me-2 form-control form-control-sm btn-outline-secondary" type="date" @isset($data_inicio)  value="{{$data_inicio}}"  @endisset>
+                                        a
+                                        <input name="data_fim" class="form-control form-control-sm ms-2 btn-outline-secondary" type="date" @isset($data_inicio)  value="{{$data_fim}}"  @endisset>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-outline-secondary">Aplicar</button>
                             </form>
                         </div>
-                        <canvas class="" id="myChart" width="900" height="400px"></canvas>
                     </div>
 
-                    <div class="col-4 ">
-                        <div class="bg-white shadow p-3 ">
-                            <h4 class="">Tópicos</h4>
+                    <div class="col-12 bg-white shadow mt-2 p-2 ">
 
-                            <div class="row p-2 noticias">
-                                @isset($topicos)
-                                @foreach($topicos as $topico)
-                                <hr>
-                                <a href="/forum/topico/{{$topico->id}}">
-                                    <h6 class="mb-1 titulo-2">{{$topico->titulo}}</h6>
-                                </a>
-                                <p class="texto">{{$topico->descricao}}</p>
-                                @endforeach
-                                @endisset
-                            </div>
-                        </div>
+                        <canvas class="" id="myChart" width="900" height="300px"></canvas>
                     </div>
 
                     <div class="col-12 bg-white shadow mt-3 mb-5">
                         <hr>
-                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pb-1 mb-2 border-bottom">
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pb-2 mb-3 border-bottom">
                             <h5 class="titulo-1">Tabela de preços</h5>
 
-                            <div class="btn-toolbar">
+                            <div class="btn-toolbar mb-1 ">
                                 <div class="btn-group me-2">
                                     <a href="/materia-prima/precos/export/{{$materiaprima->codigo->id}}" type="button" class="btn btn-sm btn-outline-secondary">
                                         Export CSV
@@ -177,6 +172,20 @@ Matéria-prima
 
 <script>
     const ctx = document.getElementById("myChart");
+    const month = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
 
 
     const data = JSON.parse('{!! $precos_grafico!!}');
@@ -221,10 +230,12 @@ Matéria-prima
 
         var dataFormatada = dia + "/" + mes + "/" + ano;
 
-       // if (!dataExists(dataFormatada)) {
-            labels.push('');
-       // }
-       
+
+        if (!dataExists(dataFormatada)) {
+            labels.push(dataFormatada);
+        }
+
+
     }
 
 

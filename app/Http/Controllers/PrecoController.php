@@ -43,8 +43,8 @@ class PrecoController extends Controller
 
         foreach ($request->inputs as $data) {
 
-            $sinal = Preco::where('materiaprima_id', '=', $request->id, 'AND', 'fornecedor_id', '=', $data['fornecedor'],'AND', 'empresa_id', '=', Auth::User()->empresa_id )->orderBy('created_at', 'desc')->first();
-            
+            $sinal = Preco::where('materiaprima_id', '=', $request->id, 'AND', 'fornecedor_id', '=', $data['fornecedor'], 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->orderBy('created_at', 'desc')->first();
+
             $preco = new Preco();
             $preco->preco = $data['preco'];
             $preco->unidade = $data['unidade'];
@@ -57,13 +57,13 @@ class PrecoController extends Controller
             $preco->materiaprima_id = $request->id;
             $preco->user_id = Auth::User()->id;
 
-            if ($sinal != null){
-                if($sinal->preco > $data['preco']){
+            if ($sinal != null) {
+                if ($sinal->preco > $data['preco']) {
                     $preco->sinal = 1;
-                }else{
-                    if($sinal->preco < $data['preco']){
+                } else {
+                    if ($sinal->preco < $data['preco']) {
                         $preco->sinal = 3;
-                    }else{
+                    } else {
                         $preco->sinal = 2;
                     }
                 }
@@ -94,18 +94,69 @@ class PrecoController extends Controller
     public function precos_materias_primas(Request $request)
     {
         $search = $request->input('search');
-    
+        $materiasprimas = MateriaPrima::where('empresa_id', '=', Auth::User()->empresa_id)->get();
+        $fornecedores = Fornecedor::where('empresa_id', '=', Auth::User()->empresa_id)->get();
+
+
         if (!empty($search)) {
             $materiasprima = MateriaPrima::where('designacao', 'LIKE', "%{$search}%")->first();
             if ($materiasprima != null)
-                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiasprima->id)->sortable()->paginate(15);
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id','=', $materiasprima->id , 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
             else
                 $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', 0)->sortable()->paginate(15);
         } else {
             $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
         }
 
-        return view('precos')->with('precos', $precos);
+        return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+    }
+
+    //filtra preços de matérias-primas 
+    public function precos_materias_primas_filtros(Request $request)
+    {
+        $materiasprimas = MateriaPrima::where('empresa_id', '=', Auth::User()->empresa_id)->get();
+        $fornecedores = Fornecedor::where('empresa_id', '=', Auth::User()->empresa_id)->get();
+
+        if (Auth::User()->u_tipo == 1) {
+
+            if ($request->tipo == 1) {
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $request->id)->sortable()->paginate(15);
+                return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+            }
+
+            if ($request->tipo == 2) {
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('fornecedor_id', $request->id)->sortable()->paginate(15);
+                return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+            }
+
+            if ($request->tipo == 3) {
+
+                if ($request->id == 1) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->orderBy('preco', 'ASC')->paginate(15);
+                    return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+                }
+                if ($request->id == 2) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->orderBy('preco', 'ASC')->paginate(15);
+                    return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+                }
+                if ($request->id == 3) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->orderBy('data_inicio', 'ASC')->paginate(15);
+                    return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+                }
+                if ($request->id == 4) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->orderBy('data_fim', 'ASC')->paginate(15);
+                    return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+                }
+                if ($request->id == 5) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->orderBy('preco', 'ASC')->paginate(15);
+                    return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
+                }
+            }
+        } else {
+            $precos = Preco::with('materiaprima', 'fornecedor')->where('empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+        }
+
+        return view('precos')->with('precos', $precos)->with('materiasprimas', $materiasprimas)->with('fornecedores', $fornecedores);
     }
 
     //funcao para retornar todos alertas de de preço de cada utilizador
@@ -302,8 +353,8 @@ class PrecoController extends Controller
         return view('alterar-materia-prima')->with('materia_prima', $preco);
     }
 
-    public function export(Request $request) 
+    public function export(Request $request)
     {
-        return Excel::download(new PrecoExport( $request->id), 'Preço_'.now().'.csv');
+        return Excel::download(new PrecoExport($request->id), 'Preço_' . now() . '.csv');
     }
 }
