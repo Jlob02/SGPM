@@ -19,7 +19,7 @@ Home
 
                         <div class="btn-group mt-2 w-100">
                             <select name="empresa_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
-                                <option value="0" selected>Empresa</option>
+                                <option value="0" selected>{{__('global.company')}}</option>
                                 @isset($empresas)
                                 @foreach($empresas as $empresa)
                                 <option value="{{$empresa->id}}">{{$empresa->nome}}</option>
@@ -30,7 +30,7 @@ Home
 
                         <div class="btn-group  w-100">
                             <select name="familia_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
-                                <option value="0" selected>Família</option>
+                                <option value="0" selected>{{__('global.family')}}</option>
                                 @isset($familias)
                                 @foreach($familias as $familia)
                                 <option value="{{$familia->id}}">{{$familia->familia}}</option>
@@ -38,10 +38,10 @@ Home
                                 @endisset
                             </select>
                         </div>
-
+                        
                         <div class="btn-group  w-100">
                             <select name="subfamilia_id" class="form-select form-select-sm m-1 bg-body-secondary" aria-label="Default select example">
-                                <option value="0" selected>Sub-família</option>
+                                <option value="0" selected>{{__('global.sub-family')}}</option>
                                 @isset($subfamilias)
                                 @foreach($subfamilias as $subfamilia)
                                 <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
@@ -100,28 +100,28 @@ Home
                             <div class="col-9">
                                 <div class="row">
                                     <div class="col-5">
-                                        DESCRIÇÃO : {{$preco->materiaprima->designacao}}
+                                    {{__('global.description')}} : {{$preco->materiaprima->designacao}}
                                     </div>
                                     <div class="col-4">
-                                        CÓDIGO : {{$preco->materiaprima->codigo->codigo}}
+                                    {{__('global.code')}} : {{$preco->materiaprima->codigo->codigo}}
                                     </div>
                                     <div class="col-3">
-                                        FAMÍLIA : {{$preco->materiaprima->familia->familia}}
+                                    {{__('global.family')}} : {{$preco->materiaprima->familia->familia}}
                                     </div>
                                     <div class="col-5">
-                                        DATA : {{$preco->data_inicio}} a {{$preco->data_fim}}
+                                    {{__('global.date')}} : {{$preco->data_inicio}} a {{$preco->data_fim}}
                                     </div>
                                     <div class="col-4">
-                                        EMPRESA : {{$preco->materiaprima->empresa->nome}}
+                                    {{__('global.company')}} : {{$preco->materiaprima->empresa->nome}}
                                     </div>
                                     <div class="col-3">
-                                        PAÍS : Portugal
+                                    {{__('global.country')}} : Portugal
                                     </div>
                                     <div class="col-5">
-                                        FORNECEDOR : {{$preco->fornecedor->nome}}
+                                    {{__('global.supplier')}} : {{$preco->fornecedor->nome}}
                                     </div>
                                     <div class="col-7">
-                                        QUANTIDADE MINIMA :
+                                    {{__('global.minimum-quantity')}} :
                                         @if($preco->quantidade_minima==1)
                                         Camião completo
                                         @endif
@@ -134,12 +134,12 @@ Home
                                             @endif
                                     </div>
                                     <div class="col-12">
-                                        OBSERVAÇÕES : {{$preco->observacao}}
+                                    {{__('global.observations')}} : {{$preco->observacao}}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-2">
-                                PREÇO : {{$preco->preco}} EUR
+                            {{__('global.price')}} : {{$preco->preco}} EUR
                             </div>
                             @if($preco->sinal == 3)
                             <div class="col-1">

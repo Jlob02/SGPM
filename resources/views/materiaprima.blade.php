@@ -25,7 +25,6 @@ Matéria-prima
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-1 mb-1 border-bottom">
                             <h3>@isset($materiaprima) {{$materiaprima->designacao}} @endisset</h3>
                             <form class=" me-4 mb-2 d-flex align-items-center " action="/materia-prima/{{$materiaprima->id}}" method="get">
-                                @csrf
                                 <p class="m-0 me-2">Data :</p>
                                 <div class="d-flex align-items-center me-2">
                                     <input name="data_inicio" class="me-2 form-control form-control-sm bg-body-secondary" type="date" @isset($data_inicio) value="{{$data_inicio}}" @endisset>
@@ -76,7 +75,7 @@ Matéria-prima
                                 <thead>
                                     <tr>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black ">
+                                            <a href="/materia-prima/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=1" class="d-flex align-items-center  justify-content-between text-black ">
                                                 País
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -84,7 +83,7 @@ Matéria-prima
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=2" class="d-flex align-items-center  justify-content-between text-black">
                                                 Empresa
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -92,7 +91,7 @@ Matéria-prima
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=3" class="d-flex align-items-center  justify-content-between text-black">
                                                 Fornecedor
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -101,7 +100,7 @@ Matéria-prima
                                         </th>
                                         <th>Quant. Minima</th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=4" class="d-flex align-items-center  justify-content-between text-black">
                                                 Data de Inicio
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -109,7 +108,7 @@ Matéria-prima
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=5" class="d-flex align-items-center  justify-content-between text-black">
                                                 Data de Fim
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -117,7 +116,7 @@ Matéria-prima
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=6" class="d-flex align-items-center  justify-content-between text-black">
                                                 Preço
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -188,30 +187,7 @@ Matéria-prima
     var indexforn = 0;
 
 
-
     for (let index = 0; index < data.length; index++) {
-
-
-        if (labelExists(data[index].fornecedor.nome)) {
-
-            fornecedores.push({
-                'label': data[index].fornecedor.nome,
-                'data': [data[index].preco]
-            });
-
-            indexforn = fornecedores.length - 1;
-
-        } else {
-            fornecedores[indexforn].data.push(data[index].preco);
-        }
-
-        for (var i = 0; i < fornecedores.length; i++) {
-
-            if (i != indexforn) {
-                fornecedores[i].data.push(fornecedores[i].data[fornecedores[i].data.length - 1]);
-            }
-        }
-
 
         var dateTime = new Date(data[index].created_at);
 
@@ -221,11 +197,56 @@ Matéria-prima
 
         var dataFormatada = dia + "/" + mes + "/" + ano;
 
-       // if (!dataExists(dataFormatada)) {
-            labels.push('');
-       // }
-       
+        if (!dataExists(dataFormatada)) {
+            labels.push(dataFormatada);
+        }
+
     }
+
+
+    for (let index = 0; index < data.length; index++) {
+
+        if (labelExists(data[index].fornecedor.nome)) {
+
+            fornecedores.push({
+                'label': data[index].fornecedor.nome,
+                'data': [data[index].preco]
+            });
+        }
+    }
+
+
+    for (let index = 0; index < labels.length; index++) {
+
+        for (let a = 0; a < fornecedores.length; a++) {
+            if (index == 0) {
+                fornecedores[a].data[index] = 0;
+            } else {
+                fornecedores[a].data[index] = fornecedores[a].data[index - 1];
+            }
+        }
+
+        for (let j = 0; j < data.length; j++) {
+            var dateTime = new Date(data[j].created_at);
+
+            var dia = dateTime.getDate();
+            var mes = dateTime.getMonth() + 1;
+            var ano = dateTime.getFullYear();
+
+            var dataFormatada = dia + "/" + mes + "/" + ano;
+
+            if (labels[index] === dataFormatada) {
+                for (let i = 0; i < fornecedores.length; i++) {
+                    if (fornecedores[i].label === data[j].fornecedor.nome) {
+                        fornecedores[i].data[index] = data[j].preco;
+                    }
+                }
+
+            }
+
+        }
+    }
+
 
 
     function labelExists(label) {

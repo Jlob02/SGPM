@@ -36,9 +36,9 @@ Matéria-prima
                                 <h5 class="m-0 ms-1 me-2">Mostrar preços de :</h5>
                                 <div class=" me-4">
                                     <div class="d-flex align-items-center ">
-                                        <input name="data_inicio" class="me-2 form-control form-control-sm btn-outline-secondary" type="date" @isset($data_inicio)  value="{{$data_inicio}}"  @endisset>
+                                        <input name="data_inicio" class="me-2 form-control form-control-sm btn-outline-secondary" type="date" @isset($data_inicio) value="{{$data_inicio}}" @endisset>
                                         a
-                                        <input name="data_fim" class="form-control form-control-sm ms-2 btn-outline-secondary" type="date" @isset($data_inicio)  value="{{$data_fim}}"  @endisset>
+                                        <input name="data_fim" class="form-control form-control-sm ms-2 btn-outline-secondary" type="date" @isset($data_inicio) value="{{$data_fim}}" @endisset>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-outline-secondary">Aplicar</button>
@@ -71,23 +71,7 @@ Matéria-prima
                                 <thead>
                                     <tr>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black ">
-                                                País
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
-                                                </svg>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
-                                                Empresa
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
-                                                </svg>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/empresa/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=3" class="d-flex align-items-center  justify-content-between text-black">
                                                 Fornecedor
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -96,7 +80,7 @@ Matéria-prima
                                         </th>
                                         <th>Quant. Minima</th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/empresa/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=4" class="d-flex align-items-center  justify-content-between text-black">
                                                 Data de Inicio
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -104,7 +88,7 @@ Matéria-prima
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/empresa/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=5" class="d-flex align-items-center  justify-content-between text-black">
                                                 Data de Fim
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -112,7 +96,7 @@ Matéria-prima
                                             </a>
                                         </th>
                                         <th>
-                                            <a href="#" class="d-flex align-items-center  justify-content-between text-black">
+                                            <a href="/materia-prima/empresa/{{$materiaprima->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&tipo=6" class="d-flex align-items-center  justify-content-between text-black">
                                                 Preço
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -126,8 +110,6 @@ Matéria-prima
                                 <tbody>
                                     @foreach($precos as $preco)
                                     <tr>
-                                        <td>{{$preco->materiaprima->empresa->pais}}</td>
-                                        <td>{{$preco->materiaprima->empresa->nome}}</td>
                                         <td>{{$preco->fornecedor->nome}}</td>
                                         <td> @if($preco->quantidade_minima==1)
                                             Camião completo
@@ -172,21 +154,6 @@ Matéria-prima
 
 <script>
     const ctx = document.getElementById("myChart");
-    const month = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-    ];
-
 
     const data = JSON.parse('{!! $precos_grafico!!}');
     data.reverse();
@@ -196,31 +163,7 @@ Matéria-prima
 
     var indexforn = 0;
 
-
-
     for (let index = 0; index < data.length; index++) {
-
-
-        if (labelExists(data[index].fornecedor.nome)) {
-
-            fornecedores.push({
-                'label': data[index].fornecedor.nome,
-                'data': [data[index].preco]
-            });
-
-            indexforn = fornecedores.length - 1;
-
-        } else {
-            fornecedores[indexforn].data.push(data[index].preco);
-        }
-
-        for (var i = 0; i < fornecedores.length; i++) {
-
-            if (i != indexforn) {
-                fornecedores[i].data.push(fornecedores[i].data[fornecedores[i].data.length - 1]);
-            }
-        }
-
 
         var dateTime = new Date(data[index].created_at);
 
@@ -230,12 +173,54 @@ Matéria-prima
 
         var dataFormatada = dia + "/" + mes + "/" + ano;
 
-
         if (!dataExists(dataFormatada)) {
             labels.push(dataFormatada);
         }
 
+    }
 
+
+    for (let index = 0; index < data.length; index++) {
+
+        if (labelExists(data[index].fornecedor.nome)) {
+
+            fornecedores.push({
+                'label': data[index].fornecedor.nome,
+                'data': [data[index].preco]
+            });
+        }
+    }
+
+
+    for (let index = 0; index < labels.length; index++) {
+
+        for (let a = 0; a < fornecedores.length; a++) {
+            if (index == 0) {
+                fornecedores[a].data[index] = 0;
+            } else {
+                fornecedores[a].data[index] = fornecedores[a].data[index - 1];
+            }
+        }
+
+        for (let j = 0; j < data.length; j++) {
+            var dateTime = new Date(data[j].created_at);
+
+            var dia = dateTime.getDate();
+            var mes = dateTime.getMonth() + 1;
+            var ano = dateTime.getFullYear();
+
+            var dataFormatada = dia + "/" + mes + "/" + ano;
+
+            if (labels[index] === dataFormatada) {
+                for (let i = 0; i < fornecedores.length; i++) {
+                    if (fornecedores[i].label === data[j].fornecedor.nome) {
+                        fornecedores[i].data[index] = data[j].preco;
+                    }
+                }
+
+            }
+
+        }
     }
 
 
@@ -261,6 +246,7 @@ Matéria-prima
         }
         return false;
     }
+
 
 
 

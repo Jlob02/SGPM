@@ -23,7 +23,7 @@ Fórum
             <div class="col-3 ">
                 <div class="row bg-white shadow" style="height: 250px;">
                     <div class="col-12 p-4">
-                        <h6 class="titulo-1">Categorias</h6>
+                        <h6 class="titulo-1">{{__('global.category')}}</h6>
                         <hr>
                         @foreach($categorias as $categoria)
 
@@ -40,11 +40,11 @@ Fórum
 
                 <div class="row d-flex align-items-center bg-white shadow p-1">
                     <div class="col-8">
-                        <a href="/forum/novo-topico" class="btn btn-sm btn-success"> Criar novo tópico</a>
+                        <a href="/forum/novo-topico" class="btn btn-sm btn-success">{{__('global.create-new-topic')}}</a>
                     </div>
                     <div class="col-4">
                         <form class="d-flex" role="search" action="/forum" method="get">
-                            <input name="search" class="form-control form-control-sm bg-body-secondary me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                            <input name="search" class="form-control form-control-sm bg-body-secondary me-2" type="search" placeholder="{{__('global.search')}}" aria-label="Search">
                             <button class="btn btn-sm rounded-5 btn-success" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg></button>
@@ -67,7 +67,7 @@ Fórum
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                             </svg></button> @endif
-                                        <a href="/forum/topico/{{$topico->id}}" class="btn texto btn-sm btn-success"> Ver mais</a>
+                                        <a href="/forum/topico/{{$topico->id}}" class="btn texto btn-sm btn-success">{{__('global.see-more')}}</a>
                                     </div>
                                 </div>
                             </div>

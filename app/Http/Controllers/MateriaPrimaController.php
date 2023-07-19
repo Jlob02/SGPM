@@ -225,27 +225,50 @@ class MateriaPrimaController extends Controller
     public function precos_materias_primas(Request $request)
     {
         $id = MateriaPrima::with('familia', 'subfamilia')->where('codigo_id', $request->codigo)->pluck('id')->toArray();
-        $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('codigo_id', $request->codigo)->first();
+        
+        if ($id != null) {
+            $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('codigo_id', $request->codigo)->first();
 
-        $topicos = Topico::query()->where('familia_id', $materiaprima->familia->id)->orderBy('created_at', 'desc')->get();
+            $topicos = Topico::query()->where('familia_id', $materiaprima->familia->id)->orderBy('created_at', 'desc')->get();
 
-        if (!isset($request->data_inicio) && !isset($request->data_fim)) {
-            $currentDateTime = now();
-            $newDateTime = Carbon::now()->subMonth();
+            if (!isset($request->data_inicio) && !isset($request->data_fim)) {
+                $currentDateTime = now();
+                $newDateTime = Carbon::now()->subMonth();
 
-            $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
-            $precos_grafico = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
+                $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                $precos_grafico = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
 
-            return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos_grafico', $precos_grafico)->with('precos', $precos)->with('topicos', $topicos)->with('data_inicio', $newDateTime->toDateString())->with('data_fim', $currentDateTime->toDateString());
-        } else {
-            $currentDateTime = $request->data_fim;
-            $newDateTime = $request->data_inicio;
+                return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos_grafico', $precos_grafico)->with('precos', $precos)->with('topicos', $topicos)->with('data_inicio', $newDateTime->toDateString())->with('data_fim', $currentDateTime->toDateString());
+            } else {
+                $currentDateTime = $request->data_fim;
+                $newDateTime = $request->data_inicio;
 
-            $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
-            $precos_grafico = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
+                $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                $precos_grafico = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
 
-            return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos_grafico', $precos_grafico)->with('precos', $precos)->with('topicos', $topicos)->with('data_inicio', $newDateTime)->with('data_fim', $currentDateTime);
+                if ($request->tipo == 1) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                }
+                if ($request->tipo == 2) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                }
+                if ($request->tipo == 3) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                }
+                if ($request->tipo == 4) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('data_inicio', 'ASC')->sortable()->paginate(15);
+                }
+                if ($request->tipo == 5) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('data_fim', 'ASC')->sortable()->paginate(15);
+                }
+                if ($request->tipo == 6) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->whereIn('materiaprima_id', $id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('preco', 'ASC')->sortable()->paginate(15);
+                }
+
+                return view('materiaprima')->with('materiaprima', $materiaprima)->with('precos_grafico', $precos_grafico)->with('precos', $precos)->with('topicos', $topicos)->with('data_inicio', $newDateTime)->with('data_fim', $currentDateTime);
+            }
         }
+        abort(404);
     }
 
 
@@ -254,23 +277,50 @@ class MateriaPrimaController extends Controller
     {
         $materiaprima = MateriaPrima::with('familia', 'subfamilia')->where('id', '=', $request->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->first();
 
-        if (!isset($request->data_inicio) && !isset($request->data_fim)) {
-            $currentDateTime = now();
-            $newDateTime = Carbon::now()->subMonth();
+        if ($materiaprima != null) {
+            if (!isset($request->data_inicio) && !isset($request->data_fim)) {
+                $currentDateTime = now();
+                $newDateTime = Carbon::now()->subMonth();
 
-            $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
-            $precos_grafico = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', '=', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                $precos_grafico = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
 
-            return view('materiaprima-empresa')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('precos_grafico', $precos_grafico)->with('data_inicio', $newDateTime->toDateString())->with('data_fim', $currentDateTime->toDateString());
-        } else {
-            $currentDateTime = $request->data_fim;
-            $newDateTime = $request->data_inicio;
+                return view('materiaprima-empresa')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('precos_grafico', $precos_grafico)->with('data_inicio', $newDateTime->toDateString())->with('data_fim', $currentDateTime->toDateString());
+            } else {
+                $currentDateTime = $request->data_fim;
+                $newDateTime = $request->data_inicio;
 
-            $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
-            $precos_grafico = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                $precos_grafico = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->get();
 
-            return view('materiaprima-empresa')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('precos_grafico', $precos_grafico)->with('data_inicio', $newDateTime)->with('data_fim', $currentDateTime);
+                if ($request->tipo == 1) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                }
+
+                if ($request->tipo == 2) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                }
+
+                if ($request->tipo == 3) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('created_at', 'desc')->sortable()->paginate(15);
+                }
+
+                if ($request->tipo == 4) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('data_inicio', 'asc')->sortable()->paginate(15);
+                }
+
+                if ($request->tipo == 5) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('data_fim', 'asc')->sortable()->paginate(15);
+                }
+
+                if ($request->tipo == 6) {
+                    $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', $materiaprima->id)->whereBetween('created_at', [$newDateTime, $currentDateTime])->orderBy('preco', 'asc')->sortable()->paginate(15);
+                }
+
+                return view('materiaprima-empresa')->with('materiaprima', $materiaprima)->with('precos', $precos)->with('precos_grafico', $precos_grafico)->with('data_inicio', $newDateTime)->with('data_fim', $currentDateTime);
+            }
         }
+        abort(404);
     }
 
     //função para registar familia de matéria-prima
