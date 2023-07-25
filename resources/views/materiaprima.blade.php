@@ -62,7 +62,7 @@ Matéria-prima
 
                             <div class="btn-toolbar">
                                 <div class="btn-group me-2">
-                                    <a href="/materia-prima/precos/export/{{$materiaprima->codigo->id}}" type="button" class="btn btn-sm btn-outline-secondary">
+                                    <a href="/materia-prima/precos/export/{{$materiaprima->codigo->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}" type="button" class="btn btn-sm btn-outline-secondary">
                                         Export CSV
                                     </a>
                                 </div>

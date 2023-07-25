@@ -61,11 +61,11 @@ Matéria-prima
 
                     <div class="col-3 d-flex gap-3 align-items-center">
                         <div class="w-100">
-                            Ordenar por
+                        {{__('global.order-by')}}
                         </div>
                   
                         <select onchange="ordena()" id="ordena" class="form-select form-select-sm bg-body-secondary">
-                            <option value="0" selected>Selecionar</option>
+                            <option value="0" selected>{{__('global.select')}}</option>
                             <option value="1">Designação</option>
                             <option value="2">Codigo</option>
                         </select>
@@ -74,11 +74,11 @@ Matéria-prima
 
                     <div class="col-4 d-flex gap-3 align-items-center">
                         <div class="w-100">
-                            Filtrar por
+                        {{__('global.filter-by')}}
                         </div>
 
                         <select onchange="filtra_familia()" id="familia" class="form-select form-select-sm bg-body-secondary">
-                            <option value="0" selected>Familia</option>
+                            <option value="0" selected>{{__('global.family')}}</option>
                             @isset($familias)
                             @foreach($familias as $familia)
                             <option value="{{$familia->id}}">{{$familia->familia}}</option>
@@ -88,7 +88,7 @@ Matéria-prima
                     
                         
                         <select onchange="filtra_subfamilia()" id="subfamilia" class="form-select form-select-sm bg-body-secondary">
-                            <option value="0" selected>Sub Familia</option>
+                            <option value="0" selected>{{__('global.sub-family')}}</option>
                             @isset($subfamilias)
                             @foreach($subfamilias as $subfamilia)
                             <option value="{{$subfamilia->id}}">{{$subfamilia->subfamilia}}</option>
@@ -102,7 +102,7 @@ Matéria-prima
                         <a href="/materia-prima/adicionar" class="btn btn-sm _nav "><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle me-1" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                            </svg> matéria-prima</a>
+                            </svg>{{__('global.raw-material')}}</a>
                     </div>
 
                     <div class="col-3 ">
@@ -121,13 +121,13 @@ Matéria-prima
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr class="text-start">
-                                    <th>Designação</th>
-                                    <th>Codigo</th>
-                                    <th>Família</th>
-                                    <th>SubFamília</th>
-                                    <th>Concentração %</th>
-                                    <th>Principio ativo</th>
-                                    <th class="text-center">Opções</th>
+                                    <th>{{__('global.designation')}}</th>
+                                    <th>{{__('global.code')}}</th>
+                                    <th>{{__('global.family')}}</th>
+                                    <th>{{__('global.sub-family')}}</th>
+                                    <th>{{__('global.concentration')}} %</th>
+                                    <th>{{__('global.active-ingredient')}}</th>
+                                    <th class="text-center">{{__('global.options')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">

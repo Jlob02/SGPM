@@ -13,7 +13,7 @@ Adicionar fornecedor
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Forncecedores > Adicionar fornecedor
-                <a href="/fornecedores" class="btn btn-primary btn-sm ">Voltar</a>
+                <a href="/fornecedores" class="btn btn-primary btn-sm ">{{__('global.back')}}</a>
             </div>
         </div>
         <div class="row">

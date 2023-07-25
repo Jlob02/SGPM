@@ -38,6 +38,22 @@ return [
     'category' => 'Catégorie',
     'create-new-topic' => 'Créer un nouveau sujet',
     'see-more' => 'Voir plus',
-    
+
+    'order-by' => 'Classer par',
+    'filter-by' => 'Filtrer par',
+    'raw-material' => 'Matière première',
+    'raw-materials' => 'Matières premières',
+
+    'designation' => 'Désignation',
+    'concentration' => 'Concentration',
+    'active-ingredient' => 'Ingrédient actif',
+    'options' => 'Options',
+    'select' => 'sélectionner',
+    'european-code' => 'Code européen',
+    'save' => 'Sauver',
+    'back' => 'Retour',
+
+    'minimum-price' => 'Prix minimum',
+    'maximum-price' => 'Prix maximum',
 ];
 ?>

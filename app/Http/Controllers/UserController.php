@@ -32,7 +32,9 @@ class UserController extends Controller
         //verifica as credenciais e tenta fazer o login
         if (Auth::attempt($credentials, $remember_me)) {
 
-            if (auth()->user()->u_estado == 0) {
+            $empresa = Empresa::where('id', '=', auth()->user()->empresa_id)->first();
+
+            if (auth()->user()->u_estado == 0 or $empresa->estado == 0) {
                 auth()->logout();
                 return back()->withErrors(['erro' => 'Utilizador inativo']);
             }
@@ -50,7 +52,6 @@ class UserController extends Controller
 
 
     //função para fazer o logout do utilizador
-
     public function logout(Request $request)
     {
         Auth::logout();
@@ -212,8 +213,7 @@ class UserController extends Controller
                     'password' => ['required', 'min:8'],
                     'new_password' => ['required', 'min:8'],
                 ],
-                [
-                ]
+                []
             );
 
             if (Hash::check($data1['password'], $user->password)) {

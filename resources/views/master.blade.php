@@ -57,9 +57,9 @@
                     </li>
                     <li class="nav-item me-1">
                         @if (Request::segment(1) =='materia-prima')
-                        <a class="nav-link text-black bg-light" href="/materia-prima">{{__('global.raw-material')}}</a>
+                        <a class="nav-link text-black bg-light" href="/materia-prima">{{__('global.raw-materials')}}</a>
                         @else
-                        <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/materia-prima">{{__('global.raw-material')}}</a>
+                        <a class="nav-link text-white bg-secondary" style="--bs-bg-opacity: .7;" href="/materia-prima">{{__('global.raw-materials')}}</a>
                         @endif
                     </li>
                     @if(Auth::user()->u_tipo != 3)

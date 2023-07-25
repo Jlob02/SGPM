@@ -12,7 +12,7 @@ Matéria-prima
     <div class="col-10">
         <div class="row mt-3">
             <div class="col-12 d-flex justify-content-end">
-                <a href="{{@url()->previous()}}" class="btn btn-primary btn-sm">Voltar</a>
+                <a href="/materia-prima" class="btn btn-primary btn-sm">Voltar</a>
             </div>
         </div>
         <div class=" row">
@@ -58,7 +58,7 @@ Matéria-prima
 
                             <div class="btn-toolbar mb-1 ">
                                 <div class="btn-group me-2">
-                                    <a href="/materia-prima/precos/export/{{$materiaprima->codigo->id}}" type="button" class="btn btn-sm btn-outline-secondary">
+                                    <a href="/materia-prima/precos/export/{{$materiaprima->codigo->id}}?data_inicio={{$data_inicio}}&data_fim={{$data_fim}}&empresa_id={{Auth::user()->empresa_id}}&tipo=1" type="button" class="btn btn-sm btn-outline-secondary">
                                         Export CSV
                                     </a>
                                 </div>

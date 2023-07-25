@@ -43,8 +43,8 @@ Alerta
 
         <div class="row ">
             <div class="col-12 m-1 mt-2">
-                <a href="/materia-prima" class="btn btn-primary btn-sm _nav">Matérias-primas</a>
-                <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">Preços</a>
+                <a href="/materia-prima" class="btn btn-primary btn-sm _nav">{{__('global.raw-materials')}}</a>
+                <a href="/materia-prima/precos" class="btn btn-primary btn-sm _nav">{{__('global.prices')}}</a>
             </div>
 
             <div class="col-12 ">
@@ -68,10 +68,10 @@ Alerta
                         <table class="table table-striped table-sm table-hover">
                             <thead>
                                 <tr class="text-start">
-                                    <th>Matéria-prima</th>
-                                    <th>Preço minimo</th>
-                                    <th>Preço maximo</th>
-                                    <th class="text-center">Opções</th>
+                                    <th>{{__('global.raw-material')}}</th>
+                                    <th>{{__('global.minimum-price')}}</th>
+                                    <th>{{__('global.maximum-price')}}</th>
+                                    <th class="text-center">{{__('global.options')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">

@@ -38,6 +38,23 @@ return [
     'category' => 'Categoria',
     'create-new-topic' => 'Criar novo tópico',
     'see-more' => 'Ver mais',
+
+    'order-by' => 'Ordenar por',
+    'filter-by' => 'Filtrar por',
+    'raw-material' => 'Matéria-prima',
+    'raw-materials' => 'Matérias-primas',
     
+    'designation' => 'Designação',
+    'concentration' => 'Concentração',
+    'active-ingredient' => 'Principio ativo',
+    'options' => 'Opções',
+    'select' => 'Selecionar',
+    'european-code' => 'Código Europeu',
+    'save' => 'Guardar', 
+    'back' => 'Voltar',
+
+    'minimum-price' => 'Preço mínimo',
+    'maximum-price' => 'Preço máximo',
+
 ];
 ?>

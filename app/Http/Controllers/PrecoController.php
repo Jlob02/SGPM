@@ -28,14 +28,14 @@ class PrecoController extends Controller
                 'inputs.*.unidade' => ['required'],
                 'inputs.*.fornecedor' => ['required', 'integer'],
                 'inputs.*.quantidade_minima' => ['required', 'integer'],
-                'inputs.*.data_inicio' => ['required', 'date'],
-                'inputs.*.data_fim' => ['required', 'date', 'after:data_inicio'],
+                //'inputs.*.data_inicio' => ['required', 'date'],
+                //'inputs.*.data_fim' => ['required', 'date', 'after:data_inicio'],
             ],
             [
                 'inputs.*.preco.required' => 'Deve introduzir o preço da matéria-prima',
                 'inputs.*.unidade.required' => 'Deve selecionar a unidade da matéria-prima',
-                'inputs.*.data_inicio.required' => 'Deve introduzir a data de inicio',
-                'inputs.*.data_fim.unique' => 'Já existe uma matéria-prima com este código',
+                //'inputs.*.data_inicio.required' => 'Deve introduzir a data de inicio',
+                //'inputs.*.data_fim.unique' => 'Já existe uma matéria-prima com este código',
                 'inputs.*.fornecedor.integer' => 'Deve selecionar um fornecedor',
                 'inputs.*.quantidade_minima.required' => 'Deve selecionar a quantidade minima da matéria-prima',
             ]
@@ -101,7 +101,7 @@ class PrecoController extends Controller
         if (!empty($search)) {
             $materiasprima = MateriaPrima::where('designacao', 'LIKE', "%{$search}%")->first();
             if ($materiasprima != null)
-                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id','=', $materiasprima->id , 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
+                $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', '=', $materiasprima->id, 'AND', 'empresa_id', '=', Auth::User()->empresa_id)->sortable()->paginate(15);
             else
                 $precos = Preco::with('materiaprima', 'fornecedor')->where('materiaprima_id', 0)->sortable()->paginate(15);
         } else {
@@ -355,6 +355,6 @@ class PrecoController extends Controller
 
     public function export(Request $request)
     {
-        return Excel::download(new PrecoExport($request->id), 'Preço_' . now() . '.csv');
+        return Excel::download(new PrecoExport($request), 'Preço_' . now() . '.csv');
     }
 }

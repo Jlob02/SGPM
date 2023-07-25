@@ -13,7 +13,7 @@ Adicionar Materia-prima
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center _text">
                 Matéria-prima > Adicionar matéria-prima
-                <a href="/materia-prima" class="btn btn-primary btn-sm">Voltar</a>
+                <a href="/materia-prima" class="btn btn-primary btn-sm">{{__('global.back')}}</a>
             </div>
         </div>
         
@@ -38,8 +38,8 @@ Adicionar Materia-prima
                         <form class="row " action="/materia-prima/adicionar/familia" method="post">
                             @csrf
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
-                                <input type="text" name="familia" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="Familia">
-                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                                <input type="text" name="familia" class="bg-body-secondary form-control form-control-sm w-25  " placeholder="{{__('global.family')}}">
+                                <button type="submit" class="btn btn-sm btn-primary">{{__('global.save')}}</button>
                             </div>
                         </form>
                     </div>
@@ -51,8 +51,8 @@ Adicionar Materia-prima
                         <form class="row " action="/materia-prima/adicionar/subfamilia" method="post">
                             @csrf
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
-                                <input type="text" name="subfamilia" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Sub-Familia">
-                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                                <input type="text" name="subfamilia" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="{{__('global.sub-family')}}">
+                                <button type="submit" class="btn btn-sm btn-primary">{{__('global.save')}}</button>
                             </div>
                         </form>
                     </div>
@@ -65,9 +65,9 @@ Adicionar Materia-prima
                         <form class="row " action="/materia-prima/adicionar/codigo" method="post">
                             @csrf
                             <div class="col-12 d-flex justify-content-center align-items-center gap-2">
-                                <input type="text" name="codigo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="codigo">
-                                <input type="text" name="principio_ativo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="Principio ativo">
-                                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                                <input type="text" name="codigo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="{{__('global.code')}}">
+                                <input type="text" name="principio_ativo" class="bg-body-secondary  form-control form-control-sm w-25  " placeholder="{{__('global.active-ingredient')}}">
+                                <button type="submit" class="btn btn-sm btn-primary">{{__('global.save')}}</button>
                             </div>
                         </form>
                     </div>
@@ -83,7 +83,7 @@ Adicionar Materia-prima
                         <form class="row g-2" method="post" action="/materia-prima/adicionar">
                             @csrf
                             <div class="col-3">
-                                <label for="inputName" class="col-sm-2 col-form-label">Designação</label>
+                                <label for="inputName" class="col-sm-2 col-form-label">{{__('global.designation')}}</label>
                             </div>
                             <div class="col-9">
                                 <input type="text" name="designacao" class="form-control bg-body-secondary " placeholder="" value='{{old("designacao")}}' />
@@ -91,7 +91,7 @@ Adicionar Materia-prima
 
 
                             <div class="col-3">
-                                <label class="col-sm-2 col-form-label">Familia
+                                <label class="col-sm-2 col-form-label">{{__('global.family')}}
                                 </label>
                             </div>
                             <div class="col-5">
@@ -108,8 +108,8 @@ Adicionar Materia-prima
                             </div>
                             <div class="col-3"></div>
 
-                            <div class="col-3">
-                                <label class="col-sm-2  col-form-label"> SubFamilia
+                            <div class="col-3 ">
+                                <label class="col-sm-2 w-100 col-form-label"> {{__('global.sub-family')}}
                                 </label>
                             </div>
                             <div class="col-5">
@@ -127,7 +127,7 @@ Adicionar Materia-prima
                             <div class="col-3"></div>
 
                             <div class="col-3  d-flex align-items-center">
-                                Código Europeu
+                            {{__('global.european-code')}}
                             </div>
 
                             <div class="col-5">
@@ -144,7 +144,7 @@ Adicionar Materia-prima
                             </div>
                             <div class="col-3"></div>
                             <div class="col-3">
-                                <label for="inputTel" class="col-sm-2 col-form-label">Concentração </label>
+                                <label for="inputTel" class="col-sm-2 col-form-label">{{__('global.concentration')}}</label>
                             </div>
 
                             <div class="col-2">
@@ -158,7 +158,7 @@ Adicionar Materia-prima
 
                             <div class="col-12 mt-4 mb-4 text-end">
                                 <button type="submit" class="btn btn-primary">
-                                    Guardar
+                                {{__('global.save')}}
                                 </button>
                             </div>
                         </form>
